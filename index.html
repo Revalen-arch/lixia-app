@@ -194,6 +194,7 @@
 
     <div class="container">
         
+        <!-- 1. 企業向け：人材を探す画面 -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
@@ -227,6 +228,7 @@
             </div>
         </div>
 
+        <!-- 2. 個人向け：案件を探す画面 -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
@@ -257,7 +259,7 @@
                     <option value="side_weekend">副業歓迎 / 週末・土日のみ稼働OK</option>
                     <option value="side_night">副業歓迎 / 平日夜間のみの稼働OK</option>
                     <option value="part_1_2">週1日〜週2日のコミットでOK</option>
-                    <option value="part_3_4">週3日〜週4日のコミット(別案件と並言可)</option>
+                    <option value="part_3_4">週3日〜週4日のコミット(別案件と並行可)</option>
                     <option value="full_5">週5日フルコミット(ガッツリ稼ぎたい方向け)</option>
                     <option value="commute_ok">交通費全額支給（出社ありの場合）</option>
                     <option value="pc_rental">開発用PC・周辺機器の無償レンタルあり</option>
@@ -273,6 +275,7 @@
             </div>
         </div>
 
+        <!-- 3. 個人間：仲間・協業相手を探す画面 -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
@@ -336,6 +339,7 @@
             </div>
         </div>
 
+        <!-- 4. 優待サービス画面 -->
         <div id="benefits" class="section">
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
@@ -377,7 +381,7 @@
                     </div>
                     <div class="card-inner" style="padding: 10px;">
                         <h4 style="margin: 0 0 5px 0;">🍔 グルメ (5,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀座ライオン, ドムドムハンバーガー 等</p>
+                        <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀銀座ライオン, ドムドムハンバーガー 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 3px solid var(--primary-color);">
@@ -435,6 +439,7 @@
             </table>
         </div>
 
+        <!-- 5. マイページ / 詳細プロフィール登録画面 -->
         <div id="profile" class="section">
             <h2>マイページ / プロフィール登録</h2>
             <p style="font-size: 14px; color: #666;">※あなたのスキルと仕事を最短でつなぐための詳細情報をご登録ください。</p>
@@ -497,6 +502,7 @@
             </form>
         </div>
 
+        <!-- 6. 運営管理ダッシュボード -->
         <div id="admin" class="section">
             <h2 style="border-bottom-color: #d32f2f; color: #d32f2f;">⚙️ 運営管理ダッシュボード</h2>
             <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※こちらはサービス運営者専用の秘密の管理画面です。</p>
@@ -541,6 +547,7 @@
 
     <footer><p>© 2026 Lixia (リクシア). All Rights Reserved. Created by Revalen-arch.</p></footer>
 
+    <!-- 各種モーダル -->
     <div id="user-detail-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px;">
             <h3>👤 ユーザー詳細情報 (運営専用)</h3>
@@ -580,6 +587,7 @@
         </div>
     </div>
 
+    <!-- 🌐 Supabase専用のオンライン通信プログラム群 -->
     <script>
         const prefectures = [
             "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", 
@@ -774,8 +782,11 @@
                 }
 
                 alert('🎉 本物のSupabaseデータベースへのリアルタイム書き込みに成功しました！');
-                // 最新データを再読み込み
-                loadSupabaseData();
+                
+                // 🔄 登録直後に最新のデータをSupabaseから強制読み込み（再描画バグの修正）
+                await loadSupabaseData();
+                
+                // 画面を一覧（人材を探す）に自動移動
                 showSection('find-person');
 
             } catch (err) {
