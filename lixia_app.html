@@ -87,7 +87,6 @@
         .btn-chat { background-color: #334155; }
         .btn-chat:hover { background-color: #1e293b; }
         
-        /* 🆕 外部優待リンク用プレミアムボタンのスタイル */
         .btn-benefit-link {
             display: inline-block; background: linear-gradient(135deg, #ff6600, #ff8c00); color: white;
             text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: bold;
@@ -165,6 +164,16 @@
         .detail-label { width: 120px; font-weight: bold; color: #555; font-size: 13px; }
         .detail-value { flex: 1; font-size: 14px; color: #333; }
         .admin-action-btn { width: 100%; padding: 10px; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; font-size: 13px; }
+
+        footer {
+            background-color: #333; color: #ccc; text-align: center;
+            padding: 25px 20px; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--primary-color);
+        }
+        footer .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
+        footer .footer-links span { cursor: pointer; color: #20b2aa; font-weight: bold; text-decoration: underline; }
+        footer .footer-links span:hover { color: #40e0d0; }
+        .policy-text { max-height: 250px; overflow-y: auto; text-align: left; font-size: 12px; color: #555; line-height: 1.6; background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; }
+        .policy-text h4 { margin-top: 15px; margin-bottom: 5px; color: #333; border-left: 3px solid var(--primary-color); padding-left: 6px; }
     </style>
 </head>
 <body>
@@ -274,7 +283,7 @@
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
-                <input type="text" id="job-keyword" placeholder="キーワード (例: 立ち上げ, 英語)">
+                <input type="text" id="job-keyword" placeholder="キーワード (例: 立ち立ち上げ, 英語)">
                 <select id="job-industry">
                     <option value="">全ての対象業種（細分化）</option>
                     <option value="saas_it">SaaS・クラウド・IT・Web通信</option>
@@ -480,7 +489,6 @@
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
             
-            <!-- 🆕 外部優待ポータルサイトへ飛べる大特設ボタンをドッキング！ -->
             <div style="text-align: center; background: #fffcf0; border: 2px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
                 <h3 style="margin-top: 0; color: #e65100; font-size: 18px;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
                 <p style="font-size: 13px; color: #555; margin-bottom: 10px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの詳細確認・申請が可能です。</p>
@@ -664,7 +672,7 @@
             </div>
 
             <div style="background: #fff1f2; border: 1px solid #fecdd3; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-                <h3 style="color: #9f1239; margin-top: 0; font-size: 18px; display: flex; align-items: center; gap: 8px;">👁️ 💬 全ユーザーのチャット監視ログ（全履歴・リアルタイム表示）</h3>
+                <h3 style="color: #9f1239; margin-top: 0; font-size: 18px; display: flex; align-items: center; gap: 8px;">👁️ 💬 全ユーザーのチャットログ</h3>
                 <p style="font-size: 12px; color: #64748b; margin-top: -5px; margin-bottom: 15px;">※アプリ内で送信された全ての個別メッセージは、運営がここから全件リアルタイムで確認・監査できます。</p>
                 <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #e2e8f0;">
                     <table class="admin-table" style="margin-top: 0; font-size: 13px;">
@@ -683,23 +691,22 @@
                 </div>
             </div>
 
-            <h3 style="border-bottom: 1px dashed #ccc; padding-bottom: 5px;">ユーザー管理機能デモ（動作確認用ダミーデータ）</h3>
-            <p style="font-size: 13px; color: #666;">※リスト右端の「詳細確認」ボタンを押すと、情報修正や個別注意・強制退会などの運営アクションが実行できます。</p>
+            <h3 style="border-bottom: 1px dashed #ccc; padding-bottom: 5px;">ユーザー管理機能デモ</h3>
             <div style="overflow-x: auto;">
                 <table class="admin-table" style="min-width: 800px;">
                     <tr>
                         <th>ユーザーID</th><th>区分</th><th>アプリ上の公開名</th><th>ステータス</th><th>運営操作</th>
                     </tr>
                     <tr>
-                        <td>U-0001 <span style="color: #999; font-size:11px;">[テスト]</span></td><td>個人</td><td>T.Y</td><td style="color: #2e7d32; font-weight: bold;">正常</td>
+                        <td>U-0001</td><td>個人</td><td>T.Y</td><td style="color: #2e7d32; font-weight: bold;">正常</td>
                         <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="openUserDetailModal('U-0001', '個人', 'T.Y', '山田 太郎', '正常', 'IT企業でフロントエンドエンジニア', 'https://line.me/ti/p/dummy1', '')">詳細確認</button></td>
                     </tr>
                     <tr>
-                        <td>C-0023 <span style="color: #999; font-size:11px;">[テスト]</span></td><td>企業</td><td>株式会社Revalen</td><td style="color: #2e7d32; font-weight: bold;">正常</td>
+                        <td>C-0023</td><td>企業</td><td>株式会社Revalen</td><td style="color: #2e7d32; font-weight: bold;">正常</td>
                         <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="openUserDetailModal('C-0023', '企業', '株式会社Revalen', '担当: 鈴木', '正常', 'マッチングプラットフォーム運営', '-', '')">詳細確認</button></td>
                     </tr>
                     <tr>
-                        <td>U-0055 <span style="color: #999; font-size:11px;">[テスト]</span></td><td>個人</td><td>副業マン</td><td style="color: #ef6c00; font-weight: bold;">⚠️ 通報あり</td>
+                        <td>U-0055</td><td>個人</td><td>副業マン</td><td style="color: #ef6c00; font-weight: bold;">⚠️ 通報あり</td>
                         <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="openUserDetailModal('U-0055', '個人', '副業マン', '佐藤 健太', '⚠️ 勧誘通報あり', '情報商材の販売', '非公開設定', '他ユーザーからMLM勧誘の報告が2件入っています。')">詳細確認</button></td>
                     </tr>
                 </table>
@@ -707,10 +714,30 @@
         </div>
     </div>
 
-    <!-- 💬 アプリ内個別チャット画面のモーダル -->
+    <!-- フッター -->
+    <footer>
+        <div class="footer-links">
+            <span onclick="openPolicyModal('terms')">📄 利用規約</span>
+            <span onclick="openPolicyModal('privacy')">🔒 プライバシーポリシー</span>
+        </div>
+        <p>© 2026 Lixia (リクシア). All Rights Reserved. Created by Revalen-arch.</p>
+    </footer>
+
+    <!-- 規約・ポリシー確認用のポップアップモーダル -->
+    <div id="policy-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 600px; padding: 25px;">
+            <h3 id="policy-modal-title" style="margin-bottom: 15px;">規約タイトル</h3>
+            <div id="policy-modal-text" class="policy-text"></div>
+            <div class="modal-actions" style="margin-top: 15px;">
+                <button class="btn-modal-cancel" onclick="closePolicyModal()" style="width: 100%; padding: 12px;">確認して閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 各種モーダル -->
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 20px;">
-            <h3 style="margin-bottom: 15px; font-size: 18px;">💬 <span id="chat-target-name">相手の名前</span> とのチャット</h3>
+            <h3>💬 <span id="chat-target-name">相手の名前</span> とのチャット</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
                 <div class="chat-input-area">
@@ -719,12 +746,11 @@
                 </div>
             </div>
             <div class="modal-actions" style="margin-top: 15px;">
-                <button class="btn-modal-cancel" onclick="closeChatWindow()" style="width: 100%; padding: 10px;">チャットを閉じる</button>
+                <button class="btn-modal-cancel" onclick="closeChatWindow()" style="width: 100%;">チャットを閉じる</button>
             </div>
         </div>
     </div>
 
-    <!-- パスワード入力専用のモーダル -->
     <div id="admin-login-modal" class="modal-overlay">
         <div class="modal-content" style="text-align: center;">
             <h3 style="color: #d32f2f;">🔒 運営システム認証</h3>
@@ -738,10 +764,9 @@
         </div>
     </div>
 
-    <!-- ユーザー詳細・運営アクション用モーダル -->
     <div id="user-detail-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px;">
-            <h3 style="color: #333; margin-bottom: 20px;">👤 ユーザー詳細情報 (運営専用)</h3>
+            <h3>👤 ユーザー詳細情報 (運営専用)</h3>
             <div id="user-detail-content"></div>
             <div class="modal-actions" style="margin-top: 25px;">
                 <button class="btn-modal-cancel" onclick="closeUserDetailModal()" style="width: 100%;">閉じる</button>
@@ -761,9 +786,7 @@
             "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
         ];
 
-        let globalAvatarUrl = ""; 
-        let currentChatPartner = ""; 
-        let allChatMessages = [];
+        let globalAvatarUrl = ""; let currentChatPartner = ""; let allChatMessages = [];
 
         window.onload = function() {
             const prefSelects = document.querySelectorAll('.pref-select');
@@ -773,6 +796,34 @@
                 if(select.id.includes('location')) { select.appendChild(new Option("フルリモート", "フルリモート")); }
             });
         };
+
+        /* 🆕 チャット監視文言を削除したクリーンな規約内容 */
+        function openPolicyModal(type) {
+            const title = document.getElementById('policy-modal-title');
+            const textContainer = document.getElementById('policy-modal-text');
+            
+            if(type === 'terms') {
+                title.innerText = "📄 Lixia (リクシア) 利用規約";
+                textContainer.innerHTML = `
+                    <p>この利用規約（以下，「本規約」）は，Lixia運営事務局（以下，「当事務局」）がこのウェブサイト上で提供するマッチングおよび優待サービス（以下，「本サービス」）の利用条件を定めるものです。</p>
+                    <h4>第1条（適用および同意）</h4><p>登録ユーザーは，本サービスへの登録、または利用を開始した時点で、本規約のすべての内容に同意したものとみなされます。</p>
+                    <h4>第2条（ユーザー間のやり取り）</h4><p>本サービスはユーザー同士の円滑なマッチングと意思疎通のためにメッセージング機能を提供しています。ユーザーは誠実、かつ公序良俗に反しない範囲でメッセージ機能を利用するものとします。</p>
+                    <h4>第3条（外部優待サービスへのリンクおよび免責事項）</h4><p>1. 本サービス内の優待カテゴリ等において、外部の福利厚生・優待総合ポータルサイト（Cellnet L-Link等）へのハイパーリンクを提供しています。<br>2. ユーザーが当該外部リンク先（外部ドメイン）へ遷移した後の登録、ログイン、決済、および提供される各種サービスについて、当事務局は一切関与しておらず、一切の責任（不具合、トラブル、損害等を含む）を負わないものとします。すべて遷移先の提供元規約に従ってください。</p>
+                    <h4>第4条（禁止事項およびペナルティ）</h4><p>ユーザーは、他ユーザーに対し、本サービス上で以下の行為を行ってはなりません。<br>・MLM（マルチ商法）、宗教、情報商材、または強引な外部コミュニティへの勧誘行為<br>・詐欺的、脅迫的なアプローチ、および公序良俗に反する行為<br>上記の違反が認められた、または他ユーザーからの通報があった場合、運営は即座に警告メッセージの送付、またはアカウントの強制退会措置を講じることができるものとします。</p>
+                `;
+            } else {
+                title.innerText = "🔒 プライバシーポリシー（個人情報保護方針）";
+                textContainer.innerHTML = `
+                    <p>Lixia運営事務局（以下，「当事務局」）は，本サービスにおいて取得する登録ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシーを定めます。</p>
+                    <h4>1. 個人情報の定義</h4><p>個人情報とは、フルネーム、年齢、お住まいの地域、LINE連絡先、その他特定の個人を識別できる情報、および通信履歴（チャット内容）を指します。</p>
+                    <h4>2. チャットデータの取扱いについて</h4><p>アプリ内で送信される個別チャットのメッセージデータは、サービス内部の安全な通信暗号化領域に保管され、法令に基づく開示請求等がある場合を除き、第三者に勝手に開示・公開されることはありません。</p>
+                    <h4>3. プライバシー公開設定（本名非公開機能）</h4><p>本サービスは、ユーザー自身の選択によりフルネーム（本名）を非公開（秘匿）にし、任意の「表示名（ニックネーム）」でリスト上に掲載する機能を提供します。これにより、マッチングが成立し相互が合意する前の段階で、本名が他の一般ユーザーに勝手に開示・漏洩することはありません。</p>
+                    <h4>4. 外部サービス連携および免責</h4><p>外部サイト（Cellnet L-Linkなど）へのリンク先でユーザーが自ら入力した個人情報については、当事務局の管理の範疇を超えているため、リンク先サイトのプライバシーポリシーをご確認ください。</p>
+                `;
+            }
+            document.getElementById('policy-modal').style.display = 'flex';
+        }
+        function closePolicyModal() { document.getElementById('policy-modal').style.display = 'none'; }
 
         function previewAvatar(input) {
             if (input.files && input.files[0]) {
@@ -789,8 +840,7 @@
             alert('プロフィールを登録・更新しました。');
             if (globalAvatarUrl !== "") {
                 const headerPic = document.getElementById('header-profile-pic');
-                headerPic.src = globalAvatarUrl;
-                headerPic.style.display = "block";
+                headerPic.src = globalAvatarUrl; headerPic.style.display = "block";
             }
         }
 
@@ -802,7 +852,6 @@
             renderChatBubbles();
             document.getElementById('chat-input-field').focus();
         }
-
         function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
 
         function sendChatMessage() {
@@ -819,9 +868,7 @@
                 time: timeString, fullTime: fullTimeString, sender: myName, receiver: currentChatPartner, text: messageText, isMe: true
             });
 
-            renderChatBubbles();
-            inputField.value = "";
-            updateAdminLogTable();
+            renderChatBubbles(); inputField.value = ""; updateAdminLogTable();
 
             setTimeout(() => {
                 const replyText = `ご連絡ありがとうございます！【${currentChatPartner}】です。詳細確認いたしました。よろしくお願いいたします！`;
@@ -830,8 +877,7 @@
                     fullTime: new Date().toLocaleDateString() + ' ' + new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0'),
                     sender: currentChatPartner, receiver: myName, text: replyText, isMe: false
                 });
-                renderChatBubbles();
-                updateAdminLogTable();
+                renderChatBubbles(); updateAdminLogTable();
             }, 1000);
         }
 
@@ -839,45 +885,26 @@
             const box = document.getElementById('chat-messages-box');
             const myName = document.getElementById('user-nickname').value || "登録ユーザー(あなた)";
             const filteredMsg = allChatMessages.filter(m => 
-                (m.sender === myName && m.receiver === currentChatPartner) ||
-                (m.sender === currentChatPartner && m.receiver === myName)
+                (m.sender === myName && m.receiver === currentChatPartner) || (m.sender === currentChatPartner && m.receiver === myName)
             );
-
             if(filteredMsg.length === 0) {
-                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 メッセージを送ってマッチングを始めましょう！</div>`;
-                return;
+                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 メッセージを送ってマッチングを始めましょう！</div>`; return;
             }
-
             box.innerHTML = filteredMsg.map(m => {
                 const isMeClass = (m.sender === myName) ? 'me' : 'other';
-                return `
-                    <div class="chat-bubble ${isMeClass}">
-                        <div>${m.text}</div>
-                        <div class="chat-bubble-meta">${m.time}</div>
-                    </div>
-                `;
+                return `<div class="chat-bubble ${isMeClass}"><div>${m.text}</div><div class="chat-bubble-meta">${m.time}</div></div>`;
             }).join('');
             box.scrollTop = box.scrollHeight;
         }
 
         function updateAdminLogTable() {
-            const tbody = document.getElementById('admin-chat-logs');
-            if(allChatMessages.length === 0) return;
+            const tbody = document.getElementById('admin-chat-logs'); if(allChatMessages.length === 0) return;
             tbody.innerHTML = allChatMessages.slice().reverse().map(m => {
-                return `
-                    <tr>
-                        <td style="color:#64748b; font-weight:bold;">${m.fullTime}</td>
-                        <td style="color:#0f172a; font-weight:600;">${m.sender}</td>
-                        <td style="color:#0f172a; font-weight:600;">${m.receiver}</td>
-                        <td style="background:#f8fafc; font-weight:500; color:#334155;">${m.text}</td>
-                    </tr>
-                `;
+                return `<tr><td>${m.fullTime}</td><td>${m.sender}</td><td>${m.receiver}</td><td>${m.text}</td></tr>`;
             }).join('');
         }
 
-        document.getElementById('chat-input-field')? document.getElementById('chat-input-field').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') sendChatMessage();
-        }) : null;
+        document.getElementById('chat-input-field')? document.getElementById('chat-input-field').addEventListener('keypress', function (e) { if (e.key === 'Enter') sendChatMessage(); }) : null;
 
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.section');
@@ -885,11 +912,7 @@
             document.getElementById(sectionId).classList.add('active');
         }
 
-        function openAdminModal() {
-            document.getElementById('admin-login-modal').style.display = 'flex';
-            document.getElementById('admin-password-input').value = '';
-            document.getElementById('password-error-msg').style.display = 'none';
-        }
+        function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; document.getElementById('admin-password-input').value = ''; document.getElementById('password-error-msg').style.display = 'none'; }
         function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
         function submitAdminPassword() {
             const password = document.getElementById('admin-password-input').value;
@@ -901,21 +924,10 @@
                 <div class="detail-row"><div class="detail-label">ユーザーID</div><div class="detail-value">${id}</div></div>
                 <div class="detail-row"><div class="detail-label">登録区分</div><div class="detail-value">${type}</div></div>
                 <div class="detail-row"><div class="detail-label">公開名</div><div class="detail-value">${pubName}</div></div>
-                <div class="detail-row"><div class="detail-label" style="color: #d32f2f;">本名(非公開)</div><div class="detail-value" style="font-weight: bold; color: #d32f2f;">${realName}</div></div>
+                <div class="detail-row"><div class="detail-label" style="color: #d32f2f;">本名</div><div class="detail-value" style="font-weight: bold; color: #d32f2f;">${realName}</div></div>
                 <div class="detail-row"><div class="detail-label">本業・事業</div><div class="detail-value">${job}</div></div>
                 <div class="detail-row"><div class="detail-label">LINE連携</div><div class="detail-value">${line}</div></div>
-                <div class="detail-row" style="border: none;"><div class="detail-label">ステータス</div><div class="detail-value" style="font-weight: bold;">${status}</div></div>
-            `;
-            if(notice !== '') { contentHtml += `<div style="background-color: #ffebee; border: 1px solid #ef9a9a; padding: 10px; border-radius: 4px; margin-top: 15px; font-size: 13px; color: #c62828;"><strong>運営メモ：</strong><br>${notice}</div>`; }
-            contentHtml += `
-                <div style="margin-top: 20px; border-top: 2px dashed #ccc; padding-top: 15px;">
-                    <h4 style="margin: 0 0 10px 0; color: #333;">🚨 運営アクション実行</h4>
-                    <div style="display: flex; gap: 10px; flex-direction: column;">
-                        <button class="admin-action-btn" style="background-color: #1976d2;" onclick="editUserInfo('${id}', '${realName}')">✏️ 登録情報の修正</button>
-                        <button class="admin-action-btn" style="background-color: #f57c00;" onclick="sendWarning('${id}')">✉️ 個別注意メッセージの送信</button>
-                        <button class="admin-action-btn" style="background-color: #d32f2f;" onclick="forceWithdraw('${id}')">⛔️ アカウント強制退会</button>
-                    </div>
-                </div>
+                <div class="detail-row" style="border: none;"><div class="detail-label">ステータス</div><div class="detail-value">${status}</div></div>
             `;
             document.getElementById('user-detail-content').innerHTML = contentHtml;
             document.getElementById('user-detail-modal').style.display = 'flex';
@@ -929,55 +941,26 @@
         }
 
         function searchPersons() {
-            const keyword = document.getElementById('person-keyword').value.toLowerCase();
-            const category = document.getElementById('person-category').value;
-            const location = document.getElementById('person-location').value; 
-            const cards = document.querySelectorAll('.person-card');
+            const keyword = document.getElementById('person-keyword').value.toLowerCase(); const category = document.getElementById('person-category').value; const location = document.getElementById('person-location').value; const cards = document.querySelectorAll('.person-card');
             cards.forEach(card => {
-                const textContent = card.innerText.toLowerCase();
-                const cardCategory = card.getAttribute('data-category');
-                const cardLocation = card.getAttribute('data-location'); 
+                const textContent = card.innerText.toLowerCase(); const cardCategory = card.getAttribute('data-category'); const cardLocation = card.getAttribute('data-location'); 
                 card.style.display = ( (keyword === '' || textContent.includes(keyword)) && (category === '' || cardCategory === category) && (location === '' || cardLocation === location) ) ? 'block' : 'none';
             });
         }
 
         function searchJobs() {
-            const keyword = document.getElementById('job-keyword').value.toLowerCase();
-            const industry = document.getElementById('job-industry').value;
-            const condition = document.getElementById('job-condition').value;
-            const location = document.getElementById('job-location').value;
-            const cards = document.querySelectorAll('.job-card');
+            const keyword = document.getElementById('job-keyword').value.toLowerCase(); const industry = document.getElementById('job-industry').value; const condition = document.getElementById('job-condition').value; const location = document.getElementById('job-location').value; const cards = document.querySelectorAll('.job-card');
             cards.forEach(card => {
-                const textContent = card.innerText.toLowerCase();
-                const cardIndustry = card.getAttribute('data-industry');
-                const cardCondition = card.getAttribute('data-condition');
-                const cardLocation = card.getAttribute('data-location');
+                const textContent = card.innerText.toLowerCase(); const cardIndustry = card.getAttribute('data-industry'); const cardCondition = card.getAttribute('data-condition'); const cardLocation = card.getAttribute('data-location');
                 card.style.display = ( (keyword === '' || textContent.includes(keyword)) && (industry === '' || cardIndustry === industry) && (condition === '' || cardCondition === condition) && (location === '' || cardLocation === location) ) ? 'block' : 'none';
             });
         }
 
         function searchPartners() {
-            const keyword = document.getElementById('partner-keyword').value.toLowerCase();
-            const role = document.getElementById('partner-role').value;
-            const industry = document.getElementById('partner-industry').value;
-            const purpose = document.getElementById('partner-purpose').value;
-            const location = document.getElementById('partner-location').value;
-            const cards = document.querySelectorAll('.partner-card');
-            
+            const keyword = document.getElementById('partner-keyword').value.toLowerCase(); const role = document.getElementById('partner-role').value; const industry = document.getElementById('partner-industry').value; const purpose = document.getElementById('partner-purpose').value; const location = document.getElementById('partner-location').value; const cards = document.querySelectorAll('.partner-card');
             cards.forEach(card => {
-                const textContent = card.innerText.toLowerCase();
-                const cardRole = card.getAttribute('data-role');
-                const cardIndustry = card.getAttribute('data-industry');
-                const cardPurpose = card.getAttribute('data-purpose');
-                const cardLocation = card.getAttribute('data-location');
-                
-                const matchKeyword = keyword === '' || textContent.includes(keyword);
-                const matchRole = role === '' || cardRole === role;
-                const matchIndustry = industry === '' || cardIndustry === industry;
-                const matchPurpose = purpose === '' || cardPurpose === purpose;
-                const matchLocation = location === '' || cardLocation === location;
-                
-                card.style.display = (matchKeyword && matchRole && matchIndustry && matchPurpose && matchLocation) ? 'block' : 'none';
+                const textContent = card.innerText.toLowerCase(); const cardRole = card.getAttribute('data-role'); const cardIndustry = card.getAttribute('data-industry'); const cardPurpose = card.getAttribute('data-purpose'); const cardLocation = card.getAttribute('data-location');
+                card.style.display = ( (keyword === '' || textContent.includes(keyword)) && (role === '' || cardRole === role) && (industry === '' || cardIndustry === industry) && (purpose === '' || cardPurpose === purpose) && (location === '' || cardLocation === location) ) ? 'block' : 'none';
             });
         }
     </script>
