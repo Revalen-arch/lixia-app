@@ -194,6 +194,7 @@
 
     <div class="container">
         
+        <!-- 1. 企業向け：人材を探す画面 -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
@@ -227,6 +228,7 @@
             </div>
         </div>
 
+        <!-- 2. 個人向け：案件を探す画面 -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
@@ -273,6 +275,7 @@
             </div>
         </div>
 
+        <!-- 3. 個人間：仲間・協業相手を探す画面 -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
@@ -280,7 +283,7 @@
             <div class="search-box">
                 <select id="partner-role">
                     <option value="">全ての職種（細分化）</option>
-                    <option value="ceo">起起業家・発起人・CEO候補</option>
+                    <option value="ceo">起業家・発起人・CEO候補</option>
                     <option value="frontend">エンジニア(フロント・React・Vue)</option>
                     <option value="backend">エンジニア(バックエンド・Go・Python)</option>
                     <option value="infra">エンジニア(インフラ・AWS)</option>
@@ -336,6 +339,7 @@
             </div>
         </div>
 
+        <!-- 4. 優待サービス画面 -->
         <div id="benefits" class="section">
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
@@ -435,6 +439,7 @@
             </table>
         </div>
 
+        <!-- 5. マイページ / 詳細プロフィール登録画面 -->
         <div id="profile" class="section">
             <h2>マイページ / プロフィール登録</h2>
             <p style="font-size: 14px; color: #666;">※あなたのスキルと仕事を最短でつなぐための詳細情報をご登録ください。</p>
@@ -497,6 +502,7 @@
             </form>
         </div>
 
+        <!-- 6. 運営管理ダッシュボード -->
         <div id="admin" class="section">
             <h2 style="border-bottom-color: #d32f2f; color: #d32f2f;">⚙️ 運営管理ダッシュボード</h2>
             <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※こちらはサービス運営者専用の秘密の管理画面です。</p>
@@ -556,6 +562,7 @@
 
     <footer><p>© 2026 Lixia (リクシア). All Rights Reserved. Created by Revalen-arch.</p></footer>
 
+    <!-- 各種モーダル -->
     <div id="user-detail-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px;">
             <h3>👤 ユーザー詳細情報 (運営専用)</h3>
@@ -595,6 +602,7 @@
         </div>
     </div>
 
+    <!-- 🌐 Supabase専用のオンライン通信プログラム群 -->
     <script>
         const prefectures = [
             "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", 
@@ -607,7 +615,7 @@
             "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
         ];
 
-        let globalAvatarUrl = ""; let currentChatPartner = ""; let chatIntervalId = null;
+        let globalAvatarUrl = ""; let currentChatPartner = "";
         let fetchedUsers = [];
 
         // 🔗 認証キー設定
@@ -654,12 +662,10 @@
             }
         }
 
-        // 📥 チャット＆面談データをSupabaseから高速リアルタイム巡回読み込み
         async function loadMessagesAndContacts() {
             try {
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 
-                // 1. チャット履歴の全件同期
                 const rMsg = await fetch(`${SUPABASE_API_URL}/messages?order=created_at.asc`, { headers });
                 const allMsgs = await rMsg.json();
                 
@@ -668,7 +674,6 @@
                 }
                 updateAdminChatLogs(allMsgs);
 
-                // 2. 面談・コンタクト履歴の同期
                 const rContact = await fetch(`${SUPABASE_API_URL}/contacts?order=created_at.desc`, { headers });
                 const allContacts = await rContact.json();
                 updateAdminContactDashboard(allContacts);
@@ -678,9 +683,9 @@
             }
         }
 
-        // ✉️ 面談申し込み・コンタクトを送信してSupabaseに保存する通信処理
         async function applyContact(targetName, type) {
             const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
+            if(myName === targetName) { alert("自分自身には送信できません。"); return; }
             const headers = { 
                 "apikey": base_key, 
                 "Authorization": `Bearer ${base_key}`,
@@ -692,7 +697,7 @@
                     headers,
                     body: JSON.stringify({ sender: myName, receiver: targetName, type: type })
                 });
-                alert(`🎉 【オンライン通知】${targetName}さんへ、正常に「${type}」を送信しデータベースに記録しました！お相手からの返信チャットをお待ちください。`);
+                alert(`🎉 【オンライン通知】${targetName}さんへ、正常に「${type}」を送信しデータベースに記録しました！`);
             } catch (e) {
                 alert("送信エラーが発生しました。");
             }
@@ -848,7 +853,6 @@
             `).join('');
         }
 
-        // 面談ダッシュボード表示
         function updateAdminContactDashboard(list) {
             document.getElementById('admin-total-contacts').innerText = list.length;
             const tbody = document.getElementById('admin-contact-logs');
@@ -906,6 +910,8 @@
         function submitAdminPassword() { if (document.getElementById('admin-password-input').value === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; } }
         
         function openChatWindow(name) {
+            const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
+            if(myName === name) { alert("自分自身とチャットすることはできません。"); return; }
             currentChatPartner = name;
             document.getElementById('chat-target-name').innerText = name;
             document.getElementById('chat-modal').style.display = 'flex';
@@ -915,7 +921,6 @@
         function toggleForm() { const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; document.getElementById('form-individual').style.display = isCorp ? 'none' : 'block'; document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; }
         function escapeHtml(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
 
-        // 💬 オンライン双方向リアルタイムチャット送信処理
         async function sendChatMessage() {
             const inputField = document.getElementById('chat-input-field');
             const messageText = inputField.value.trim();
@@ -929,7 +934,6 @@
             };
 
             try {
-                // Supabase(クラウド)へメッセージを直接書き込み送信
                 await fetch(`${SUPABASE_API_URL}/messages`, {
                     method: "POST",
                     headers,
@@ -941,30 +945,30 @@
             }
         }
 
-        // 📥 クラウド全体のメッセージから自分と相手の会話だけをフィルタリングして表示
+        // 🛡️【特定ペアの部屋だけの隔離チェック＆左右の吹き出し仕分けロジックを完全最適化】
         let lastMessageCount = 0;
         function renderChatBubbles(allMsgs) {
             const box = document.getElementById('chat-messages-box');
             const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
             
+            // 🔒 完全隔離：送信者と受信者が「自分と相手」のペアの会話のみを厳密に抽出（他人の混ざりをブロック）
             const filteredMsg = allMsgs.filter(m => 
                 (m.sender === myName && m.receiver === currentChatPartner) || 
                 (m.sender === currentChatPartner && m.receiver === myName)
             );
             
             if(filteredMsg.length === 0) {
-                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 クラウドチャットです。メッセージを送ってみましょう！</div>`; 
+                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 隔離された安全なチャットルームです。</div>`; 
                 return;
             }
             
             box.innerHTML = filteredMsg.map(m => {
+                // 🆗 送信者が自分なら「me（右側・緑）」、相手からのメッセージなら「other（左側・白）」に完全分離
                 const isMeClass = (m.sender === myName) ? 'me' : 'other';
-                // 時間のパース
                 const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 return `<div class="chat-bubble ${isMeClass}"><div>${escapeHtml(m.text)}</div><div class="chat-bubble-meta">${timeStr}</div></div>`;
             }).join('');
             
-            // 新着があれば自動スクロール
             if (filteredMsg.length !== lastMessageCount) {
                 box.scrollTop = box.scrollHeight;
                 lastMessageCount = filteredMsg.length;
