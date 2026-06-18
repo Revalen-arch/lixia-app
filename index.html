@@ -98,6 +98,7 @@
         th, td { border: 1px solid #e0e0e0; padding: 12px; text-align: left; }
         th { background-color: #f5f5f5; color: #333; font-weight: bold; }
         .admin-table th { background-color: #333; color: white; }
+        .admin-table tr:hover { background-color: #fafafa; }
 
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
@@ -124,7 +125,8 @@
         .modal-content {
             background-color: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 450px;
         }
-        .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; text-align: center;}
+        .modal-content h3 { margin-top: 0; color: #333; font-size: 20px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;}
+        .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;}
         .modal-actions { display: flex; gap: 10px; margin-top: 20px;}
         .modal-actions button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-modal-cancel { background-color: #e0e0e0; color: #333; }
@@ -134,7 +136,7 @@
         .detail-label { width: 120px; font-weight: bold; color: #555; }
         .detail-value { flex: 1; color: #333; }
 
-        footer { background-color: #333; color: #ccc; text-align: center; padding: 25px 20px; margin-top: 50px; font-size: 12px; }
+        footer { background-color: #333; color: #ccc; text-align: center; padding: 25px 20px; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--primary-color); }
     </style>
 </head>
 <body>
@@ -156,7 +158,7 @@
 
     <div class="container">
         
-        <!-- 1. 人材を探す(企業) 【セレクトボックス完全復元】 -->
+        <!-- 1. 人材を探す(企業) -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
@@ -187,7 +189,7 @@
             <div class="card-grid" id="person-list"></div>
         </div>
 
-        <!-- 2. 案件を探す(個人) 【セレクトボックス＆エリア完全実装】 -->
+        <!-- 2. 案件を探す(個人) 【🚨エリア選択ボックスを完全に復活配置】 -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
@@ -231,7 +233,7 @@
             <div class="card-grid" id="job-list"></div>
         </div>
 
-        <!-- 3. 仲間を探す(個人間) 【職種・目的・エリア完全実装】 -->
+        <!-- 3. 仲間を探す(個人間) 【🚨壁打ち・情報交換・細分化を120%完全復活】 -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
@@ -273,7 +275,7 @@
             <div class="card-grid" id="partner-list"></div>
         </div>
 
-        <!-- 4. 無料優待サービス 【豪華レパートリー＆全カテゴリ復元】 -->
+        <!-- 4. 無料優待サービス 【フル復元】 -->
         <div id="benefits" class="section">
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
@@ -306,13 +308,13 @@
             </table>
         </div>
 
-        <!-- 5. マイページ / 登録・ログイン -->
+        <!-- 5. マイページ / ログイン・登録 -->
         <div id="profile" class="section">
             <h2>マイページ / ログイン・新規登録</h2>
             
             <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 5px solid #20b2aa;">
                 <h4 style="margin:0 0 5px 0;">🔑 パスワード認証ログイン</h4>
-                <p style="font-size: 13px; margin: 0 0 10px 0; color:#475569;">登録した「識別ハッシュ付き表示名（例: テスト#8103）」と「4桁の暗証番号」を入力してください。</p>
+                <p style="font-size: 13px; margin: 0 0 10px 0; color:#475569;">登録した「識別ハッシュ付き表示名（例: テスト#8103）」と「4桁 of 暗証番号」を入力してください。</p>
                 <div style="display:flex; gap:10px; flex-wrap: wrap;">
                     <input type="text" id="login-name-input" placeholder="表示名 (例: テスト#8103)" style="padding:8px; border:1px solid #ccc; border-radius:4px; flex:2; min-width:150px;">
                     <input type="password" id="login-pass-input" placeholder="4桁の暗証番号" maxlength="4" style="padding:8px; border:1px solid #ccc; border-radius:4px; flex:1; min-width:100px; text-align:center;">
@@ -389,7 +391,7 @@
 
     <footer><p>© 2026 Lixia (リクシア). All Rights Reserved. Created by Revalen-arch.</p></footer>
 
-    <!-- チャットモーダル -->
+    <!-- 各種モーダル -->
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 20px;">
             <h3>💬 <span id="chat-target-name">お相手</span> とのチャット</h3>
@@ -406,7 +408,6 @@
         </div>
     </div>
 
-    <!-- 詳細確認用モーダル -->
     <div id="user-detail-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px;">
             <h3>👤 ユーザー詳細情報 (運営専用)</h3>
@@ -418,7 +419,6 @@
         </div>
     </div>
 
-    <!-- 管理画面用認証 -->
     <div id="admin-login-modal" class="modal-overlay">
         <div class="modal-content" style="text-align: center;">
             <h3>🔒 運営システム認証</h3>
@@ -440,10 +440,10 @@
         const SUPABASE_API_URL = `${url_part1}${url_part2}${url_part3}/rest/v1`;
 
         window.onload = function() {
-            // 💡 【超強力修正】全てのエリア選択セレクトボックスへ一括流し込み配備
+            // 💡【🚨超強力流し込み】全てのエリア選択(pref-select)を確実に再配置
             const prefSelects = document.querySelectorAll('.pref-select');
             prefSelects.forEach(select => {
-                select.innerHTML = ""; // 初期化
+                select.innerHTML = ""; // 完全にクリア
                 select.appendChild(new Option("全てのエリア", ""));
                 prefectures.forEach(pref => select.appendChild(new Option(pref, pref)));
                 select.appendChild(new Option("フルリモート", "フルリモート"));
