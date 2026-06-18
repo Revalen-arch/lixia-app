@@ -381,7 +381,7 @@
                     </div>
                     <div class="card-inner" style="padding: 10px;">
                         <h4 style="margin: 0 0 5px 0;">🍔 グルメ (5,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀銀座ライオン, ドムドムハンバーガー 等</p>
+                        <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀座ライオン, ドムドムハンバーガー 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 3px solid var(--primary-color);">
@@ -617,34 +617,26 @@
                 prefectures.forEach(pref => select.appendChild(new Option(pref, pref)));
                 select.appendChild(new Option("フルリモート", "フルリモート"));
             });
-            // ページロード時に自動でSupabaseからデータを取得
             loadSupabaseData();
         };
 
-        // 📥 Supabaseからオンライン上の全データを一括取得して画面に表示
         async function loadSupabaseData() {
             try {
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
-
-                // 1. 人材の取得
                 const rPerson = await fetch(`${SUPABASE_API_URL}/persons?order=created_at.desc`, { headers });
                 const persons = await rPerson.json();
                 renderPersonCards(persons);
 
-                // 2. 案件の取得
                 const rJob = await fetch(`${SUPABASE_API_URL}/jobs?order=created_at.desc`, { headers });
                 const jobs = await rJob.json();
                 renderJobCards(jobs);
 
-                // 3. 仲間募集の取得
                 const rPartner = await fetch(`${SUPABASE_API_URL}/partners?order=created_at.desc`, { headers });
                 const partners = await rPartner.json();
                 renderPartnerCards(partners);
 
-                // 運営管理用のデータ統合
                 fetchedUsers = [...persons, ...partners];
                 updateAdminDashboard();
-
             } catch (err) {
                 console.error("データ取得エラー:", err);
             }
@@ -653,7 +645,7 @@
         function renderPersonCards(list) {
             const box = document.getElementById('person-list');
             if(!list || list.length === 0) {
-                box.innerHTML = `<p id="person-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">登録された人材データはまだありません。マイページから最初の登録を行ってみましょう！</p>`;
+                box.innerHTML = `<p id="person-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">登録された人材データはまだありません。</p>`;
                 return;
             }
             box.innerHTML = list.map(u => `
@@ -721,7 +713,6 @@
             `).join('');
         }
 
-        // 📤 登録データをSupabase（オンライン）へ送信・書き込み保存
         async function saveProfile() {
             const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
             const defaultPic = globalAvatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
@@ -741,7 +732,6 @@
                     const location = document.getElementById('user-location').value || "東京都";
                     const target = document.getElementById('user-target').value || "";
                     
-                    // 1️⃣ 人材テーブル(persons)へ送信
                     await fetch(`${SUPABASE_API_URL}/persons`, {
                         method: "POST",
                         headers,
@@ -752,7 +742,6 @@
                         })
                     });
 
-                    // 2️⃣ 仲間募集テーブル(partners)へ自動連動して同時送信
                     await fetch(`${SUPABASE_API_URL}/partners`, {
                         method: "POST",
                         headers,
@@ -769,7 +758,6 @@
                     const corpTarget = document.getElementById('corp-target').value || "";
                     const corpCondition = document.getElementById('corp-condition').value || "要相談";
 
-                    // 案件テーブル(jobs)へ送信
                     await fetch(`${SUPABASE_API_URL}/jobs`, {
                         method: "POST",
                         headers,
@@ -781,21 +769,15 @@
                     });
                 }
 
-                alert('🎉 本物のSupabaseデータベースへのリアルタイム書き込みに成功しました！');
-                
-                // 🔄 登録直後に最新のデータをSupabaseから強制読み込み（再描画バグの修正）
+                alert('🎉 プロフィールの登録に成功しました！');
                 await loadSupabaseData();
-                
-                // 画面を一覧（人材を探す）に自動移動
                 showSection('find-person');
-
             } catch (err) {
-                alert('通信エラーが発生しました。設定を確認してください。');
+                alert('通信エラーが発生しました。');
                 console.error(err);
             }
         }
 
-        // ⚙️ 運営画面のアップデート
         function updateAdminDashboard() {
             document.getElementById('admin-total-users').innerText = fetchedUsers.length;
             const tbody = document.getElementById('admin-user-rows');
@@ -817,22 +799,18 @@
                 <div class="detail-row"><div class="detail-label">登録情報全データ</div><div class="detail-value">${desc}</div></div>
             `;
 
-            // 🚨 運営による強制退会（Supabaseからの完全一撃消去処理）
             document.getElementById('admin-delete-btn').onclick = async function() {
-                if(confirm(`⚠️ 本当にこのユーザーデータをSupabaseデータベース上から永久削除（強制退会処理）しますか？`)) {
+                if(confirm(`⚠️ 本当にこのユーザーデータを永久削除しますか？`)) {
                     const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
-                    
-                    // 両方の可能性を考慮して削除リクエストを送信
                     await fetch(`${SUPABASE_API_URL}/persons?id=eq.${id}`, { method: "DELETE", headers });
                     await fetch(`${SUPABASE_API_URL}/partners?id=eq.${id}`, { method: "DELETE", headers });
                     await fetch(`${SUPABASE_API_URL}/jobs?id=eq.${id}`, { method: "DELETE", headers });
 
-                    alert('🚨 Supabaseサーバーから対象のデータを完全抹消しました。');
+                    alert('🚨 データを完全に消去しました。');
                     closeUserDetailModal();
                     loadSupabaseData();
                 }
             };
-
             document.getElementById('user-detail-modal').style.display = 'flex';
         }
 
@@ -864,6 +842,7 @@
         function toggleForm() { const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; document.getElementById('form-individual').style.display = isCorp ? 'none' : 'block'; document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; }
         function escapeHtml(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
 
+        // 🛠️【自動返信（デモ返信プログラム）を完全消去しました】
         function sendChatMessage() {
             const inputField = document.getElementById('chat-input-field');
             const messageText = inputField.value.trim();
@@ -873,17 +852,11 @@
             const timeString = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
             const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
 
+            // 自分の送信内容だけを正しく追加
             allChatMessages.push({ time: timeString, fullTime: now.toLocaleString(), sender: myName, receiver: currentChatPartner, text: messageText });
-            renderChatBubbles(); inputField.value = ""; updateAdminLogTable();
-
-            setTimeout(() => {
-                const replyText = `ご連絡ありがとうございます！【${currentChatPartner}】です。詳細内容の確認をいたしました。`;
-                allChatMessages.push({
-                    time: new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0'),
-                    fullTime: new Date().toLocaleString(), sender: currentChatPartner, receiver: myName, text: replyText
-                });
-                renderChatBubbles(); updateAdminLogTable();
-            }, 1000);
+            renderChatBubbles(); 
+            inputField.value = ""; 
+            updateAdminLogTable();
         }
 
         function renderChatBubbles() {
