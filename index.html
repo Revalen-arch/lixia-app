@@ -108,7 +108,6 @@
         .chat-bubble.me { background-color: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
         .chat-bubble.other { background-color: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #e2e8f0; }
         .chat-bubble-meta { font-size: 10px; color: rgba(255,255,255,0.7); text-align: right; margin-top: 4px; }
-        .chat-bubble.other .chat-bubble-meta { color: #94a3b8; }
         .chat-input-area { display: flex; border-top: 1px solid #e2e8f0; background: white; padding: 10px; gap: 8px; }
         .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
         .chat-send-btn { background: var(--primary-color); color: white; border: none; padding: 0 16px; border-radius: 6px; font-weight: bold; cursor: pointer; }
@@ -157,36 +156,125 @@
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
                 <input type="text" id="person-keyword" placeholder="キーワード (例: BtoB, SaaS)">
-                <button class="search-btn" onclick="loadSupabaseData()">更新</button>
+                <select id="person-category">
+                    <option value="">全ての希望職種（細分化）</option>
+                    <option value="frontend">エンジニア(フロントエンド / React・Vue)</option>
+                    <option value="backend">エンジニア(バックエンド / Go・Python・Java)</option>
+                    <option value="infra">エンジニア(インフラ・SRE / AWS・GCP)</option>
+                    <option value="ai_data">エンジニア(生成AI・LLM・データ解析)</option>
+                    <option value="uiux">UI/UXデザイナー / プロダクトデザイン</option>
+                    <option value="pm_pdm">PM・PdM・プロジェクトマネージャー</option>
+                    <option value="sales_new">営業(新規開拓・フィールドセールス)</option>
+                    <option value="sales_cs">営業(カスタマーサクセス・既存フォロー)</option>
+                    <option value="sales_inside">営業(インサイドセールス・テレアポ代行)</option>
+                    <option value="marketer_ad">マーケター(Web広告運用・SEO・SNS運用)</option>
+                    <option value="biz_dev">事業開発・企画・アライアンス提携募集</option>
+                    <option value="hr_recruiter">人事・リクルーター(採用代行・面接官代行)</option>
+                    <option value="backoffice">総務・労務・経理・財務・事務代行</option>
+                    <option value="writer_editor">ライター・編集者・SEOコンテンツ制作</option>
+                    <option value="video_creator">動画クリエイター・YouTube動画編集</option>
+                    <option value="consultant">経営コンサルタント・アドバイザー・顧問</option>
+                    <option value="other_job">その他の職種</option>
+                </select>
+                <select id="person-location" class="pref-select"></select>
+                <button class="search-btn" onclick="loadSupabaseData()">検索・更新</button>
             </div>
             <div class="card-grid" id="person-list"></div>
         </div>
 
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
+            <div class="search-box">
+                <input type="text" id="job-keyword" placeholder="キーワード (例: 立ち上げ, 英語)">
+                <select id="job-industry">
+                    <option value="">全ての対象業種（細分化）</option>
+                    <option value="saas_it">SaaS・クラウド・IT・Web通信</option>
+                    <option value="ai_tech">生成AI・最先端テック・DeepTech</option>
+                    <option value="ec_d2c">ECモール・D2Cブランド・小売流通</option>
+                    <option value="matching">マッチング・シェアサービス・SNSメディア</option>
+                    <option value="ad_agency">広告代理店・PR・マスコミ報道</option>
+                    <option value="consulting">経営コンサルティング・シンクタンク</option>
+                    <option value="edtech">教育産業・スクール・EdTech</option>
+                    <option value="fintech">金融・保険・FinTech・暗号資産</option>
+                    <option value="proptech">不動産テック・PropTech・建築</option>
+                    <option value="medtech">医療・ヘルスケアテック・福祉・MedTech</option>
+                    <option value="foodtech">飲食チェーン・フードデリバリーテック</option>
+                    <option value="tourism">観光・ホテルレジャー・旅行代理店</option>
+                    <option value="maker">メーカー・製造業・IoT・ハードウェア</option>
+                    <option value="hr_services">人材紹介・派遣・HRテック・採用代行</option>
+                    <option value="local_biz">地方創生・まちづくり・官公庁プロジェクト</option>
+                    <option value="other_ind">その他の業種</option>
+                </select>
+                <select id="job-condition">
+                    <option value="">全ての働き方・条件（詳細）</option>
+                    <option value="remote_full">完全フルリモート(在宅勤務100%)</option>
+                    <option value="remote_hybrid">ハイブリッド勤務(週の半分リモートなど)</option>
+                    <option value="side_weekend">副業歓迎 / 週末・土日のみ稼働OK</option>
+                    <option value="side_night">副業歓迎 / 平日夜間のみの稼働OK</option>
+                    <option value="part_1_2">週1日〜週2日のコミットでOK</option>
+                    <option value="part_3_4">週3日〜週4日のコミット(別案件と並行可)</option>
+                    <option value="full_5">週5日フルコミット(ガッツリ稼ぎたい方向け)</option>
+                </select>
+                <button class="search-btn" onclick="loadSupabaseData()">検索・更新</button>
+            </div>
             <div class="card-grid" id="job-list"></div>
         </div>
 
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
+            <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
+            <div class="search-box">
+                <select id="partner-role">
+                    <option value="">全ての職種（細分化）</option>
+                    <option value="ceo">起業家・発起人・CEO候補</option>
+                    <option value="frontend">エンジニア(フロント・React・Vue)</option>
+                    <option value="backend">エンジニア(バックエンド・Go・Python)</option>
+                    <option value="infra">エンジニア(インフラ・AWS)</option>
+                    <option value="ai">AIエンジニア・データサイエンティスト</option>
+                    <option value="uiux">デザイナー(UI/UX・Webデザイン)</option>
+                    <option value="video">映像クリエイター・動画編集者</option>
+                    <option value="growth">マーケター(Web広告・SEO・グロース)</option>
+                    <option value="bizdev">営業・事業開発・企画</option>
+                    <option value="pm">ディレクター・PM・ディスカッション相手</option>
+                </select>
+                <select id="partner-purpose">
+                    <option value="">全ての目的（詳細）</option>
+                    <option value="co_founder">共同創業者(Co-Founder)探し</option>
+                    <option value="mvp">初期メンバー募集(プロトタイプ・MVP開発)</option>
+                    <option value="client_work">受託案件のチームメンバー・相棒探し</option>
+                    <option value="sidejob_team">副業・週末プロジェクトの仲間募集</option>
+                    <option value="hobby_dev">趣味のプロダクト・個人開発メンバー募集</option>
+                </select>
+                <button class="search-btn" onclick="loadSupabaseData()">検索・更新</button>
+            </div>
             <div class="card-grid" id="partner-list"></div>
         </div>
 
         <div id="benefits" class="section">
-            <h2>無料優待サービス</h2>
-            <div style="text-align: center; background: #fffcf0; padding: 20px; border-radius: 12px;">
-                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ページを開く ➔</a>
+            <h2>無料優待サービス (約3万施設以上)</h2>
+            <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！身近な施設が優待価格で利用可能です。</p>
+            <div style="text-align: center; background: #fffcf0; border: 2px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                <h3 style="margin-top: 0; color: #e65100; font-size: 18px;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
+                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ページを開く (別タブ移動) ➔</a>
             </div>
+            <h3>一部割引のご紹介</h3>
+            <table>
+                <tr><th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: #ff6600; color: white;">優待価格</th><th>実質のお得額</th></tr>
+                <tr><td>☕️ カフェ</td><td>世界最大級 of コーヒーチェーン</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold;">4,500円</td><td>500円お得</td></tr>
+                <tr><td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold;">900円</td><td>100円お得</td></tr>
+                <tr><td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: #ff6600; font-weight: bold;">450円</td><td>50円お得</td></tr>
+                <tr><td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: #ff6600; font-weight: bold;">1,300円〜</td><td>最大700円お得</td></tr>
+            </table>
         </div>
 
         <div id="profile" class="section">
-            <h2>マイページ / アカウント確認・ログイン・新規登録</h2>
+            <h2>マイページ / ログイン・新規登録</h2>
             
             <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 5px solid #20b2aa;">
                 <h4 style="margin:0 0 5px 0;">🔑 パスワード認証ログイン</h4>
-                <p style="font-size: 13px; margin: 0 0 10px 0; color:#475569;">登録した「表示名」と「4桁の暗証番号」を入力してください。他人がなりすますことはできません。</p>
+                <p style="font-size: 13px; margin: 0 0 10px 0; color:#475569;">登録した「表示名（識別ID含む）」と「4桁の暗証番号」を入力してください。</p>
                 <div style="display:flex; gap:10px; flex-wrap: wrap;">
-                    <input type="text" id="login-name-input" placeholder="表示名 (例: テスト)" style="padding:8px; border:1px solid #ccc; border-radius:4px; flex:2; min-width:150px;">
+                    <input type="text" id="login-name-input" placeholder="表示名 (例: テスト#8103)" style="padding:8px; border:1px solid #ccc; border-radius:4px; flex:2; min-width:150px;">
                     <input type="password" id="login-pass-input" placeholder="4桁の暗証番号" maxlength="4" style="padding:8px; border:1px solid #ccc; border-radius:4px; flex:1; min-width:100px; text-align:center;">
                     <button type="button" class="search-btn" onclick="switchLoginUser()" style="min-width:120px; background-color: var(--primary-color);">ログインする</button>
                 </div>
@@ -194,24 +282,26 @@
 
             <hr style="border:0; border-top:1px solid #ddd; margin:30px 0;">
 
-            <h3>👤 新ぜんプロフィール登録</h3>
+            <h3>👤 新規プロフィール登録</h3>
             <div style="margin-bottom: 25px;">
-                <label style="cursor: pointer; margin-right: 15px;"><input type="radio" name="user_type" value="individual" checked> 👤 個人</label>
-                <label style="cursor: pointer;"><input type="radio" name="user_type" value="corporate"> 🏢 企業</label>
+                <label style="cursor: pointer; margin-right: 15px;"><input type="radio" name="user_type" value="individual" checked> 👤 個人・フリーランス</label>
+                <label style="cursor: pointer;"><input type="radio" name="user_type" value="corporate"> 🏢 企業・法人</label>
             </div>
 
             <form id="profile-form" style="max-width: 700px;">
-                <div class="form-group"><label>【フルネーム】(運営管理用・非公開)</label><input type="text" id="user-fullname" value="山田 太郎"></div>
+                <div class="form-group"><label>【フルネーム】(運営管理用・完全非公開)</label><input type="text" id="user-fullname" value="山田 太郎"></div>
+                <div class="form-group"><label>表示名 (同姓同名でもOK！登録時に自動で識別番号がつきます)</label><input type="text" id="user-nickname" placeholder="例: テスト"></div>
+                
                 <div class="form-group">
-                    <label>表示名 (ログインID兼、チャットに公開される名前)</label>
-                    <input type="text" id="user-nickname" placeholder="例: テスト" value="">
+                    <label>【セキュリティ設定】自分だけの4桁の暗証番号（数字4桁 / ※共通パスワード「1234」は登録できません！）</label>
+                    <input type="password" id="user-password" placeholder="自分だけの番号を設定してください" maxlength="4" style="text-align: center; border: 2px solid #20b2aa;">
                 </div>
-                <div class="form-group">
-                    <label>【セキュリティ設定】自分だけの4桁の暗証番号（数字4桁）</label>
-                    <input type="password" id="user-password" placeholder="例: 1234" maxlength="4" style="text-align: center; letter-spacing: 5px; font-weight: bold;" value="1234">
+                <div class="form-group" style="display: flex; gap: 15px;">
+                    <div style="flex: 1;"><label>【お住まい地域】</label><select id="user-location" class="pref-select"></select></div>
+                    <div style="flex: 1;"><label>【年齢】</label><input type="number" id="user-age" value="28"></div>
                 </div>
                 <div class="form-group"><label>【本業・スキル】</label><input type="text" id="user-job" value="IT企業でフロントエンドエンジニア (歴5年)"></div>
-                <div class="form-group"><label>【繋がりたい意向・希望内容】</label><textarea id="user-target" rows="3">新しいアプリを一緒に立ち上げてくれるデザイナーの仲間を募集中です！</textarea></div>
+                <div class="form-group"><label>【繋がりたい意向・協業希望内容】</label><textarea id="user-target" rows="3">新しいアプリを一緒に立ち上げてくれるデザイナーの仲間を募集中です！</textarea></div>
                 <button type="button" class="btn" style="padding: 15px; font-size: 16px;" onclick="saveProfile()">新しくプロフィールを登録・自動ログイン</button>
             </form>
         </div>
@@ -246,10 +336,18 @@
                     </table>
                 </div>
             </div>
+            
+            <h3 style="margin-top:30px;">ユーザー管理強制退会</h3>
+            <div style="overflow-x: auto;">
+                <table class="admin-table" style="min-width: 800px;">
+                    <thead><tr><th>ユーザーID</th><th>アプリ上の公開名</th><th>ステータス</th><th>運営操作</th></tr></thead>
+                    <tbody id="admin-user-rows"></tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <footer><p>© 2026 Lixia. All Rights Reserved.</p></footer>
+    <footer><p>© 2026 Lixia (リクシア). All Rights Reserved.</p></footer>
 
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 20px;">
@@ -261,8 +359,19 @@
                     <button class="chat-send-btn" onclick="sendChatMessage()">送信</button>
                 </div>
             </div>
-            <div class="modal-actions">
+            <div class="modal-actions" style="margin-top:15px;">
                 <button class="btn-modal-cancel" onclick="closeChatWindow()">閉じる</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="user-detail-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px;">
+            <h3>👤 ユーザー詳細情報 (運営専用)</h3>
+            <div id="user-detail-content"></div>
+            <div class="modal-actions" style="margin-top: 25px;">
+                <button class="btn-modal-submit" id="admin-delete-btn" style="background-color: #d32f2f;">🚨 強制退会・データ削除</button>
+                <button class="btn-modal-cancel" onclick="closeUserDetailModal()">閉じる</button>
             </div>
         </div>
     </div>
@@ -280,99 +389,70 @@
     </div>
 
     <script>
-        let currentChatPartner = "";
-        let fetchedUsers = [];
-        let myStaticLoginName = ""; 
-        let knownContactIds = new Set(); 
-        let isFirstLoad = true;
+        const prefectures = ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", "岐阜県", "静岡県", "愛知県", "三重県", "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", "鳥取県", "島根県", "岡山県", "広島県", "山口県", "徳島県", "香川県", "愛媛県", "高知県", "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"];
+        let currentChatPartner = ""; let fetchedUsers = []; let myStaticLoginName = ""; let knownContactIds = new Set(); let isFirstLoad = true;
 
-        const url_part1 = "https://";
-        const url_part2 = "yuhbcmvbcklplxmadoka";
-        const url_part3 = ".supabase.co";
+        const url_part1 = "https://"; const url_part2 = "yuhbcmvbcklplxmadoka"; const url_part3 = ".supabase.co";
         const base_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1aGJjbXZiY2tscGx4bWFkb2thIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3OTE2NjksImV4cCI6MjA5NzM2NzY2OX0.sf7QRIkngAcgMewV9mB6YFWSoKlBiCjDxkgQWtSSS2U";
         const SUPABASE_API_URL = `${url_part1}${url_part2}${url_part3}/rest/v1`;
 
         window.onload = function() {
             const prefSelects = document.querySelectorAll('.pref-select');
             prefSelects.forEach(select => {
+                select.appendChild(new Option("全てのエリア", ""));
                 prefectures.forEach(pref => select.appendChild(new Option(pref, pref)));
             });
-
             if(localStorage.getItem('lixia_login_user')) {
                 myStaticLoginName = localStorage.getItem('lixia_login_user');
                 document.getElementById('current-user-badge').innerText = `👤 ログイン中: ${myStaticLoginName}`;
                 document.getElementById('login-name-input').value = myStaticLoginName;
             }
-
             loadSupabaseData();
-            
-            setInterval(() => {
-                loadMessagesAndContacts();
-            }, 1000);
+            setInterval(() => { loadMessagesAndContacts(); }, 1000);
         };
 
-        // 🛡️ パスワード検証付きログイン認証システム
         async function switchLoginUser() {
             const inputName = document.getElementById('login-name-input').value.trim();
             const inputPass = document.getElementById('login-pass-input').value.trim();
-            
             if(!inputName || !inputPass) { alert("表示名と4桁の暗証番号を両方入力してください。"); return; }
             
-            // Supabaseからその名前のアカウントデータを直接引き抜いて照号する
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
             try {
                 const response = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${encodeURIComponent(inputName)}`, { headers });
                 const userRecords = await response.json();
+                if(!userRecords || userRecords.length === 0) { alert("⚠️ アカウントが見つかりません。正確な識別番号(#xxxx)まで入力してください。"); return; }
                 
-                if(!userRecords || userRecords.length === 0) {
-                    alert("⚠️ 指定された表示名のアカウントが見つかりません。");
-                    return;
-                }
-                
-                const matchedUser = userRecords[0];
-                // 🔒 クラウド内の保存パスワードとガチ照合
-                if (matchedUser.password === inputPass) {
+                if (userRecords[0].password === inputPass) {
                     myStaticLoginName = inputName;
                     localStorage.setItem('lixia_login_user', inputName);
                     document.getElementById('current-user-badge').innerText = `👤 ログイン中: ${myStaticLoginName}`;
-                    document.getElementById('login-pass-input').value = ""; // 入力欄をクリア
-                    alert(`✅ 認証成功！「${myStaticLoginName}」として安全にログインしました。`);
+                    document.getElementById('login-pass-input').value = ""; 
+                    alert(`✅ ログイン成功！「${myStaticLoginName}」として同期しました。`);
                     loadSupabaseData();
-                } else {
-                    alert("❌ 暗証番号（パスワード）が間違っています！他人の名前での不正ログインは拒否されました。");
-                }
-            } catch (e) {
-                alert("ログイン通信に失敗しました。");
-            }
+                } else { alert("❌ 暗証番号（パスワード）が間違っています！"); }
+            } catch (e) { alert("通信失敗"); }
         }
 
         async function loadSupabaseData() {
             try {
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 const rPerson = await fetch(`${SUPABASE_API_URL}/persons?order=created_at.desc`, { headers });
-                const persons = await rPerson.json();
-                renderPersonCards(persons);
+                const persons = await rPerson.json(); renderPersonCards(persons);
 
                 const rJob = await fetch(`${SUPABASE_API_URL}/jobs?order=created_at.desc`, { headers });
-                const jobs = await rJob.json();
-                renderJobCards(jobs);
+                const jobs = await rJob.json(); renderJobCards(jobs);
 
                 const rPartner = await fetch(`${SUPABASE_API_URL}/partners?order=created_at.desc`, { headers });
-                const partners = await rPartner.json();
-                renderPartnerCards(partners);
+                const partners = await rPartner.json(); renderPartnerCards(partners);
 
-                fetchedUsers = [...persons, ...partners];
-                updateAdminDashboard();
-            } catch (err) {
-                console.error(err);
-            }
+                fetchedUsers = [...persons, ...partners]; updateAdminDashboard();
+            } catch (err) { console.error(err); }
         }
 
         async function loadMessagesAndContacts() {
             if(!myStaticLoginName) return; 
             try {
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
-                
                 let url = `${SUPABASE_API_URL}/messages?order=created_at.asc`;
                 if (document.getElementById('chat-modal').style.display === 'flex') {
                     url += `&or=(and(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(currentChatPartner)}),and(sender.eq.${encodeURIComponent(currentChatPartner)},receiver.eq.${encodeURIComponent(myStaticLoginName)}))`;
@@ -380,74 +460,48 @@
                     url += `&or=(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(myStaticLoginName)})`;
                 }
 
-                const rMsg = await fetch(url, { headers });
-                const filteredMsgs = await rMsg.json();
-                
-                if (document.getElementById('chat-modal').style.display === 'flex') {
-                    renderChatBubbles(filteredMsgs);
-                }
+                const rMsg = await fetch(url, { headers }); const filteredMsgs = await rMsg.json();
+                if (document.getElementById('chat-modal').style.display === 'flex') { renderChatBubbles(filteredMsgs); }
                 updateAdminChatLogs(filteredMsgs);
 
                 const rContact = await fetch(`${SUPABASE_API_URL}/contacts?order=created_at.desc`, { headers });
-                const allContacts = await rContact.json();
-                updateAdminContactDashboard(allContacts);
+                const allContacts = await rContact.json(); updateAdminContactDashboard(allContacts);
 
                 allContacts.forEach(c => {
                     if (c.receiver === myStaticLoginName && !knownContactIds.has(c.id)) {
                         knownContactIds.add(c.id);
-                        if (!isFirstLoad) { 
-                            alert(`🔔【新着通知】${c.sender}さんから「${c.type}」が届きました！`);
-                        }
-                    } else {
-                        knownContactIds.add(c.id);
-                    }
+                        if (!isFirstLoad) { alert(`🔔【新着通知】${c.sender}さんから「${c.type}」が届きました！`); }
+                    } else { knownContactIds.add(c.id); }
                 });
                 isFirstLoad = false;
-
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         async function applyContact(targetName, type) {
-            if(!myStaticLoginName) { alert("マイページで登録またはログインを先に完了してください。"); return; }
+            if(!myStaticLoginName) { alert("ログインを先に完了してください。"); return; }
             if(myStaticLoginName === targetName) { alert("自分自身には送信できません。"); return; }
-            
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
             try {
                 await fetch(`${SUPABASE_API_URL}/contacts`, {
-                    method: "POST",
-                    headers,
+                    method: "POST", headers,
                     body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, type: type })
                 });
                 alert(`🎉 ${targetName}さんへ「${type}」を送信しました！`);
-            } catch (e) {
-                alert("送信エラー");
-            }
-        }
-
-        function getCleanNickname() {
-            return myStaticLoginName;
+            } catch (e) { alert("送信エラー"); }
         }
 
         function renderPersonCards(list) {
             const box = document.getElementById('person-list');
-            if(!list || list.length === 0) {
-                box.innerHTML = `<p style="color: #999; text-align: center; width: 100%;">登録データがありません。</p>`;
-                return;
-            }
+            if(!list || list.length === 0) { box.innerHTML = `<p style="color: #999;">登録データがありません。</p>`; return; }
             box.innerHTML = list.map(u => {
-                const cleanTitle = u.title.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+                const cleanTitle = u.title.trim();
                 const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
                 return `
-                    <div class="card person-card">
-                        <div class="card-img-box"><img src="${u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
+                    <div class="card">
                         <div class="card-inner">
-                            <div>
-                                <span class="card-tag tag-primary">登録ユーザー</span>
-                                <h3 style="margin: 10px 0 5px 0;">${escapeHtml(cleanTitle)}${suffix}</h3>
-                                <p style="margin: 5px 0; font-size: 13px; color:#333;">${escapeHtml(u.description)}</p>
-                            </div>
+                            <span class="card-tag tag-primary">登録ユーザー</span>
+                            <h3>${escapeHtml(cleanTitle)}${suffix}</h3>
+                            <p style="font-size:13px;color:#333;">${escapeHtml(u.description)}</p>
                             <div class="card-actions">
                                 <button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', '面談申し込み')">面談を申し込む</button>
                                 <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>
@@ -462,7 +516,7 @@
             const box = document.getElementById('job-list');
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: #999;">案件がありません。</p>`; return; }
             box.innerHTML = list.map(j => `
-                <div class="card job-card"><div class="card-inner"><h3>${escapeHtml(j.title)}</h3><p>${escapeHtml(j.description)}</p></div></div>
+                <div class="card"><div class="card-inner"><h3>${escapeHtml(j.title)}</h3><p style="font-size:13px;color:#666;">${escapeHtml(j.description)}</p></div></div>
             `).join('');
         }
 
@@ -470,47 +524,47 @@
             const box = document.getElementById('partner-list');
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: #999;">仲間募集がありません。</p>`; return; }
             box.innerHTML = list.map(p => {
-                const cleanTitle = p.title.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+                const cleanTitle = p.title.trim();
                 const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
                 return `
-                    <div class="card partner-card"><div class="card-inner"><h3>${escapeHtml(cleanTitle)}${suffix}</h3><p>${escapeHtml(p.description)}</p>
+                    <div class="card"><div class="card-inner"><h3>${escapeHtml(cleanTitle)}${suffix}</h3><p style="font-size:13px;color:#444;">募集内容: ${escapeHtml(p.description)}</p>
                     <div class="card-actions"><button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button></div></div></div>
                 `;
             }).join('');
         }
 
         async function saveProfile() {
-            const nickname = document.getElementById('user-nickname').value.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+            let baseNickname = document.getElementById('user-nickname').value.replace(/#\d{4}/g, '').trim();
             const password = document.getElementById('user-password').value.trim();
             
-            if(!nickname || !password) { alert("表示名と4桁の暗証番号を設定してください。"); return; }
+            if(!baseNickname) { alert("表示名を入力してください。"); return; }
+            if(!password || password.length < 4) { alert("4桁の暗証番号を入力してください。"); return; }
+            
+            // 🛡️ セキュリティバリデーション：初期値の共通「1234」を弾く
+            if(password === "1234") {
+                alert("❌ 初期共通パスワード「1234」は誰でも推測できて非常に危険なため、登録できません！あなただけの別の4桁の数字に必ず変更してください。");
+                return;
+            }
+
+            // 🆔 同姓同名対応：ランダムな4桁のハッシュ識別タグ(#xxxx)を全自動生成
+            const randomId = Math.floor(1000 + Math.random() * 9000);
+            const nickname = `${baseNickname}#${randomId}`;
 
             const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
 
             try {
-                // 💡 すでに同じ名前の人が登録されていないか重複確認
-                const rCheck = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${encodeURIComponent(nickname)}`, { headers });
-                const existRecords = await rCheck.json();
-                if(existRecords && existRecords.length > 0) {
-                    alert("⚠️ この表示名はすでに使われています！別の名前にするか、上部からログインを試してください。");
-                    return;
-                }
-
                 if (!isCorporate) {
                     const fullname = document.getElementById('user-fullname').value;
                     const job = document.getElementById('user-job').value;
                     const target = document.getElementById('user-target').value;
                     
-                    // パスワードをセットにしてクラウドに保存！
                     await fetch(`${SUPABASE_API_URL}/persons`, {
-                        method: "POST",
-                        headers,
+                        method: "POST", headers,
                         body: JSON.stringify({ title: nickname, password: password, tag: "", description: `本業: ${job} / 希望: ${target} [本名:${fullname}]` })
                     });
                     await fetch(`${SUPABASE_API_URL}/partners`, {
-                        method: "POST",
-                        headers,
+                        method: "POST", headers,
                         body: JSON.stringify({ title: nickname, password: password, tag: "", description: `希望内容: ${target}` })
                     });
                 }
@@ -519,63 +573,72 @@
                 localStorage.setItem('lixia_login_user', nickname);
                 document.getElementById('current-user-badge').innerText = `👤 ログイン中: ${myStaticLoginName}`;
                 
-                alert(`🎉 登録とログインに成功しました！あなたの暗証番号は「${password}」です。`);
+                // 📢 ユーザーへ自分のユニークIDを伝える
+                alert(`🎉 登録に成功しました！\n\nあなたの正式なログイン表示名は【 ${nickname} 】です。\n他端末から入る際はこの「#付きの名前」と設定した暗証番号が必要になりますので、忘れないようにメモしてください！`);
                 await loadSupabaseData();
                 showSection('find-person');
-            } catch (err) {
-                console.error(err);
-            }
+            } catch (err) { console.error(err); }
         }
 
         async function sendChatMessage() {
             const inputField = document.getElementById('chat-input-field');
             const messageText = inputField.value.trim();
-            if(messageText === "") return;
-            if(!myStaticLoginName) { alert("ログインが必要です。"); return; }
-
+            if(messageText === "" || !myStaticLoginName) return;
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
             try {
                 await fetch(`${SUPABASE_API_URL}/messages`, {
-                    method: "POST",
-                    headers,
+                    method: "POST", headers,
                     body: JSON.stringify({ sender: myStaticLoginName, receiver: currentChatPartner, text: messageText })
                 });
                 inputField.value = "";
-            } catch (e) {
-                console.error(e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         let lastMessageCount = 0;
         function renderChatBubbles(filteredMsg) {
             const box = document.getElementById('chat-messages-box');
-            if(!filteredMsg || filteredMsg.length === 0) {
-                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 秘密のプライベートチャットです。</div>`; 
-                return;
-            }
+            if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 秘密のチャットルームです。</div>`; return; }
             box.innerHTML = filteredMsg.map(m => {
                 const isMeClass = (m.sender === myStaticLoginName) ? 'me' : 'other';
                 const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 return `<div class="chat-bubble ${isMeClass}"><div>${escapeHtml(m.text)}</div><div class="chat-bubble-meta">${timeStr}</div></div>`;
             }).join('');
-            
-            if (filteredMsg.length !== lastMessageCount) {
-                box.scrollTop = box.scrollHeight;
-                lastMessageCount = filteredMsg.length;
-            }
+            if (filteredMsg.length !== lastMessageCount) { box.scrollTop = box.scrollHeight; lastMessageCount = filteredMsg.length; }
         }
 
         function openChatWindow(name) {
-            if(!myStaticLoginName) { alert("マイページで登録またはログインを先に行ってください。"); return; }
+            if(!myStaticLoginName) { alert("ログインを先に行ってください。"); return; }
             if(myStaticLoginName === name) { alert("自分自身とはチャットできません。"); return; }
             currentChatPartner = name;
             document.getElementById('chat-target-name').innerText = name;
             document.getElementById('chat-modal').style.display = 'flex';
-            document.getElementById('chat-input-field').focus();
-            lastMessageCount = 0;
+            document.getElementById('chat-input-field').focus(); lastMessageCount = 0;
         }
 
-        function updateAdminDashboard() { document.getElementById('admin-total-users').innerText = fetchedUsers.length; }
+        function updateAdminDashboard() { 
+            document.getElementById('admin-total-users').innerText = fetchedUsers.length;
+            const tbody = document.getElementById('admin-user-rows');
+            tbody.innerHTML = fetchedUsers.map((u, index) => `
+                <tr>
+                    <td>DB-${index+1}</td><td>${escapeHtml(u.title)}</td><td>正常</td>
+                    <td><button style="padding: 6px 12px; font-size: 12px;" onclick="viewAdminDetail('${u.id}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}')">詳細/退会</button></td>
+                </tr>
+            `).join('');
+        }
+        function viewAdminDetail(id, title, desc) {
+            document.getElementById('user-detail-content').innerHTML = `<div class="detail-row"><div class="detail-label">公開名</div><div class="detail-value">${title}</div></div><div class="detail-row"><div class="detail-label">データ</div><div class="detail-value">${desc}</div></div>`;
+            document.getElementById('admin-delete-btn').onclick = async function() {
+                if(confirm(`⚠️ 本当に永久削除しますか？`)) {
+                    const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
+                    await fetch(`${SUPABASE_API_URL}/persons?id=eq.${id}`, { method: "DELETE", headers });
+                    await fetch(`${SUPABASE_API_URL}/partners?id=eq.${id}`, { method: "DELETE", headers });
+                    alert('🚨 消去しました。'); closeUserDetailModal(); loadSupabaseData();
+                }
+            };
+            document.getElementById('user-detail-modal').style.display = 'flex';
+        }
+        function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
+
         function updateAdminContactDashboard(list) {
             document.getElementById('admin-total-contacts').innerText = list.length;
             const tbody = document.getElementById('admin-contact-logs');
