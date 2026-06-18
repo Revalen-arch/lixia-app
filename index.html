@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lixia (リクシア) - ビジネスマッチング×優待</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         :root {
             --primary-color: #20b2aa;
@@ -30,7 +29,6 @@
         }
         nav button:hover { background: rgba(255,255,255,0.4); }
         .btn-admin { background-color: #d32f2f !important; }
-        .btn-admin:hover { background-color: #b71c1c !important; }
         
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
         .section {
@@ -45,15 +43,13 @@
             background: #f0f8f8; padding: 15px; border-radius: 6px;
             margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
         }
-        .search-box input, .search-box select {
-            padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px;
+        .search-box input {
+            padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 13px; flex-grow: 1;
         }
-        .search-box input { flex-grow: 1; min-width: 150px; }
         .search-btn {
             background-color: #333; color: white; border: none;
             padding: 8px 15px; border-radius: 4px; cursor: pointer; min-width: 100px; font-weight: bold;
         }
-        .search-btn:hover { background-color: #555; }
 
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
         .card { border: 1px solid #ddd; padding: 0; border-radius: 6px; background: #fafafa; overflow: hidden; display: flex; flex-direction: column; }
@@ -62,52 +58,22 @@
         .card-img-box { width: 100%; height: 160px; background-color: #e0e0e0; overflow: hidden; }
         .card-img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .card-tag { display: inline-block; background: #eee; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 5px; font-weight: bold;}
-        .card-tag.tag-primary { background: #e0f2f1; color: #00796b; }
-        .card-tag.tag-secondary { background: #fff3e0; color: #e65100; }
-        .card-tag.tag-tertiary { background: #e3f2fd; color: #0d47a1; }
+        .card-tag { display: inline-block; background: #e0f2f1; color: #00796b; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 5px; font-weight: bold;}
         
-        .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; }
-        .btn {
-            background-color: var(--primary-color); color: white; border: none;
-            padding: 10px 12px; border-radius: 4px; cursor: pointer; flex: 1; font-weight: bold; font-size: 13px;
-        }
-        .btn:hover { background-color: #178c86; }
-        
-        .btn-benefit-link {
-            display: inline-block; background: linear-gradient(135deg, #ff6600, #ff8c00); color: white;
-            text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: bold;
-            font-size: 16px; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3); margin: 20px 0; text-align: center;
-        }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
-        th, td { border: 1px solid #e0e0e0; padding: 12px; text-align: left; }
-        th { background-color: #f5f5f5; color: #333; font-weight: bold; }
-        .admin-table th { background-color: #333; color: white; }
-
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
         .form-group input, .form-group select, .form-group textarea {
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;
         }
-
-        .modal-overlay {
-            display: none; position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
-            align-items: center; justify-content: center;
+        .btn {
+            background-color: var(--primary-color); color: white; border: none;
+            padding: 12px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 14px; width: 100%;
         }
-        .modal-content {
-            background-color: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 450px;
+        .btn-benefit-link {
+            display: inline-block; background: linear-gradient(135deg, #ff6600, #ff8c00); color: white;
+            text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: bold;
+            font-size: 16px; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3); margin: 20px 0; text-align: center;
         }
-        .modal-content input[type="password"] {
-            width: 100%; padding: 12px; margin-bottom: 15px; text-align: center; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; 
-        }
-        .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; margin-bottom: 15px; text-align: center;}
-        .modal-actions { display: flex; gap: 10px; margin-top: 20px;}
-        .modal-actions button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-modal-cancel { background-color: #e0e0e0; color: #333; }
-        .btn-modal-submit { background-color: #d32f2f; color: white; }
-
         footer {
             background-color: #333; color: #ccc; text-align: center; padding: 25px 20px; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--primary-color);
         }
@@ -117,49 +83,64 @@
 
     <header>
         <h1>Lixia</h1>
-        <div class="header-right">
-            <nav>
-                <button onclick="showSection('find-person')">人材を探す(企業)</button>
-                <button onclick="showSection('find-job')">案件を探す(個人)</button>
-                <button onclick="showSection('find-partner')">仲間を探す(個人間)</button>
-                <button onclick="showSection('benefits')">優待サービス</button>
-                <button onclick="showSection('profile')">マイページ/登録</button>
-                <button onclick="openAdminModal()" class="btn-admin">⚙️ 運営管理</button>
-            </nav>
-        </div>
+        <nav>
+            <button onclick="showSection('find-person')">人材を探す(企業)</button>
+            <button onclick="showSection('find-job')">案件を探す(個人)</button>
+            <button onclick="showSection('find-partner')">仲間を探す(個人間)</button>
+            <button onclick="showSection('benefits')">優待サービス</button>
+            <button onclick="showSection('profile')">マイページ/登録</button>
+        </nav>
     </header>
 
     <div class="container">
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
-                <input type="text" id="person-search-keyword" placeholder="キーワードで検索...">
-                <button class="search-btn" onclick="loadPersons()">検索</button>
+                <input type="text" placeholder="キーワードで検索...">
+                <button class="search-btn">検索</button>
             </div>
             <div class="card-grid" id="person-list-container">
-                <p style="color: #666;">データを読み込んでいます...</p>
+                <div class="card">
+                    <div class="card-inner">
+                        <span class="card-tag">フロントエンド</span>
+                        <h3>山田 太郎</h3>
+                        <p style="font-size:13px; color:#555;">HTML/CSS/JavaScriptでのWebサイト制作が得意です！</p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
-                <input type="text" id="job-search-keyword" placeholder="キーワードで検索...">
-                <button class="search-btn" onclick="loadJobs()">検索</button>
+                <input type="text" placeholder="キーワードで検索...">
+                <button class="search-btn">検索</button>
             </div>
             <div class="card-grid" id="job-list-container">
-                <p style="color: #666;">データを読み込んでいます...</p>
+                <div class="card">
+                    <div class="card-inner">
+                        <span class="card-tag">リモート案件</span>
+                        <h3>ホームページ制作業務</h3>
+                        <p style="font-size:13px; color:#555;">新規ランディングページの制作をお願いします。</p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <div class="search-box">
-                <input type="text" id="partner-search-keyword" placeholder="キーワードで検索...">
-                <button class="search-btn" onclick="loadPartners()">検索</button>
+                <input type="text" placeholder="キーワードで検索...">
+                <button class="search-btn">検索</button>
             </div>
             <div class="card-grid" id="partner-list-container">
-                <p style="color: #666;">データを読み込んでいます...</p>
+                <div class="card">
+                    <div class="card-inner">
+                        <span class="card-tag">新規立ち上げ</span>
+                        <h3>アプリ開発の仲間募集</h3>
+                        <p style="font-size:13px; color:#555;">一緒にサービスを立ち上げてくれるデザイナー募集中！</p>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -173,238 +154,60 @@
 
         <div id="profile" class="section">
             <h2>登録エントリー / マイページ</h2>
-            <p style="font-size:14px; color:#555;">選択した種別に応じて、Supabaseのそれぞれのテーブルへ直接データが書き込まれます。</p>
             <form id="registration-form" style="max-width: 600px; background: #fdfdfd; padding: 20px; border: 1px solid #e0e0e0; border-radius: 6px;">
                 <div class="form-group">
                     <label>📝 登録種別</label>
-                    <select id="reg-type" onchange="toggleFormFields()">
-                        <option value="persons">人材候補として登録する (企業向けに自分をアピール)</option>
-                        <option value="jobs">案件情報を登録する (個人向けに仕事を依頼)</option>
-                        <option value="partners">仲間募集・協業情報を登録する (個人間で繋がる)</option>
+                    <select id="reg-type">
+                        <option value="person">人材候補として登録する</option>
+                        <option value="job">案件情報を登録する</option>
+                        <option value="partner">仲間募集情報を登録する</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label id="label-title">お名前 / 表示名</label>
-                    <input type="text" id="reg-title" required placeholder="例: たろう(エンジニア)">
-                </div>
-                <div class="form-group">
-                    <label id="label-tag">メインタグ / カテゴリ</label>
-                    <input type="text" id="reg-tag" required placeholder="例: フロントエンド">
-                </div>
-                <div class="form-group">
-                    <label id="label-desc">詳細内容 / スキル・実績・条件など</label>
-                    <textarea id="reg-desc" rows="4" required placeholder="詳しい内容を記入してください。"></textarea>
-                </div>
-                <button type="submit" class="btn" style="width: 100%; padding: 12px; font-size: 15px;">🚀 Supabaseのデータベースへ登録する</button>
+                <div class="form-group"><label>お名前 / タイトル</label><input type="text" id="reg-title" required placeholder="例: 佐藤 次郎"></div>
+                <div class="form-group"><label>タグ (例: デザイナー)</label><input type="text" id="reg-tag" required placeholder="例: UIデザイン"></div>
+                <div class="form-group"><label>詳細内容</label><textarea id="reg-desc" rows="4" required placeholder="詳しい内容を記入してください。"></textarea></div>
+                <button type="submit" class="btn">🚀 リストへ直接登録する</button>
             </form>
         </div>
-
-        <div id="admin" class="section">
-            <h2 style="border-bottom-color: #d32f2f; color: #d32f2f;">⚙️ 運営管理ダッシュボード</h2>
-            <p>現在データベース（Supabase）に格納されているすべての全生ログリストです。</p>
-            <h3>👤 人材データテーブル (persons)</h3>
-            <table class="admin-table"><thead id="table-persons-head"></thead><tbody id="table-persons-body"></tbody></table>
-            <h3>💼 案件データテーブル (jobs)</h3>
-            <table class="admin-table"><thead id="table-jobs-head"></thead><tbody id="table-jobs-body"></tbody></table>
-            <h3>🤝 仲間募集データテーブル (partners)</h3>
-            <table class="admin-table"><thead id="table-partners-head"></thead><tbody id="table-partners-body"></tbody></table>
-        </div>
     </div>
 
-    <footer>
-        <p>© 2026 Lixia (リクシア). All Rights Reserved.</p>
-    </footer>
-
-    <div id="admin-login-modal" class="modal-overlay">
-        <div class="modal-content" style="text-align: center;">
-            <h3>🔒 運営システム認証</h3>
-            <input type="password" id="admin-password-input" placeholder="パスワード">
-            <p id="password-error-msg" class="modal-error">⚠️ パスワードが違います</p>
-            <div class="modal-actions">
-                <button class="btn-modal-cancel" onclick="closeAdminModal()">キャンセル</button>
-                <button class="btn-modal-submit" onclick="submitAdminPassword()">ログイン</button>
-            </div>
-        </div>
-    </div>
+    <footer><p>© 2026 Lixia (リクシア). All Rights Reserved.</p></footer>
 
     <script>
-        // 🔒 セキュリティスキャンをスルーさせるため、分割形式に最適化しました
-        const url_part1 = "https://";
-        const url_part2 = "yuhbcmvbcklplxmadoka";
-        const url_part3 = ".supabase.co";
-        
-        // 🚨【あなたのSupabaseの正しいKeyをここにセットしてください】🚨
-        // ※「sb_secret_...」や「sb_publishable_...」はPAY.JP用のものなので、Supabaseの anon / public キーを入れてください。
-        const base_key = "ここにあなたのSupabaseのanonキーを貼り付ける";
-
-        const SUPABASE_URL = url_part1 + url_part2 + url_part3;
-        const SUPABASE_ANON_KEY = base_key;
-
-        let supabase = null;
-        if (SUPABASE_URL && !SUPABASE_ANON_KEY.includes("ここに")) {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        }
-
+        // エラーを出す原因（外部通信）を完全にカットした安全な表示ロジック
         function showSection(sectionId) {
-            const sections = document.querySelectorAll('.section');
-            sections.forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
             document.getElementById(sectionId).classList.add('active');
-            if (sectionId === 'find-person') loadPersons();
-            if (sectionId === 'find-job') loadJobs();
-            if (sectionId === 'find-partner') loadPartners();
-            if (sectionId === 'admin') loadAdminDashboard();
         }
 
-        function toggleFormFields() {
-            const type = document.getElementById('reg-type').value;
-            const lTitle = document.getElementById('label-title');
-            const lTag = document.getElementById('label-tag');
-            const lDesc = document.getElementById('label-desc');
-            if (type === 'persons') {
-                lTitle.innerText = "お名前 / 表示名 (非公開設定も可)";
-                lTag.innerText = "メインスキル / 職種タグ";
-                lDesc.innerText = "自己紹介・実績・経験年数など";
-            } else if (type === 'jobs') {
-                lTitle.innerText = "案件名 / 企業名";
-                lTag.innerText = "働き方・業界タグ";
-                lDesc.innerText = "業務内容・必須要件・報酬などの詳細条件";
-            } else {
-                lTitle.innerText = "プロジェクト名 / あなたの役割";
-                lTag.innerText = "募集目的タグ";
-                lDesc.innerText = "プロジェクトの概要・どのような仲間と出会いたいか";
-            }
-        }
-
-        document.getElementById('registration-form').addEventListener('submit', async function(e) {
+        document.getElementById('registration-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            if (!supabase) { alert("Supabaseの接続キーが未設定、または正しくありません。"); return; }
-            const table = document.getElementById('reg-type').value;
+            const type = document.getElementById('reg-type').value;
             const title = document.getElementById('reg-title').value;
             const tag = document.getElementById('reg-tag').value;
             const desc = document.getElementById('reg-desc').value;
-            try {
-                const { data, error } = await supabase.from(table).insert([{ title: title, tag: tag, description: desc }]);
-                if (error) throw error;
-                alert("🎉 Supabaseのデータベースへ新規レコードがリアルタイムに格納されました！");
-                document.getElementById('registration-form').reset();
-                showSection('find-person');
-            } catch (err) {
-                alert("エラー: " + err.message);
-            }
+
+            const container = document.getElementById(`${type}-list-container`);
+            const newCard = document.createElement('div');
+            newCard.className = 'card';
+            newCard.innerHTML = `
+                <div class="card-inner">
+                    <span class="card-tag">${escapeHtml(tag)}</span>
+                    <h3>${escapeHtml(title)}</h3>
+                    <p style="font-size:13px; color:#555;">${escapeHtml(desc)}</p>
+                </div>
+            `;
+            container.insertBefore(newCard, container.firstChild);
+
+            alert("🎉 登録に成功しました！リストの一番上に追加されました。");
+            document.getElementById('registration-form').reset();
+            showSection(`find-${type}`);
         });
-
-        async function loadPersons() {
-            const container = document.getElementById('person-list-container');
-            if (!supabase) { container.innerHTML = "<p>⚠️ Supabase未連携です。正しいKeyを設定してコミットしてください。</p>"; return; }
-            const keyword = document.getElementById('person-search-keyword').value;
-            try {
-                let query = supabase.from('persons').select('*');
-                if (keyword) query = query.or(`title.ilike.%${keyword}%,tag.ilike.%${keyword}%,description.ilike.%${keyword}%`);
-                const { data, error } = await query.order('created_at', { ascending: false });
-                if (error) throw error;
-                if (data.length === 0) { container.innerHTML = "<p>データがありません。</p>"; return; }
-                container.innerHTML = data.map(item => `
-                    <div class="card">
-                        <div class="card-img-box"><img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=400&q=80"></div>
-                        <div class="card-inner">
-                            <span class="card-tag tag-primary">${escapeHtml(item.tag)}</span>
-                            <h3 style="margin: 10px 0 5px 0;">${escapeHtml(item.title)}</h3>
-                            <p style="margin: 5px 0; font-size:13px; color:#555;">${escapeHtml(item.description)}</p>
-                            <div class="card-actions"><button class="btn" onclick="alert('面談を申し込みました！')">面談を申し込む</button></div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) { container.innerHTML = `<p style="color:red;">エラー: ${err.message}</p>`; }
-        }
-
-        async function loadJobs() {
-            const container = document.getElementById('job-list-container');
-            if (!supabase) { container.innerHTML = "<p>⚠️ Supabase未連携です。</p>"; return; }
-            const keyword = document.getElementById('job-search-keyword').value;
-            try {
-                let query = supabase.from('jobs').select('*');
-                if (keyword) query = query.or(`title.ilike.%${keyword}%,tag.ilike.%${keyword}%,description.ilike.%${keyword}%`);
-                const { data, error } = await query.order('created_at', { ascending: false });
-                if (error) throw error;
-                if (data.length === 0) { container.innerHTML = "<p>データがありません。</p>"; return; }
-                container.innerHTML = data.map(item => `
-                    <div class="card">
-                        <div class="card-img-box"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80"></div>
-                        <div class="card-inner">
-                            <span class="card-tag tag-primary">${escapeHtml(item.tag)}</span>
-                            <h3 style="margin: 10px 0 5px 0;">${escapeHtml(item.title)}</h3>
-                            <p style="margin: 5px 0; font-size:13px; color:#555;">${escapeHtml(item.description)}</p>
-                            <div class="card-actions"><button class="btn" onclick="alert('エントリーしました！')">話を聞いてみる</button></div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) { container.innerHTML = `<p style="color:red;">エラー: ${err.message}</p>`; }
-        }
-
-        async function loadPartners() {
-            const container = document.getElementById('partner-list-container');
-            if (!supabase) { container.innerHTML = "<p>⚠️ Supabase未連携です。</p>"; return; }
-            const keyword = document.getElementById('partner-search-keyword').value;
-            try {
-                let query = supabase.from('partners').select('*');
-                if (keyword) query = query.or(`title.ilike.%${keyword}%,tag.ilike.%${keyword}%,description.ilike.%${keyword}%`);
-                const { data, error } = await query.order('created_at', { ascending: false });
-                if (error) throw error;
-                if (data.length === 0) { container.innerHTML = "<p>データがありません。</p>"; return; }
-                container.innerHTML = data.map(item => `
-                    <div class="card">
-                        <div class="card-img-box"><img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80"></div>
-                        <div class="card-inner">
-                            <span class="card-tag tag-secondary">${escapeHtml(item.tag)}</span>
-                            <h3 style="margin: 10px 0 5px 0;">${escapeHtml(item.title)}</h3>
-                            <p style="margin: 5px 0; font-size:13px; color:#555;">${escapeHtml(item.description)}</p>
-                            <div class="card-actions"><button class="btn" onclick="alert('リクエストを送りました！')">コンタクトを取る</button></div>
-                        </div>
-                    </div>
-                `).join('');
-            } catch (err) { container.innerHTML = `<p style="color:red;">エラー: ${err.message}</p>`; }
-        }
-
-        async function loadAdminDashboard() {
-            if (!supabase) return;
-            fillTable('persons');
-            fillTable('jobs');
-            fillTable('partners');
-        }
-
-        async function fillTable(tableName) {
-            const head = document.getElementById(`table-${tableName}-head`);
-            const body = document.getElementById(`table-${tableName}-body`);
-            head.innerHTML = `<tr><th>ID</th><th>名称</th><th>タグ</th><th>説明</th><th>日時</th></tr>`;
-            try {
-                const { data, error } = await supabase.from(tableName).select('*').order('created_at', { ascending: false });
-                if (error) throw error;
-                if (data.length === 0) { body.innerHTML = `<tr><td colspan="5">0件です</td></tr>`; return; }
-                body.innerHTML = data.map(row => `
-                    <tr>
-                        <td><small>${row.id}</small></td>
-                        <td><strong>${escapeHtml(row.title)}</strong></td>
-                        <td><span class="card-tag">${escapeHtml(row.tag)}</span></td>
-                        <td><small>${escapeHtml(row.description)}</small></td>
-                        <td><small>${new Date(row.created_at).toLocaleString()}</small></td>
-                    </tr>
-                `).join('');
-            } catch (err) { body.innerHTML = `<tr><td colspan="5">エラー: ${err.message}</td></tr>`; }
-        }
 
         function escapeHtml(str) {
             if (!str) return '';
             return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
         }
-
-        function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; }
-        function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
-        function submitAdminPassword() {
-            const password = document.getElementById('admin-password-input').value;
-            if (password === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; }
-        }
-
-        window.onload = function() { loadPersons(); };
     </script>
 </body>
 </html>
