@@ -32,10 +32,10 @@
         .btn-admin { background-color: #d32f2f !important; }
         .btn-admin:hover { background-color: #b71c1c !important; }
         
-        .header-avatar {
-            width: 38px; height: 38px; border-radius: 50%;
-            background-color: rgba(255,255,255,0.3); border: 2px solid white;
-            object-fit: cover; display: none; cursor: pointer;
+        /* ログイン状態バッジ */
+        .login-status-badge {
+            background-color: #333; color: #fff; padding: 5px 12px; 
+            border-radius: 4px; font-size: 12px; font-weight: bold;
         }
 
         .container { max-width: 1100px; margin: 30px auto; padding: 0 20px; }
@@ -76,7 +76,6 @@
         .card-tag { display: inline-block; background: #eee; padding: 4px 8px; border-radius: 4px; font-size: 11px; margin-bottom: 5px; font-weight: bold;}
         .card-tag.tag-primary { background: #e0f2f1; color: #00796b; }
         .card-tag.tag-secondary { background: #fff3e0; color: #e65100; }
-        .card-tag.tag-tertiary { background: #e3f2fd; color: #0d47a1; }
         
         .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; }
         .btn {
@@ -92,15 +91,11 @@
             text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: bold;
             font-size: 16px; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3); margin: 20px 0; text-align: center;
         }
-        .btn-benefit-link:hover {
-            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 102, 0, 0.5); background: linear-gradient(135deg, #e65100, #ff6600);
-        }
         
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         th, td { border: 1px solid #e0e0e0; padding: 12px; text-align: left; }
         th { background-color: #f5f5f5; color: #333; font-weight: bold; }
         .admin-table th { background-color: #333; color: white; }
-        .admin-table tr:hover { background-color: #fafafa; }
 
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px; }
@@ -108,18 +103,6 @@
             width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; font-size: 14px;
         }
         .admin-box { background: #fff3e0; border: 1px solid #ffcc80; padding: 15px; border-radius: 6px; margin-bottom: 20px; }
-        .admin-box h4 { margin: 0 0 10px 0; color: #e65100; }
-
-        .avatar-upload-container {
-            display: flex; align-items: center; gap: 20px; margin-bottom: 20px;
-            background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px dashed #ccc;
-        }
-        .avatar-preview-box {
-            width: 90px; height: 90px; border-radius: 50%; background: #e0e0e0;
-            display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid var(--primary-color);
-        }
-        .avatar-preview-box img { width: 100%; height: 100%; object-fit: cover; }
-        .avatar-preview-box span { font-size: 12px; color: #777; text-align: center; font-weight: bold; }
 
         .chat-container { display: flex; flex-direction: column; height: 350px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
         .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
@@ -128,11 +111,9 @@
         .chat-bubble.other { background-color: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #e2e8f0; }
         .chat-bubble-meta { font-size: 10px; color: rgba(255,255,255,0.7); text-align: right; margin-top: 4px; }
         .chat-bubble.other .chat-bubble-meta { color: #94a3b8; }
-        .chat-input-area { display: flex; border-top: 1px solid #e2e8f0; background: white; padding: 10px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; gap: 8px; }
-        .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 14px; }
-        .chat-input-area input:focus { border-color: var(--primary-color); }
+        .chat-input-area { display: flex; border-top: 1px solid #e2e8f0; background: white; padding: 10px; gap: 8px; }
+        .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; }
         .chat-send-btn { background: var(--primary-color); color: white; border: none; padding: 0 16px; border-radius: 6px; font-weight: bold; cursor: pointer; }
-        .chat-send-btn:hover { background: #178c86; }
 
         .modal-overlay {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -140,39 +121,19 @@
             align-items: center; justify-content: center; backdrop-filter: blur(3px);
         }
         .modal-content {
-            background-color: white; padding: 30px; border-radius: 12px;
-            width: 90%; max-width: 450px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2); animation: fadeIn 0.3s ease;
+            background-color: white; padding: 30px; border-radius: 12px; width: 90%; max-width: 450px;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .modal-content h3 { margin-top: 0; color: #333; font-size: 20px; border-bottom: 2px solid var(--primary-color); padding-bottom: 10px;}
-        .modal-content input[type="password"] {
-            width: 100%; padding: 12px; margin-bottom: 15px; text-align: center; letter-spacing: 2px;
-            border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 16px; 
-        }
-        .modal-content input[type="password"]:focus { border-color: #d32f2f; outline: none; }
-        .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; margin-bottom: 15px; text-align: center;}
+        .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; text-align: center;}
         .modal-actions { display: flex; gap: 10px; margin-top: 20px;}
-        .modal-actions button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; }
+        .modal-actions button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .btn-modal-cancel { background-color: #e0e0e0; color: #333; }
-        .btn-modal-cancel:hover { background-color: #ccc; }
         .btn-modal-submit { background-color: #d32f2f; color: white; }
-        .btn-modal-submit:hover { background-color: #b71c1c; }
         
         .detail-row { display: flex; border-bottom: 1px solid #eee; padding: 10px 0; }
-        .detail-label { width: 120px; font-weight: bold; color: #555; font-size: 13px; }
-        .detail-value { flex: 1; font-size: 14px; color: #333; }
-        .admin-action-btn { width: 100%; padding: 10px; border: none; border-radius: 6px; color: white; font-weight: bold; cursor: pointer; font-size: 13px; }
+        .detail-label { width: 120px; font-weight: bold; color: #555; }
+        .detail-value { flex: 1; color: #333; }
 
-        footer {
-            background-color: #333; color: #ccc; text-align: center;
-            padding: 25px 20px; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--primary-color);
-        }
-        footer .footer-links { display: flex; justify-content: center; gap: 20px; margin-bottom: 15px; }
-        footer .footer-links span { cursor: pointer; color: #20b2aa; font-weight: bold; text-decoration: underline; }
-        footer .footer-links span:hover { color: #40e0d0; }
-        .policy-text { max-height: 250px; overflow-y: auto; text-align: left; font-size: 12px; color: #555; line-height: 1.6; background: #f8fafc; padding: 15px; border-radius: 6px; border: 1px solid #e2e8f0; }
-        .policy-text h4 { margin-top: 15px; margin-bottom: 5px; color: #333; border-left: 3px solid var(--primary-color); padding-left: 6px; }
+        footer { background-color: #333; color: #ccc; text-align: center; padding: 25px 20px; margin-top: 50px; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -180,401 +141,124 @@
     <header>
         <h1>Lixia</h1>
         <div class="header-right">
+            <span id="current-user-badge" class="login-status-badge">👤 未ログイン(閲覧モード)</span>
             <nav>
                 <button onclick="showSection('find-person')">人材を探す(企業)</button>
                 <button onclick="showSection('find-job')">案件を探す(個人)</button>
                 <button onclick="showSection('find-partner')">仲間を探す(個人間)</button>
                 <button onclick="showSection('benefits')">優待サービス</button>
-                <button onclick="showSection('profile')">マイページ/登録</button>
+                <button onclick="showSection('profile')">マイページ/登録・ログイン</button>
                 <button onclick="openAdminModal()" class="btn-admin">⚙️ 運営管理</button>
             </nav>
-            <img id="header-profile-pic" class="header-avatar" onclick="showSection('profile')" alt="ユーザーアイコン">
         </div>
     </header>
 
     <div class="container">
         
-        <!-- 1. 企業向け：人材を探す画面 -->
+        <!-- 1. 人材を探す面 -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
                 <input type="text" id="person-keyword" placeholder="キーワード (例: BtoB, SaaS)">
-                <select id="person-category">
-                    <option value="">全ての希望職種（細分化）</option>
-                    <option value="frontend">エンジニア(フロントエンド / React・Vue)</option>
-                    <option value="backend">エンジニア(バックエンド / Go・Python・Java)</option>
-                    <option value="infra">エンジニア(インフラ・SRE / AWS・GCP)</option>
-                    <option value="ai_data">エンジニア(生成AI・LLM・データ解析)</option>
-                    <option value="uiux">UI/UXデザイナー / プロダクトデザイン</option>
-                    <option value="pm_pdm">PM・PdM・プロジェクトマネージャー</option>
-                    <option value="sales_new">営業(新規開拓・フィールドセールス)</option>
-                    <option value="sales_cs">営業(カスタマーサクセス・既存フォロー)</option>
-                    <option value="sales_inside">営業(インサイドセールス・テレアポ代行)</option>
-                    <option value="marketer_ad">マーケター(Web広告運用・SEO・SNS運用)</option>
-                    <option value="biz_dev">事業開発・企画・アライアンス提携募集</option>
-                    <option value="hr_recruiter">人事・リクルーター(採用代行・面接官代行)</option>
-                    <option value="backoffice">総務・労務・経理・財務・事務代行</option>
-                    <option value="writer_editor">ライター・編集者・SEOコンテンツ制作</option>
-                    <option value="video_creator">動画クリエイター・YouTube動画編集</option>
-                    <option value="consultant">経営コンサルタント・アドバイザー・顧問</option>
-                    <option value="other_job">その他の職種</option>
-                </select>
                 <select id="person-location" class="pref-select"></select>
-                <button class="search-btn" onclick="searchPersons()">検索する</button>
+                <button class="search-btn" onclick="loadSupabaseData()">更新</button>
             </div>
-
-            <div class="card-grid" id="person-list">
-                <p id="person-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">データを読み込み中、または登録データがまだありません。</p>
-            </div>
+            <div class="card-grid" id="person-list"></div>
         </div>
 
-        <!-- 2. 個人向け：案件を探す画面 -->
+        <!-- 2. 案件を探す面 -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
-            <div class="search-box">
-                <input type="text" id="job-keyword" placeholder="キーワード (例: 立ち立ち上げ, 英語)">
-                <select id="job-industry">
-                    <option value="">全ての対象業種（細分化）</option>
-                    <option value="saas_it">SaaS・クラウド・IT・Web通信</option>
-                    <option value="ai_tech">生成AI・最先端テック・DeepTech</option>
-                    <option value="ec_d2c">ECモール・D2Cブランド・小売流通</option>
-                    <option value="matching">マッチング・シェアサービス・SNSメディア</option>
-                    <option value="ad_agency">広告代理店・PR・マスコミ報道</option>
-                    <option value="consulting">経営コンサルティング・シンクタンク</option>
-                    <option value="edtech">教育産業・スクール・EdTech</option>
-                    <option value="fintech">金融・保険・FinTech・暗号資産</option>
-                    <option value="proptech">不動産テック・PropTech・建築</option>
-                    <option value="medtech">医療・ヘルスケアテック・福祉・MedTech</option>
-                    <option value="foodtech">飲食チェーン・フードデリバリーテック</option>
-                    <option value="tourism">観光・ホテルレジャー・旅行代理店</option>
-                    <option value="maker">メーカー・製造業・IoT・ハードウェア</option>
-                    <option value="hr_services">人材紹介・派遣・HRテック・採用代行</option>
-                    <option value="local_biz">地方創生・まちづくり・官公庁プロジェクト</option>
-                    <option value="other_ind">その他の業種</option>
-                </select>
-                <select id="job-condition">
-                    <option value="">全ての働き方・条件（詳細）</option>
-                    <option value="remote_full">完全フルリモート(在宅勤務100%)</option>
-                    <option value="remote_hybrid">ハイブリッド勤務(週の半分リモートなど)</option>
-                    <option value="side_weekend">副業歓迎 / 週末・土日のみ稼働OK</option>
-                    <option value="side_night">副業歓迎 / 平日夜間のみの稼働OK</option>
-                    <option value="part_1_2">週1日〜週2日のコミットでOK</option>
-                    <option value="part_3_4">週3日〜週4日のコミット(別案件と並行可)</option>
-                    <option value="full_5">週5日フルコミット(ガッツリ稼ぎたい方向け)</option>
-                    <option value="commute_ok">交通費全額支給（出社ありの場合）</option>
-                    <option value="pc_rental">開発用PC・周辺機器の無償レンタルあり</option>
-                    <option value="to_regular">将来的な正社員・コアメンバー登用あり</option>
-                    <option value="no_exp">未経験・第二新卒チャレンジOKの案件</option>
-                </select>
-                <select id="job-location" class="pref-select"></select>
-                <button class="search-btn" onclick="searchJobs()">検索する</button>
-            </div>
-
-            <div class="card-grid" id="job-list">
-                <p id="job-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">掲載されている企業案件は現在ありません。</p>
-            </div>
+            <div class="card-grid" id="job-list"></div>
         </div>
 
-        <!-- 3. 個人間：仲間・協業相手を探す画面 -->
+        <!-- 3. 仲間を探す面 -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
-            <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
-            
-            <div class="search-box">
-                <select id="partner-role">
-                    <option value="">全ての職種（細分化）</option>
-                    <option value="ceo">起業家・発起人・CEO候補</option>
-                    <option value="frontend">エンジニア(フロント・React・Vue)</option>
-                    <option value="backend">エンジニア(バックエンド・Go・Python)</option>
-                    <option value="infra">エンジニア(インフラ・AWS)</option>
-                    <option value="ai">AIエンジニア・データサイエンティスト</option>
-                    <option value="uiux">デザイナー(UI/UX・Webデザイン)</option>
-                    <option value="video">映像クリエイター・動画編集者</option>
-                    <option value="growth">マーケター(Web広告・SEO・グロース)</option>
-                    <option value="sns">SNS運用担当・インフルエンサー</option>
-                    <option value="bizdev">営業・事業開発・企画</option>
-                    <option value="pm">ディレクター・PM・ディスカッション相手</option>
-                    <option value="writer">ライター・編集・コンテンツ制作</option>
-                    <option value="backoffice">人事・広報・バックオフィス</option>
-                    <option value="legal">士業(弁護士・税理士・公認会計士)</option>
-                    <option value="other">その他の職種</option>
-                </select>
-                <select id="partner-industry">
-                    <option value="">得意な業種（細分化）</option>
-                    <option value="saas">SaaS・BtoBビジネス</option>
-                    <option value="ai_tech">AI・ディープラーテック・生成AI</option>
-                    <option value="ec">EC・D2C・小売・流通</option>
-                    <option value="matching">マッチング・シェアサービス・メディア</option>
-                    <option value="sns_media">SNS・コミュニティ運営</option>
-                    <option value="edtech">教育・EdTech</option>
-                    <option value="ent_game">エンタメ・ゲーム・インディー開発</option>
-                    <option value="fintech">金融・FinTech・ブロックチェーン</option>
-                    <option value="medical">医療・ヘルスケア・介護</option>
-                    <option value="realestate">不動産・建設・PropTech</option>
-                    <option value="food">飲食・フードテック</option>
-                    <option value="local">地方創生・まちづくり・観光</option>
-                    <option value="consulting">コンサルティング・受託開発</option>
-                    <option value="hardware">製造業・メーカー・IoT</option>
-                </select>
-                <select id="partner-purpose">
-                    <option value="">全ての目的（詳細）</option>
-                    <option value="co_founder">共同創業者(Co-Founder)探し</option>
-                    <option value="mvp">初期メンバー募集(プロトタイプ・MVP開発)</option>
-                    <option value="client_work">受託案件のチームメンバー・相棒探し</option>
-                    <option value="sidejob_team">副業・週末プロジェクトの仲間募集</option>
-                    <option value="hobby_dev">趣味のプロダクト・個人開発メンバー募集</option>
-                    <option value="skill_exchange">スキル交換(デザイン↔開発など)</option>
-                    <option value="study_group">勉強会・もくもく会仲間募集</option>
-                    <option value="hackathon">ハッカソン・イベントのチーム結成</option>
-                    <option value="discussion">アイデアの壁打ち・情報交換・人脈作り</option>
-                    <option value="monetize">副業のマネタイズノウハウ交換</option>
-                </select>
-                <input type="text" id="partner-keyword" placeholder="キーワード検索">
-                <select id="partner-location" class="pref-select"></select>
-                <button class="search-btn" onclick="searchPartners()">検索する</button>
-            </div>
-
-            <div class="card-grid" id="partner-list">
-                <p id="partner-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">仲間・メンバーの募集情報は現在ありません。</p>
-            </div>
+            <div class="card-grid" id="partner-list"></div>
         </div>
 
-        <!-- 4. 優待サービス画面 -->
+        <!-- 4. 優待サービス -->
         <div id="benefits" class="section">
-            <h2>無料優待サービス (約3万施設以上)</h2>
-            <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
-            
-            <div style="text-align: center; background: #fffcf0; border: 2px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
-                <h3 style="margin-top: 0; color: #e65100; font-size: 18px;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
-                <p style="font-size: 13px; color: #555; margin-bottom: 10px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの詳細確認・申請が可能です。</p>
-                
-                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">
-                    🚀 外部優待ページを開く (別タブ移動) ➔
-                </a>
-                
-                <p style="font-size: 11px; color: #999; margin: 0;">※クリックすると提携先の「Cellnet L-Link」外部認証・ログイン画面へ直接ジャンプします。</p>
+            <h2>無料優待サービス</h2>
+            <div style="text-align: center; background: #fffcf0; padding: 20px; border-radius: 12px;">
+                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ページを開く ➔</a>
             </div>
-
-            <h3 style="margin-top: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">主なカテゴリと提携施設例</h3>
-            <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
-                    <div class="card-img-box" style="height: 100px;">
-                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=300&q=80" alt="トラベル">
-                    </div>
-                    <div class="card-inner" style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">✈️ トラベル (15,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">HIS, 大江戸温泉物語, ROUTE INN HOTELS, Trip.com 等</p>
-                    </div>
-                </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
-                    <div class="card-img-box" style="height: 100px;">
-                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=300&q=80" alt="レジャー">
-                    </div>
-                    <div class="card-inner" style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">🎬 レジャー (3,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">TOHO CINEMAS, 富士急ハイランド, サンリオピューロランド 等</p>
-                    </div>
-                </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
-                    <div class="card-img-box" style="height: 100px;">
-                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=300&q=80" alt="グルメ">
-                    </div>
-                    <div class="card-inner" style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">🍔 グルメ (5,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀座ライオン, ドムドムハンバーガー 等</p>
-                    </div>
-                </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
-                    <div class="card-img-box" style="height: 100px;">
-                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=300&q=80" alt="スポーツ">
-                    </div>
-                    <div class="card-inner" style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">🏃 スポーツ (3,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">chocoZAP, JOY FIT, GDO, MEGALOS 等</p>
-                    </div>
-                </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
-                    <div class="card-img-box" style="height: 100px;">
-                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=300&q=80" alt="ライフサポート">
-                    </div>
-                    <div class="card-inner" style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">🏢 ライフサポート (6,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">洋服の青山, OWNDAYS, トレファク, メガネスーパー 等</p>
-                    </div>
-                </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
-                    <div class="card-img-box" style="height: 100px;">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80" alt="キャリア">
-                    </div>
-                    <div class="card-inner" style="padding: 10px;">
-                        <h4 style="margin: 0 0 5px 0;">🎓 キャリア (1,000施設以上)</h4>
-                        <p style="font-size: 12px; color: #666; margin: 0;">ユーキャン, 英会話イーオン, ABC Cooking Studio 等</p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 style="margin-top: 30px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">一部割引のご紹介</h3>
-            <table>
-                <tr>
-                    <th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: #ff6600; color: white;">優待価格</th><th>実質のお得額</th>
-                </tr>
-                <tr>
-                    <td>☕️ カフェ</td><td>世界最大級 of コーヒーチェーン</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td><td>500円お得</td>
-                </tr>
-                <tr>
-                    <td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td><td>100円お得</td>
-                </tr>
-                <tr>
-                    <td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">450円</td><td>50円お得</td>
-                </tr>
-                <tr>
-                    <td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">1,300円〜</td><td>最大700円お得</td>
-                </tr>
-                <tr>
-                    <td>🍗 ファストフード</td><td>KFC (ケンタッキー)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td><td>100円お得</td>
-                </tr>
-                <tr>
-                    <td>⛳️ スポーツ</td><td>GDO (ゴルフ予約等)</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td><td>500円お得</td>
-                </tr>
-            </table>
         </div>
 
-        <!-- 5. マイページ / 詳細プロフィール登録画面 -->
+        <!-- 5. マイページ / ログイン・登録 -->
         <div id="profile" class="section">
-            <h2>マイページ / プロフィール登録</h2>
-            <p style="font-size: 14px; color: #666;">※あなたのスキルと仕事を最短でつなぐための詳細情報をご登録ください。</p>
+            <h2>マイページ / アカウント確認・登録</h2>
             
-            <div class="admin-box">
-                <h4>🔒 プライバシー・公開設定（ユーザー自身の設定）</h4>
-                <label style="cursor: pointer; font-size: 14px; font-weight: bold;">
-                    <input type="checkbox" id="privacy-toggle" checked> フルネームを非公開にし、表示名（ニックネームやイニシャル）でリストに掲載する
-                </label>
-                <p style="font-size: 12px; margin-top: 5px; color: #666;">※マッチングが成立し、面談へ進むお相手にのみ本名が開示されます。運営側は不正防止のため本名を確認できます。</p>
+            <div style="background: #f1f5f9; padding: 15px; border-radius: 6px; margin-bottom: 20px; border-left: 5px solid #334155;">
+                <h4 style="margin:0 0 5px 0;">🔑 かんたんログイン設定</h4>
+                <p style="font-size: 13px; margin: 0 0 10px 0; color:#475569;">すでに登録した「表示名」を入力して下のログインを押すと、そのアカウントに切り替わります（端末識別用）。</p>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="login-name-input" placeholder="例: テスト" style="padding:8px; border:1px solid #ccc; border-radius:4px; flex:1;">
+                    <button type="button" class="search-btn" onclick="switchLoginUser()" style="min-width:120px;">ログインする</button>
+                </div>
             </div>
 
-            <div style="margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 15px;">
-                <span style="font-weight: bold; margin-right: 15px;">登録区分を選んでください：</span>
-                <label style="cursor: pointer; margin-right: 15px;"><input type="radio" name="user_type" value="individual" onchange="toggleForm()" checked> 👤 個人・フリーランス</label>
-                <label style="cursor: pointer;"><input type="radio" name="user_type" value="corporate" onchange="toggleForm()"> 🏢 企業・法人</label>
+            <hr style="border:0; border-top:1px solid #ddd; margin:30px 0;">
+
+            <h3>新規プロフィール登録</h3>
+            <div style="margin-bottom: 25px;">
+                <label style="cursor: pointer; margin-right: 15px;"><input type="radio" name="user_type" value="individual" checked> 👤 個人</label>
+                <label style="cursor: pointer;"><input type="radio" name="user_type" value="corporate"> 🏢 企業</label>
             </div>
 
             <form id="profile-form" style="max-width: 700px;">
-                <div class="avatar-upload-container">
-                    <div class="avatar-preview-box" id="avatar-preview"><span>写真未設定</span></div>
-                    <div>
-                        <label style="display: block; font-weight: bold; margin-bottom: 5px; font-size: 14px;">プロフィール写真 (任意)</label>
-                        <input type="file" id="avatar-input" accept="image/*" onchange="previewAvatar(this)">
-                    </div>
+                <div class="form-group"><label>【フルネーム】(運営管理用・非公開)</label><input type="text" id="user-fullname" value="山田 太郎"></div>
+                <div class="form-group">
+                    <label>表示名 (チャットやカードに公開される一意の名前)</label>
+                    <input type="text" id="user-nickname" placeholder="例: テスト" value="">
                 </div>
-
-                <div id="form-individual">
-                    <div class="form-group"><label>【フルネーム】(※非公開設定時は相手に見えません)</label><input type="text" id="user-fullname" placeholder="例: 山田 太郎" value="山田 太郎"></div>
-                    <div class="form-group" style="display: flex; gap: 15px;">
-                        <div style="flex: 1;"><label>表示名 (リストに公開される名前)</label><input type="text" id="user-nickname" placeholder="例: たろう" value="たろう"></div>
-                        <div style="flex: 1;"><label>【年齢】</label><input type="number" id="user-age" value="28"></div>
-                    </div>
-                    <div class="form-group" style="display: flex; gap: 15px;">
-                        <div style="flex: 1;"><label>【お住まい地域】</label><select id="user-location" class="pref-select"></select></div>
-                        <div style="flex: 1;"><label>【出身】</label><select id="user-birthplace" class="pref-select"></select></div>
-                    </div>
-                    <div class="form-group"><label>【本業】</label><input type="text" id="user-job" value="IT企業でフロントエンドエンジニア (歴5年)"></div>
-                    <div class="form-group"><label>【副業】</label><input type="text" id="user-sidejob" value="週末にWebデザイン受託"></div>
-                    <div class="form-group"><label>【趣味】</label><input type="text" id="user-hobby" value="サウナ、キャンプ"></div>
-                    <div class="form-group"><label>【繋がりたい人・協業希望内容】</label><textarea id="user-target" rows="3">新しいアプリを一緒に立ち上げてくれるデザイナーの仲間を募集中です！</textarea></div>
-                    <div class="form-group" style="background: #e8f5e9; padding: 15px; border-radius: 6px;">
-                        <label style="color: #2e7d32;">LINEでの連絡追加について</label>
-                        <label style="margin-right: 15px; cursor: pointer;"><input type="radio" name="line_ok" value="OK" checked> 🆗 追加OK</label>
-                        <label style="cursor: pointer;"><input type="radio" name="line_ok" value="NG"> 🆖 メッセージのみ</label>
-                        <div style="margin-top: 10px;"><input type="text" id="user-line" value="https://line.me/ti/p/dummy-link"></div>
-                    </div>
-                </div>
-
-                <div id="form-corporate" style="display: none;">
-                    <div class="form-group"><label>企業名・法人名</label><input type="text" id="corp-name" placeholder="例: 株式会社Revalen"></div>
-                    <div class="form-group"><label>担当者名</label><input type="text" id="corp-manager" placeholder="例: 鈴木"></div>
-                    <div class="form-group"><label>企業HP・サービスURL</label><input type="text" id="corp-url" placeholder="https://..."></div>
-                    <div class="form-group"><label>何をして、どのような企業か？</label><textarea id="corp-desc" rows="4"></textarea></div>
-                    <div class="form-group"><label>どのような人材を求めているか？</label><textarea id="corp-target" rows="4"></textarea></div>
-                    <div class="form-group"><label>稼働条件・単価イメージ</label><input type="text" id="corp-condition"></div>
-                </div>
-
-                <button type="button" class="btn" style="padding: 15px; font-size: 16px;" onclick="saveProfile()">プロフィールを登録・更新する</button>
+                <div class="form-group"><label>【本業・スキル】</label><input type="text" id="user-job" value="IT企業でフロントエンドエンジニア (歴5年)"></div>
+                <div class="form-group"><label>【繋がりた意向・希望内容】</label><textarea id="user-target" rows="3">新しいアプリを一緒に立ち上げてくれるデザイナーの仲間を募集中です！</textarea></div>
+                <button type="button" class="btn" style="padding: 15px; font-size: 16px;" onclick="saveProfile()">新しくプロフィールを登録・ログインする</button>
             </form>
         </div>
 
-        <!-- 6. 運営管理ダッシュボード -->
+        <!-- 6. 運営管理 -->
         <div id="admin" class="section">
             <h2>⚙️ 運営管理ダッシュボード</h2>
-            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※こちらはサービス運営者専用の秘密の管理画面です。</p>
-            
-            <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd;">
-                    <h3 style="margin: 0; font-size: 16px;">総登録ユーザー数</h3>
-                    <p style="font-size: 32px; font-weight: bold; margin: 10px 0 0 0;"><span id="admin-total-users">0</span> 名</p>
+            <div style="display: flex; gap: 20px; margin-bottom: 30px;">
+                <div style="flex: 1; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd;">
+                    <h3>総ユーザー数</h3><p style="font-size: 32px; font-weight: bold; margin:0;"><span id="admin-total-users">0</span> 名</p>
                 </div>
-                <div style="flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd;">
-                    <h3 style="margin: 0; font-size: 16px;">累計面談・コンタクト数</h3>
-                    <p style="font-size: 32px; font-weight: bold; margin: 10px 0 0 0;"><span id="admin-total-contacts">0</span> 件</p>
+                <div style="flex: 1; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd;">
+                    <h3>累計コンタクト数</h3><p style="font-size: 32px; font-weight: bold; margin:0;"><span id="admin-total-contacts">0</span> 件</p>
                 </div>
             </div>
 
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-                <h3>🔔 面談申し込み・コンタクト通知履歴（リアルタイム）</h3>
-                <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #cbd5e1;">
+            <div style="background: #f0fdf4; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                <h3>🔔 面談申し込み履歴</h3>
+                <div style="max-height: 220px; overflow-y: auto; background: white;">
                     <table class="admin-table">
-                        <thead>
-                            <tr><th>発生時間</th><th>アクション</th><th>発信ユーザー</th><th>対象のお相手</th></tr>
-                        </thead>
-                        <tbody id="admin-contact-logs">
-                            <tr><td colspan="4" style="text-align: center; color: #94a3b8; padding: 20px;">履歴はありません</td></tr>
-                        </tbody>
+                        <thead><tr><th>時間</th><th>種別</th><th>発信者</th><th>受信者</th></tr></thead>
+                        <tbody id="admin-contact-logs"></tbody>
                     </table>
                 </div>
             </div>
 
-            <div style="background: #fff1f2; border: 1px solid #fecdd3; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
-                <h3>👁️ 💬 全ユーザーのチャットログ</h3>
-                <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #e2e8f0;">
+            <div style="background: #fff1f2; padding: 20px; border-radius: 8px;">
+                <h3>👁️ 全チャットログ</h3>
+                <div style="max-height: 220px; overflow-y: auto; background: white;">
                     <table class="admin-table">
-                        <thead>
-                            <tr><th>送信時間</th><th>発信者</th><th>受信相手</th><th>送信メッセージ本文</th></tr>
-                        </thead>
-                        <tbody id="admin-chat-logs">
-                            <tr class="log-row-alert"><td colspan="4" style="text-align: center; color: #94a3b8; padding: 20px;">まだメッセージの履歴はありません</td></tr>
-                        </tbody>
+                        <thead><tr><th>時間</th><th>発信者</th><th>受信者</th><th>本文</th></tr></thead>
+                        <tbody id="admin-chat-logs"></tbody>
                     </table>
                 </div>
             </div>
-
-            <h3>ユーザー管理機能デモ</h3>
-            <div style="overflow-x: auto;">
-                <table class="admin-table" style="min-width: 800px;">
-                    <thead>
-                        <tr><th>ユーザーID</th><th>区分</th><th>アプリ上の公開名</th><th>ステータス</th><th>運営操作</th></tr>
-                    </thead>
-                    <tbody id="admin-user-rows"></tbody>
-                </table>
-            </div>
         </div>
     </div>
 
-    <footer><p>© 2026 Lixia (リクシア). All Rights Reserved. Created by Revalen-arch.</p></footer>
+    <footer><p>© 2026 Lixia. All Rights Reserved.</p></footer>
 
-    <!-- 各種モーダル -->
-    <div id="user-detail-modal" class="modal-overlay">
-        <div class="modal-content" style="max-width: 500px;">
-            <h3>👤 ユーザー詳細情報 (運営専用)</h3>
-            <div id="user-detail-content"></div>
-            <div class="modal-actions" style="margin-top: 25px;">
-                <button class="btn-modal-submit" id="admin-delete-btn" style="background-color: #d32f2f;">🚨 このユーザーを強制退会・データ削除する</button>
-                <button class="btn-modal-cancel" onclick="closeUserDetailModal()">閉じる</button>
-            </div>
-        </div>
-    </div>
-
+    <!-- チャットモーダル -->
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 20px;">
-            <h3>💬 <span id="chat-target-name">相手</span> とのチャット</h3>
+            <h3>💬 <span id="chat-target-name">お相手</span> とのチャット</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
                 <div class="chat-input-area">
@@ -582,41 +266,33 @@
                     <button class="chat-send-btn" onclick="sendChatMessage()">送信</button>
                 </div>
             </div>
-            <div class="modal-actions" style="margin-top: 15px;">
+            <div class="modal-actions">
                 <button class="btn-modal-cancel" onclick="closeChatWindow()">閉じる</button>
             </div>
         </div>
     </div>
 
+    <!-- 管理画面用認証 -->
     <div id="admin-login-modal" class="modal-overlay">
         <div class="modal-content" style="text-align: center;">
-            <h3 style="color: #d32f2f;">🔒 運営システム認証</h3>
+            <h3>🔒 運営システム認証</h3>
             <input type="password" id="admin-password-input" placeholder="パスワード">
             <p id="password-error-msg" class="modal-error">⚠️ パスワードが違います</p>
             <div class="modal-actions">
-                <button class="btn-modal-cancel" onclick="closeAdminModal()">キャンセル</button>
-                <button class="btn-modal-submit" onclick="submitAdminPassword()">ログイン</button>
+                <button class="btn-modal-cancel" onclick="closeAdminModal()">閉じる</button>
+                <button class="btn-modal-submit" onclick="submitAdminPassword()">認証</button>
             </div>
         </div>
     </div>
 
-    <!-- 🌐 Supabase専用のオンライン通信プログラム群 -->
     <script>
-        const prefectures = [
-            "北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", 
-            "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県", 
-            "新潟県", "富山県", "石川県", "福井県", "山梨県", "長野県", 
-            "岐阜県", "静岡県", "愛知県", "三重県", 
-            "滋賀県", "京都府", "大阪府", "兵庫県", "奈良県", "和歌山県", 
-            "鳥取県", "島根県", "岡山県", "広島県", "山口県", 
-            "徳島県", "香川県", "愛媛県", "高知県", 
-            "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
-        ];
-
-        let globalAvatarUrl = ""; let currentChatPartner = "";
+        const prefectures = ["北海道", "青森県", "岩手県", "宮城県", "秋田県", "山形県", "福島県", "茨城県", "栃木県", "群馬県", "埼玉県", "千葉県", "東京都", "神奈川県"];
+        let currentChatPartner = "";
         let fetchedUsers = [];
+        let myStaticLoginName = ""; // 💡 このブラウザが記憶している「確定ログイン名」
+        let knownContactIds = new Set(); // すでにポップアップ通知した面談IDのリスト
+        let isFirstLoad = true;
 
-        // 🔗 認証キー設定
         const url_part1 = "https://";
         const url_part2 = "yuhbcmvbcklplxmadoka";
         const url_part3 = ".supabase.co";
@@ -628,14 +304,33 @@
             prefSelects.forEach(select => {
                 select.appendChild(new Option("全てのエリア", ""));
                 prefectures.forEach(pref => select.appendChild(new Option(pref, pref)));
-                select.appendChild(new Option("フルリモート", "フルリモート"));
             });
+
+            // 💡 前回のログイン名がブラウザにあれば自動復元
+            if(localStorage.getItem('lixia_login_user')) {
+                myStaticLoginName = localStorage.getItem('lixia_login_user');
+                document.getElementById('current-user-badge').innerText = `👤 ログイン中: ${myStaticLoginName}`;
+                document.getElementById('login-name-input').value = myStaticLoginName;
+            }
+
             loadSupabaseData();
             
+            // 🔄 1秒ごとのリアルタイム・防壁監視パトロール
             setInterval(() => {
                 loadMessagesAndContacts();
             }, 1000);
         };
+
+        // 🔁 手動ログイン切り替え
+        function switchLoginUser() {
+            const name = document.getElementById('login-name-input').value.trim();
+            if(!name) { alert("表示名を入力してください。"); return; }
+            myStaticLoginName = name;
+            localStorage.setItem('lixia_login_user', name);
+            document.getElementById('current-user-badge').innerText = `👤 ログイン中: ${myStaticLoginName}`;
+            alert(`👤 アカウントを「${myStaticLoginName}」に切り替えました。`);
+            loadSupabaseData();
+        }
 
         async function loadSupabaseData() {
             try {
@@ -655,23 +350,21 @@
                 fetchedUsers = [...persons, ...partners];
                 updateAdminDashboard();
             } catch (err) {
-                console.error("データ取得エラー:", err);
+                console.error(err);
             }
         }
 
         async function loadMessagesAndContacts() {
+            if(!myStaticLoginName) return; // 未ログイン時は新着取得をスキップ
             try {
-                const myName = getCleanNickname();
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 
-                // 🔒【超重要セキュリティ】サーバーにリクエストする段階で、自分に関係あるメッセージだけを厳密にフィルタリング（他人のチャットは1ミリも取得しない）
+                // 1. チャットを自分に関係するものだけに絞り込んで通信（完全プライバシー防壁）
                 let url = `${SUPABASE_API_URL}/messages?order=created_at.asc`;
                 if (document.getElementById('chat-modal').style.display === 'flex') {
-                    // 自分と相手の部屋のデータだけをピンポイント取得
-                    url += `&or=(and(sender.eq.${encodeURIComponent(myName)},receiver.eq.${encodeURIComponent(currentChatPartner)}),and(sender.eq.${encodeURIComponent(currentChatPartner)},receiver.eq.${encodeURIComponent(myName)}))`;
+                    url += `&or=(and(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(currentChatPartner)}),and(sender.eq.${encodeURIComponent(currentChatPartner)},receiver.eq.${encodeURIComponent(myStaticLoginName)}))`;
                 } else {
-                    // チャットを開いていないときは、自分宛て、または自分が送ったものだけを最低限取得
-                    url += `&or=(sender.eq.${encodeURIComponent(myName)},receiver.eq.${encodeURIComponent(myName)})`;
+                    url += `&or=(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(myStaticLoginName)})`;
                 }
 
                 const rMsg = await fetch(url, { headers });
@@ -682,50 +375,57 @@
                 }
                 updateAdminChatLogs(filteredMsgs);
 
+                // 2. 面談データの取得とリアルタイム画面ポップアップ通知
                 const rContact = await fetch(`${SUPABASE_API_URL}/contacts?order=created_at.desc`, { headers });
                 const allContacts = await rContact.json();
                 updateAdminContactDashboard(allContacts);
 
+                // 🔔【リアルタイム面談通知システム】
+                allContacts.forEach(c => {
+                    // 自分宛ての面談であり、まだ一度も通知していない新着IDの場合
+                    if (c.receiver === myStaticLoginName && !knownContactIds.has(c.id)) {
+                        knownContactIds.add(c.id);
+                        if (!isFirstLoad) { // ページを開いた瞬間の過去データの爆発通知を防止
+                            alert(`🔔【新着通知】${c.sender}さんから「${c.type}」が届きました！右上メニューのチャットより連絡を取ってください。`);
+                        }
+                    } else {
+                        knownContactIds.add(c.id);
+                    }
+                });
+                isFirstLoad = false;
+
             } catch (e) {
-                console.error("リアルタイム同期エラー:", e);
+                console.error(e);
             }
         }
 
         async function applyContact(targetName, type) {
-            const myName = getCleanNickname();
-            if(myName === targetName) { alert("自分自身には送信できません。"); return; }
-            const headers = { 
-                "apikey": base_key, 
-                "Authorization": `Bearer ${base_key}`,
-                "Content-Type": "application/json"
-            };
+            if(!myStaticLoginName) { alert("面談を申し込むには、マイページで登録またはログインを先に完了してください。"); return; }
+            if(myStaticLoginName === targetName) { alert("自分自身には送信できません。"); return; }
+            
+            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
             try {
                 await fetch(`${SUPABASE_API_URL}/contacts`, {
                     method: "POST",
                     headers,
-                    body: JSON.stringify({ sender: myName, receiver: targetName, type: type })
+                    body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, type: type })
                 });
-                alert(`🎉 【オンライン通知】${targetName}さんへ、正常に「${type}」を送信しデータベースに記録しました！`);
+                alert(`🎉 ${targetName}さんへ「${type}」を送信しました！お相手の画面にリアルタイム通知が届きます。`);
             } catch (e) {
-                alert("送信エラーが発生しました。");
+                alert("送信エラー");
             }
-        }
-
-        function getCleanNickname() {
-            const nameInput = document.getElementById('user-nickname').value || "名無しさん";
-            return nameInput.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
         }
 
         function renderPersonCards(list) {
             const box = document.getElementById('person-list');
             if(!list || list.length === 0) {
-                box.innerHTML = `<p id="person-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">登録された人材データはまだありません。</p>`;
+                box.innerHTML = `<p style="color: #999; text-align: center; width: 100%;">登録データがありません。</p>`;
                 return;
             }
-            const myCurrentName = getCleanNickname();
             box.innerHTML = list.map(u => {
+                // 💡 (あなた)などの文字列が混ざらないように純粋比較
                 const cleanTitle = u.title.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
-                const suffix = (cleanTitle === myCurrentName) ? "（あなた）" : "";
+                const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
                 return `
                     <div class="card person-card">
                         <div class="card-img-box"><img src="${u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
@@ -747,240 +447,91 @@
 
         function renderJobCards(list) {
             const box = document.getElementById('job-list');
-            if(!list || list.length === 0) {
-                box.innerHTML = `<p id="job-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">掲載されている企業案件は現在ありません。</p>`;
-                return;
-            }
+            if(!list || list.length === 0) { box.innerHTML = `<p style="color: #999;">案件がありません。</p>`; return; }
             box.innerHTML = list.map(j => `
-                <div class="card job-card">
-                    <div class="card-img-box"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80"></div>
-                    <div class="card-inner">
-                        <div>
-                            <span class="card-tag tag-primary">企業案件</span>
-                            <h3 style="margin: 10px 0 5px 0;">${escapeHtml(j.title)}</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color:#666;">${escapeHtml(j.description)}</p>
-                        </div>
-                        <div class="card-actions">
-                            <button class="btn" onclick="applyContact('${escapeHtml(j.title)}', '案件エントリー')">話を聞いてみる</button>
-                        </div>
-                    </div>
-                </div>
+                <div class="card job-card"><div class="card-inner"><h3>${escapeHtml(j.title)}</h3><p>${escapeHtml(j.description)}</p></div></div>
             `).join('');
         }
 
         function renderPartnerCards(list) {
             const box = document.getElementById('partner-list');
-            if(!list || list.length === 0) {
-                box.innerHTML = `<p id="partner-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">仲間・メンバーの募集情報は現在ありません。</p>`;
-                return;
-            }
-            const myCurrentName = getCleanNickname();
+            if(!list || list.length === 0) { box.innerHTML = `<p style="color: #999;">仲間募集がありません。</p>`; return; }
             box.innerHTML = list.map(p => {
                 const cleanTitle = p.title.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
-                const suffix = (cleanTitle === myCurrentName) ? "（あなた）" : "";
+                const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
                 return `
-                    <div class="card partner-card">
-                        <div class="card-img-box"><img src="${p.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
-                        <div class="card-inner">
-                            <div>
-                                <span class="card-tag tag-secondary">個人・協業相手</span>
-                                <h3 style="margin: 10px 0 5px 0;">${escapeHtml(cleanTitle)}${suffix}</h3>
-                                <p style="margin: 5px 0; font-size: 13px; color:#444;">募集内容: ${escapeHtml(p.description)}</p>
-                            </div>
-                            <div class="card-actions">
-                                <button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', 'コンタクト募集への応答')">コンタクトを取る</button>
-                                <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>
-                            </div>
-                        </div>
-                    </div>
+                    <div class="card partner-card"><div class="card-inner"><h3>${escapeHtml(cleanTitle)}${suffix}</h3><p>${escapeHtml(p.description)}</p>
+                    <div class="card-actions"><button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button></div></div></div>
                 `;
             }).join('');
         }
 
         async function saveProfile() {
+            const nickname = document.getElementById('user-nickname').value.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+            if(!nickname) { alert("表示名を入力してください。"); return; }
+
             const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
-            const defaultPic = globalAvatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
-            
-            const headers = { 
-                "apikey": base_key, 
-                "Authorization": `Bearer ${base_key}`,
-                "Content-Type": "application/json",
-                "Prefer": "return=representation"
-            };
+            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
 
             try {
-                const nickname = getCleanNickname();
-                const fullname = document.getElementById('user-fullname').value || "非公開";
-                const job = document.getElementById('user-job').value || "未指定の職種";
-                const location = document.getElementById('user-location').value || "東京都";
-                const target = document.getElementById('user-target').value || "";
-
                 if (!isCorporate) {
+                    const fullname = document.getElementById('user-fullname').value;
+                    const job = document.getElementById('user-job').value;
+                    const target = document.getElementById('user-target').value;
+                    
                     await fetch(`${SUPABASE_API_URL}/persons`, {
                         method: "POST",
                         headers,
-                        body: JSON.stringify({
-                            title: nickname,
-                            tag: defaultPic,
-                            description: `本業: ${job} / 地域: ${location} / 希望: ${target} [本名:${fullname}]`
-                        })
+                        body: JSON.stringify({ title: nickname, tag: "", description: `本業: ${job} / 希望: ${target} [本名:${fullname}]` })
                     });
-
                     await fetch(`${SUPABASE_API_URL}/partners`, {
                         method: "POST",
                         headers,
-                        body: JSON.stringify({
-                            title: nickname,
-                            tag: defaultPic,
-                            description: `本業: ${job} / 希望内容: ${target}`
-                        })
-                    });
-
-                } else {
-                    const corpName = document.getElementById('corp-name').value || "未指定の企業";
-                    const corpDesc = document.getElementById('corp-desc').value || "";
-                    const corpTarget = document.getElementById('corp-target').value || "";
-                    const corpCondition = document.getElementById('corp-condition').value || "要相談";
-
-                    await fetch(`${SUPABASE_API_URL}/jobs`, {
-                        method: "POST",
-                        headers,
-                        body: JSON.stringify({
-                            title: `${corpName} / ${corpTarget}`,
-                            tag: "corporate",
-                            description: `条件: ${corpCondition} / 内容: ${corpDesc}`
-                        })
+                        body: JSON.stringify({ title: nickname, tag: "", description: `希望内容: ${target}` })
                     });
                 }
-
-                alert('🎉 プロフィールの登録に成功しました！');
+                
+                // 💡 登録完了と同時に、このブラウザをそのアカウント名でロックオン強制ログイン
+                myStaticLoginName = nickname;
+                localStorage.setItem('lixia_login_user', nickname);
+                document.getElementById('current-user-badge').innerText = `👤 ログイン中: ${myStaticLoginName}`;
+                
+                alert('🎉 登録とログインに成功しました！');
                 await loadSupabaseData();
                 showSection('find-person');
             } catch (err) {
-                alert('通信エラーが発生しました。');
                 console.error(err);
             }
         }
-
-        function updateAdminDashboard() {
-            document.getElementById('admin-total-users').innerText = fetchedUsers.length;
-            const tbody = document.getElementById('admin-user-rows');
-            tbody.innerHTML = fetchedUsers.map((u, index) => `
-                <tr>
-                    <td>DB-${index+1}</td>
-                    <td>データ</td>
-                    <td>${escapeHtml(u.title)}</td>
-                    <td>正常</td>
-                    <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="viewAdminDetail('${u.id}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}')">詳細確認/退会</button></td>
-                </tr>
-            `).join('');
-        }
-
-        function updateAdminContactDashboard(list) {
-            document.getElementById('admin-total-contacts').innerText = list.length;
-            const tbody = document.getElementById('admin-contact-logs');
-            if(list.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #94a3b8; padding: 20px;">履歴はありません</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = list.map(c => `
-                <tr>
-                    <td>${new Date(c.created_at).toLocaleString()}</td>
-                    <td><span style="background:#dcfce7; color:#166534; padding:3px 8px; border-radius:4px; font-weight:bold; font-size:12px;">${escapeHtml(c.type)}</span></td>
-                    <td><strong>${escapeHtml(c.sender)}</strong></td>
-                    <td>${escapeHtml(c.receiver)}</td>
-                </tr>
-            `).join('');
-        }
-
-        function viewAdminDetail(id, title, desc) {
-            document.getElementById('user-detail-content').innerHTML = `
-                <div class="detail-row"><div class="detail-label">システムID</div><div class="detail-value">${id}</div></div>
-                <div class="detail-row"><div class="detail-label">公開名</div><div class="detail-value">${title}</div></div>
-                <div class="detail-row"><div class="detail-label">登録情報全データ</div><div class="detail-value">${desc}</div></div>
-            `;
-
-            document.getElementById('admin-delete-btn').onclick = async function() {
-                if(confirm(`⚠️ 本当にこのユーザーデータを永久削除しますか？`)) {
-                    const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
-                    await fetch(`${SUPABASE_API_URL}/persons?id=eq.${id}`, { method: "DELETE", headers });
-                    await fetch(`${SUPABASE_API_URL}/partners?id=eq.${id}`, { method: "DELETE", headers });
-                    await fetch(`${SUPABASE_API_URL}/jobs?id=eq.${id}`, { method: "DELETE", headers });
-
-                    alert('🚨 データを完全に消去しました。');
-                    closeUserDetailModal();
-                    loadSupabaseData();
-                }
-            };
-            document.getElementById('user-detail-modal').style.display = 'flex';
-        }
-
-        function previewAvatar(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('avatar-preview').innerHTML = `<img src="${e.target.result}" alt="プレビュー">`;
-                    globalAvatarUrl = e.target.result; 
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
-        function showSection(sectionId) { document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); document.getElementById(sectionId).classList.add('active'); }
-        function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; }
-        function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
-        function submitAdminPassword() { if (document.getElementById('admin-password-input').value === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; } }
-        
-        function openChatWindow(name) {
-            const myName = getCleanNickname();
-            if(myName === name) { alert("自分自身とチャットすることはできません。"); return; }
-            currentChatPartner = name;
-            document.getElementById('chat-target-name').innerText = name;
-            document.getElementById('chat-modal').style.display = 'flex';
-            document.getElementById('chat-input-field').focus();
-            lastMessageCount = 0; 
-        }
-        function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
-        function toggleForm() { const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; document.getElementById('form-individual').style.display = isCorp ? 'none' : 'block'; document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
 
         async function sendChatMessage() {
             const inputField = document.getElementById('chat-input-field');
             const messageText = inputField.value.trim();
             if(messageText === "") return;
+            if(!myStaticLoginName) { alert("チャットを送信するにはログインが必要です。"); return; }
 
-            const myName = getCleanNickname();
-            const headers = { 
-                "apikey": base_key, 
-                "Authorization": `Bearer ${base_key}`,
-                "Content-Type": "application/json"
-            };
-
+            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
             try {
                 await fetch(`${SUPABASE_API_URL}/messages`, {
                     method: "POST",
                     headers,
-                    body: JSON.stringify({ sender: myName, receiver: currentChatPartner, text: messageText })
+                    body: JSON.stringify({ sender: myStaticLoginName, receiver: currentChatPartner, text: messageText })
                 });
                 inputField.value = "";
             } catch (e) {
-                console.error("チャット送信失敗:", e);
+                console.error(e);
             }
         }
 
         let lastMessageCount = 0;
         function renderChatBubbles(filteredMsg) {
             const box = document.getElementById('chat-messages-box');
-            const myName = getCleanNickname();
-            
             if(!filteredMsg || filteredMsg.length === 0) {
-                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 秘密の暗号化プライベートチャットです。</div>`; 
+                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 隔離暗号化された部屋です。</div>`; 
                 return;
             }
-            
             box.innerHTML = filteredMsg.map(m => {
-                const isMeClass = (m.sender === myName) ? 'me' : 'other';
+                const isMeClass = (m.sender === myStaticLoginName) ? 'me' : 'other';
                 const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 return `<div class="chat-bubble ${isMeClass}"><div>${escapeHtml(m.text)}</div><div class="chat-bubble-meta">${timeStr}</div></div>`;
             }).join('');
@@ -991,32 +542,34 @@
             }
         }
 
-        function updateAdminChatLogs(allMsgs) {
-            const tbody = document.getElementById('admin-chat-logs');
-            if(!allMsgs || allMsgs.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #94a3b8; padding: 20px;">チャットログはありません</td></tr>`;
-                return;
-            }
-            tbody.innerHTML = allMsgs.slice().reverse().map(m => `
-                <tr>
-                    <td>${new Date(m.created_at).toLocaleString()}</td>
-                    <td>${escapeHtml(m.sender)}</td>
-                    <td>${escapeHtml(m.receiver)}</td>
-                    <td>${escapeHtml(m.text)}</td>
-                </tr>
-            `).join('');
+        function openChatWindow(name) {
+            if(!myStaticLoginName) { alert("チャットを開くには、マイページで登録またはログインを先に行ってください。"); return; }
+            if(myStaticLoginName === name) { alert("自分自身とはチャットできません。"); return; }
+            currentChatPartner = name;
+            document.getElementById('chat-target-name').innerText = name;
+            document.getElementById('chat-modal').style.display = 'flex';
+            document.getElementById('chat-input-field').focus();
+            lastMessageCount = 0;
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            const inputField = document.getElementById('chat-input-field');
-            if (inputField) {
-                inputField.addEventListener('keypress', function (e) {
-                    if (e.key === 'Enter') sendChatMessage();
-                });
-            }
-        });
-        
-        function searchPersons() {} function searchJobs() {} function searchPartners() {}
+        function updateAdminDashboard() { document.getElementById('admin-total-users').innerText = fetchedUsers.length; }
+        function updateAdminContactDashboard(list) {
+            document.getElementById('admin-total-contacts').innerText = list.length;
+            const tbody = document.getElementById('admin-contact-logs');
+            tbody.innerHTML = list.map(c => `<tr><td>${new Date(c.created_at).toLocaleTimeString()}</td><td>${escapeHtml(c.type)}</td><td>${escapeHtml(c.sender)}</td><td>${escapeHtml(c.receiver)}</td></tr>`).join('');
+        }
+        function updateAdminChatLogs(allMsgs) {
+            const tbody = document.getElementById('admin-chat-logs');
+            tbody.innerHTML = allMsgs.slice().reverse().map(m => `<tr><td>${new Date(m.created_at).toLocaleTimeString()}</td><td>${escapeHtml(m.sender)}</td><td>${escapeHtml(m.receiver)}</td><td>${escapeHtml(m.text)}</td></tr>`).join('');
+        }
+
+        function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
+        function showSection(sectionId) { document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); document.getElementById(sectionId).classList.add('active'); }
+        function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; }
+        function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
+        function submitAdminPassword() { if (document.getElementById('admin-password-input').value === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; } }
+        function toggleForm() { const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; document.getElementById('form-individual').style.display = isCorp ? 'none' : 'block'; }
+        function escapeHtml(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
     </script>
 </body>
 </html>
