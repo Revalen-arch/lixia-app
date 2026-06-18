@@ -144,7 +144,7 @@
         
         .detail-row { display: flex; border-bottom: 1px solid #eee; padding: 10px 0; }
         .detail-label { width: 120px; font-weight: bold; color: #555; }
-        .detail-value { flex: 1; font-size: 14px; color: #333; }
+        .detail-value { flex: 1; color: #333; }
 
         footer { background-color: #333; color: #ccc; text-align: center; padding: 25px 20px; margin-top: 50px; font-size: 12px; border-top: 4px solid var(--primary-color); }
     </style>
@@ -168,6 +168,7 @@
 
     <div class="container">
         
+        <!-- 1. 人材を探す(企業) -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
@@ -198,6 +199,7 @@
             <div class="card-grid" id="person-list"></div>
         </div>
 
+        <!-- 2. 案件を探す(個人) -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
@@ -241,6 +243,7 @@
             <div class="card-grid" id="job-list"></div>
         </div>
 
+        <!-- 3. 仲間を探す(個人間) -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
@@ -282,42 +285,59 @@
             <div class="card-grid" id="partner-list"></div>
         </div>
 
+        <!-- 4. 無料優待サービス 【🚨全6大カテゴリ画像＆紹介詳細テキスト120%完全復活】 -->
         <div id="benefits" class="section">
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
+            
             <div style="text-align: center; background: #fffcf0; border: 2px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
                 <h3 style="margin-top: 0; color: #e65100; font-size: 18px;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
+                <p style="font-size: 13px; color: #555; margin-bottom: 10px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの詳細確認・申請が可能です。</p>
                 <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ページを開く (別タブ移動) ➔</a>
             </div>
 
             <h3 style="margin-top: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">主なカテゴリと提携施設例</h3>
-            <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 15px; margin-bottom: 30px;">
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
+            <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div class="card" style="border-top: 4px solid var(--primary-color);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:15px;">
-                        <h4>✈️ トラベル (15,000施設以上)</h4>
+                        <h4 style="margin:0 0 5px 0;">✈️ トラベル (15,000施設以上)</h4>
                         <p style="font-size: 12px; color: #666; margin: 0;">HIS, 大江戸温泉物語, ROUTE INN HOTELS, Trip.com 等</p>
                     </div>
                 </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                <div class="card" style="border-top: 4px solid var(--primary-color);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:15px;">
-                        <h4>🎬 レジャー (3,000施設以上)</h4>
+                        <h4 style="margin:0 0 5px 0;">🎬 レジャー (3,000施設以上)</h4>
                         <p style="font-size: 12px; color: #666; margin: 0;">TOHO CINEMAS, 富士急ハイランド, サンリオピューロランド 等</p>
                     </div>
                 </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                <div class="card" style="border-top: 4px solid var(--primary-color);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:15px;">
-                        <h4>🍔 グルメ (5,000施設以上)</h4>
+                        <h4 style="margin:0 0 5px 0;">🍔 グルメ (5,000施設以上)</h4>
                         <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀座ライオン, ドムドムハンバーガー, 吉野家 等</p>
                     </div>
                 </div>
-                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                <div class="card" style="border-top: 4px solid var(--primary-color);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:15px;">
-                        <h4>🏃 スポーツ (3,000施設以上)</h4>
+                        <h4 style="margin:0 0 5px 0;">🏃 スポーツ (3,000施設以上)</h4>
                         <p style="font-size: 12px; color: #666; margin: 0;">chocoZAP, JOY FIT, GDO, MEGALOS 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--primary-color);">
+                    <div class="card-img-box"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80"></div>
+                    <div class="card-inner" style="padding:15px;">
+                        <h4 style="margin:0 0 5px 0;">🏢 ライフサポート (6,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">洋服の青山, OWNDAYS, トレファク, メガネスーパー 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--primary-color);">
+                    <div class="card-img-box"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80"></div>
+                    <div class="card-inner" style="padding:15px;">
+                        <h4 style="margin:0 0 5px 0;">🎓 キャリア (1,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">ユーキャン, 英会話イーオン, ABC Cooking Studio 等</p>
                     </div>
                 </div>
             </div>
@@ -329,9 +349,12 @@
                 <tr><td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 15px;">900円</td><td>100円お得</td></tr>
                 <tr><td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: #ff6600; font-weight: bold; font-size: 15px;">450円</td><td>50円お得</td></tr>
                 <tr><td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 15px;">1,300円〜</td><td>最大700円お得</td></tr>
+                <tr><td>🍗 ファストフード</td><td>KFC (ケンタッキー)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 15px;">900円</td><td>100円お得</td></tr>
+                <tr><td>⛳️ スポーツ</td><td>GDO (ゴルフ予約等)</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 15px;">4,500円</td><td>500円お得</td></tr>
             </table>
         </div>
 
+        <!-- 5. マイページ / 登録・ログイン -->
         <div id="profile" class="section">
             <h2>マイページ / ログイン・新規登録</h2>
             
@@ -391,6 +414,7 @@
             </form>
         </div>
 
+        <!-- 6. 運営管理 -->
         <div id="admin" class="section">
             <h2>⚙️ 運営管理ダッシュボード</h2>
             <div style="display: flex; gap: 20px; margin-bottom: 30px;">
@@ -434,6 +458,7 @@
 
     <footer><p>© 2026 Lixia (リクシア). All Rights Reserved.</p></footer>
 
+    <!-- モーダル -->
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 20px;">
             <h3>💬 <span id="chat-target-name">お相手</span> とのチャット</h3>
@@ -520,7 +545,7 @@
             try {
                 const response = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${encodeURIComponent(inputName)}`, { headers });
                 const userRecords = await response.json();
-                if(!userRecords || userRecords.length === 0) { alert("⚠️ アカウントが見つかりません。識別ハッシュ番号まで正確に入力してください。"); return; }
+                if(!userRecords || userRecords.length === 0) { alert("⚠️ アカウントが見つかりません。"); return; }
                 
                 if (userRecords[0].password === inputPass) {
                     myStaticLoginName = inputName;
@@ -596,7 +621,7 @@
             box.innerHTML = list.map(u => {
                 const cleanTitle = u.title.trim();
                 const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 return `
                     <div class="card">
                         <div class="card-img-box"><img src="${finalImg}"></div>
@@ -663,12 +688,10 @@
                     const target = document.getElementById('user-target').value;
                     const location = document.getElementById('user-location-reg').value || "未指定";
                     
-                    // 🚨【ロジック強化】LINEのラジオボタン選択設定を読み取る
                     const lineOkRadio = document.querySelector('input[name="line_ok"]:checked').value;
                     const lineUrl = document.getElementById('user-line').value.trim();
                     const lineInfoStr = (lineOkRadio === "OK") ? `[LINE追加:🆗URL:${lineUrl}]` : `[LINE追加:🆖メッセージのみ]`;
 
-                    // descriptionの中にLINE連携データをパースして暗号保存！
                     await fetch(`${SUPABASE_API_URL}/persons`, {
                         method: "POST", headers,
                         body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `本業: ${job} / 地域: ${location} / 希望: ${target} ${lineInfoStr} [本名:${fullname}]` })
@@ -686,7 +709,7 @@
                 alert(`🎉 登録成功！\n\nあなたのログイン表示名は【 ${nickname} 】です。メモしてください！`);
                 await loadSupabaseData();
                 showSection('find-person');
-            } catch (err) { console.error(err); }
+            } catch (e) { console.error(e); }
         }
 
         async function sendChatMessage() {
