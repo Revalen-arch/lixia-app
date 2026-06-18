@@ -194,7 +194,6 @@
 
     <div class="container">
         
-        <!-- 1. 企業向け：人材を探す画面 -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
@@ -223,13 +222,11 @@
                 <button class="search-btn" onclick="searchPersons()">検索する</button>
             </div>
 
-            <!-- 初期は空 -->
             <div class="card-grid" id="person-list">
                 <p id="person-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">登録された人材データはまだありません。マイページから最初の登録を行ってみましょう！</p>
             </div>
         </div>
 
-        <!-- 2. 個人向け：案件を探す画面 -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
@@ -271,13 +268,11 @@
                 <button class="search-btn" onclick="searchJobs()">検索する</button>
             </div>
 
-            <!-- 初期は空 -->
             <div class="card-grid" id="job-list">
                 <p id="job-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">掲載されている企業案件は現在ありません。</p>
             </div>
         </div>
 
-        <!-- 3. 個人間：仲間・協業相手を探す画面 -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
@@ -336,23 +331,110 @@
                 <button class="search-btn" onclick="searchPartners()">検索する</button>
             </div>
 
-            <!-- 初期は空 -->
             <div class="card-grid" id="partner-list">
                 <p id="partner-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">仲間・メンバーの募集情報は現在ありません。</p>
             </div>
         </div>
 
-        <!-- 4. 優待サービス画面 -->
         <div id="benefits" class="section">
             <h2>無料優待サービス (約3万施設以上)</h2>
-            <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！</p>
+            <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
+            
             <div style="text-align: center; background: #fffcf0; border: 2px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
                 <h3 style="margin-top: 0; color: #e65100; font-size: 18px;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
-                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ページを開く (別タブ移動) ➔</a>
+                <p style="font-size: 13px; color: #555; margin-bottom: 10px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの詳細確認・申請が可能です。</p>
+                
+                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">
+                    🚀 外部優待ページを開く (別タブ移動) ➔
+                </a>
+                
+                <p style="font-size: 11px; color: #999; margin: 0;">※クリックすると提携先の「Cellnet L-Link」外部認証・ログイン画面へ直接ジャンプします。</p>
             </div>
+
+            <h3 style="margin-top: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">主なカテゴリと提携施設例</h3>
+            <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <div class="card-img-box" style="height: 100px;">
+                        <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=300&q=80" alt="トラベル">
+                    </div>
+                    <div class="card-inner" style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px 0;">✈️ トラベル (15,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">HIS, 大江戸温泉物語, ROUTE INN HOTELS, Trip.com 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <div class="card-img-box" style="height: 100px;">
+                        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=300&q=80" alt="レジャー">
+                    </div>
+                    <div class="card-inner" style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px 0;">🎬 レジャー (3,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">TOHO CINEMAS, 富士急ハイランド, サンリオピューロランド 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <div class="card-img-box" style="height: 100px;">
+                        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=300&q=80" alt="グルメ">
+                    </div>
+                    <div class="card-inner" style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px 0;">🍔 グルメ (5,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">PIZZA-LA, 銀座ライオン, ドムドムハンバーガー 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <div class="card-img-box" style="height: 100px;">
+                        <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=300&q=80" alt="スポーツ">
+                    </div>
+                    <div class="card-inner" style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px 0;">🏃 スポーツ (3,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">chocoZAP, JOY FIT, GDO, MEGALOS 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <div class="card-img-box" style="height: 100px;">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=300&q=80" alt="ライフサポート">
+                    </div>
+                    <div class="card-inner" style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px 0;">🏢 ライフサポート (6,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">洋服の青山, OWNDAYS, トレファク, メガネスーパー 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 3px solid var(--primary-color);">
+                    <div class="card-img-box" style="height: 100px;">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=300&q=80" alt="キャリア">
+                    </div>
+                    <div class="card-inner" style="padding: 10px;">
+                        <h4 style="margin: 0 0 5px 0;">🎓 キャリア (1,000施設以上)</h4>
+                        <p style="font-size: 12px; color: #666; margin: 0;">ユーキャン, 英会話イーオン, ABC Cooking Studio 等</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 30px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">一部割引のご紹介</h3>
+            <table>
+                <tr>
+                    <th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: #ff6600; color: white;">優待価格</th><th>実質のお得額</th>
+                </tr>
+                <tr>
+                    <td>☕️ カフェ</td><td>世界最大級 of コーヒーチェーン</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td><td>500円お得</td>
+                </tr>
+                <tr>
+                    <td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td><td>100円お得</td>
+                </tr>
+                <tr>
+                    <td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">450円</td><td>50円お得</td>
+                </tr>
+                <tr>
+                    <td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">1,300円〜</td><td>最大700円お得</td>
+                </tr>
+                <tr>
+                    <td>🍗 ファストフード</td><td>KFC (ケンタッキー)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td><td>100円お得</td>
+                </tr>
+                <tr>
+                    <td>⛳️ スポーツ</td><td>GDO (ゴルフ予約等)</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td><td>500円お得</td>
+                </tr>
+            </table>
         </div>
 
-        <!-- 5. マイページ / 詳細プロフィール登録画面 -->
         <div id="profile" class="section">
             <h2>マイページ / プロフィール登録</h2>
             <p style="font-size: 14px; color: #666;">※あなたのスキルと仕事を最短でつなぐための詳細情報をご登録ください。</p>
@@ -362,6 +444,7 @@
                 <label style="cursor: pointer; font-size: 14px; font-weight: bold;">
                     <input type="checkbox" id="privacy-toggle" checked> フルネームを非公開にし、表示名（ニックネームやイニシャル）でリストに掲載する
                 </label>
+                <p style="font-size: 12px; margin-top: 5px; color: #666;">※マッチングが成立し、面談へ進むお相手にのみ本名が開示されます。運営側は不正防止のため本名を確認できます。</p>
             </div>
 
             <div style="margin-bottom: 25px; border-bottom: 2px solid #ddd; padding-bottom: 15px;">
@@ -380,10 +463,9 @@
                 </div>
 
                 <div id="form-individual">
-                    <!-- 🆕 名前の編集欄（user-fullname, user-nickname） -->
-                    <div class="form-group"><label>【フルネーム】(※非公開設定時は相手に見えません)</label><input type="text" id="user-fullname" placeholder="例: 山田 太郎" value="山田 太郎"></div>
+                    <div class="form-group"><label>【フルネーム】</label><input type="text" id="user-fullname" placeholder="例: 山田 太郎" value="山田 太郎"></div>
                     <div class="form-group" style="display: flex; gap: 15px;">
-                        <div style="flex: 1;"><label>表示名 (リストに公開される名前)</label><input type="text" id="user-nickname" placeholder="例: たろう" value="たろう(あなた)"></div>
+                        <div style="flex: 1;"><label>表示名 (公開ニックネーム)</label><input type="text" id="user-nickname" placeholder="例: たろう" value="たろう(あなた)"></div>
                         <div style="flex: 1;"><label>【年齢】</label><input type="number" id="user-age" value="28"></div>
                     </div>
                     <div class="form-group" style="display: flex; gap: 15px;">
@@ -393,12 +475,12 @@
                     <div class="form-group"><label>【本業】</label><input type="text" id="user-job" value="IT企業でフロントエンドエンジニア (歴5年)"></div>
                     <div class="form-group"><label>【副業】</label><input type="text" id="user-sidejob" value="週末にWebデザイン受託"></div>
                     <div class="form-group"><label>【趣味】</label><input type="text" id="user-hobby" value="サウナ、キャンプ"></div>
-                    <div class="form-group"><label>【繋がりたい人・協業希望内容】</label><textarea id="user-target" rows="3">新しいマッチングアプリを一緒に立ち上げてくれるデザイナーの相棒を募集中です！</textarea></div>
+                    <div class="form-group"><label>【繋がりたい人・協業希望内容】</label><textarea id="user-target" rows="3">新しいアプリを一緒に立ち上げてくれるデザイナーの仲間を募集中です！</textarea></div>
                     <div class="form-group" style="background: #e8f5e9; padding: 15px; border-radius: 6px;">
                         <label style="color: #2e7d32;">LINEでの連絡追加について</label>
                         <label style="margin-right: 15px; cursor: pointer;"><input type="radio" name="line_ok" value="OK" checked> 🆗 追加OK</label>
                         <label style="cursor: pointer;"><input type="radio" name="line_ok" value="NG"> 🆖 メッセージのみ</label>
-                        <div style="margin-top: 10px;"><input type="text" id="user-line" placeholder="https://line.me/ti/p/..." value="https://line.me/ti/p/dummy-link"></div>
+                        <div style="margin-top: 10px;"><input type="text" id="user-line" value="https://line.me/ti/p/dummy-link"></div>
                     </div>
                 </div>
 
@@ -415,9 +497,10 @@
             </form>
         </div>
 
-        <!-- 6. 運営管理ダッシュボード -->
         <div id="admin" class="section">
             <h2 style="border-bottom-color: #d32f2f; color: #d32f2f;">⚙️ 運営管理ダッシュボード</h2>
+            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※こちらはサービス運営者専用の秘密の管理画面です。</p>
+            
             <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd;">
                     <h3 style="margin: 0; font-size: 16px;">総登録ユーザー数</h3>
@@ -429,7 +512,6 @@
                 </div>
             </div>
 
-            <!-- チャットログ -->
             <div style="background: #fff1f2; border: 1px solid #fecdd3; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
                 <h3>👁️ 💬 全ユーザーのチャットログ</h3>
                 <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #e2e8f0;">
@@ -444,30 +526,25 @@
                 </div>
             </div>
 
-            <!-- ユーザー管理機能テーブル -->
             <h3>ユーザー管理機能デモ</h3>
             <div style="overflow-x: auto;">
                 <table class="admin-table" style="min-width: 800px;">
                     <thead>
                         <tr><th>ユーザーID</th><th>区分</th><th>アプリ上の公開名</th><th>ステータス</th><th>運営操作</th></tr>
                     </thead>
-                    <tbody id="admin-user-rows">
-                        <!-- ここに新しく登録されたアカウント行が動的に追加されます -->
-                    </tbody>
+                    <tbody id="admin-user-rows"></tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <footer><p>© 2026 Lixia (リクシア). All Rights Reserved.</p></footer>
+    <footer><p>© 2026 Lixia (リクシア). All Rights Reserved. Created by Revalen-arch.</p></footer>
 
-    <!-- 各種モーダル -->
     <div id="user-detail-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px;">
             <h3>👤 ユーザー詳細情報 (運営専用)</h3>
             <div id="user-detail-content"></div>
             <div class="modal-actions" style="margin-top: 25px;">
-                <!-- 🆕 運営による「強制退会（アカウント削除）」の操作ボタンを完全に復活配置 -->
                 <button class="btn-modal-submit" id="admin-delete-btn" style="background-color: #d32f2f;">🚨 このユーザーを強制退会・データ削除する</button>
                 <button class="btn-modal-cancel" onclick="closeUserDetailModal()">閉じる</button>
             </div>
@@ -504,9 +581,7 @@
 
     <script>
         let globalAvatarUrl = ""; let currentChatPartner = ""; let allChatMessages = [];
-        let userCounter = 0;
-        // 登録したアカウントデータを一時的にメモリ保持する配列オブジェクト
-        let localUserList = [];
+        let userCounter = 0; let localUserList = [];
 
         window.onload = function() {
             const prefSelects = document.querySelectorAll('.pref-select');
@@ -528,7 +603,7 @@
             }
         }
 
-        // 🆕 個人登録時の「人材候補」と「仲間探し」の双方への同時自動連動ロジック
+        // 🆕 個人登録時の「人材」と「仲間探し」双方へのリアルタイム自動連動システム
         function saveProfile() {
             const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
             userCounter++;
@@ -537,7 +612,6 @@
             const userId = `U-000${userCounter}`;
 
             if (!isCorporate) {
-                // 名前の編集値を取得
                 const nickname = document.getElementById('user-nickname').value || "名無しさん";
                 const fullname = document.getElementById('user-fullname').value || "非公開";
                 const job = document.getElementById('user-job').value || "未指定の職種";
@@ -545,14 +619,12 @@
                 const target = document.getElementById('user-target').value || "";
                 const lineUrl = document.getElementById('user-line').value || "-";
 
-                // 空白時メッセージの削除
                 if(document.getElementById('person-empty-msg')) document.getElementById('person-empty-msg').remove();
                 if(document.getElementById('partner-empty-msg')) document.getElementById('partner-empty-msg').remove();
 
-                // 記憶用リストへデータをプッシュ保存
                 localUserList.push({ id: userId, type: '個人', nickname: nickname, fullname: fullname, job: job, line: lineUrl });
 
-                // 1️⃣ 人材候補リストへカード追加
+                // 1️⃣ 人材候補リストへ即時追加
                 const personList = document.getElementById('person-list');
                 const newPersonCard = document.createElement('div');
                 newPersonCard.className = "card person-card";
@@ -574,7 +646,7 @@
                 `;
                 personList.insertBefore(newPersonCard, personList.firstChild);
 
-                // 2️⃣ 仲間を探すリストへ同時自動追加
+                // 2️⃣ 仲間を探す(個人間)へ同時連動挿入
                 const partnerList = document.getElementById('partner-list');
                 const newPartnerCard = document.createElement('div');
                 newPartnerCard.className = "card partner-card";
@@ -585,17 +657,18 @@
                         <div>
                             <span class="card-tag tag-secondary">個人・協業相手</span> <span class="card-tag">${location}</span>
                             <h3 style="margin: 10px 0 5px 0;">${escapeHtml(nickname)}</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: ${escapeHtml(target)}</p>
+                            <p style="margin: 5px 0;">スキル/本業: ${escapeHtml(job)}</p>
+                            <p style="margin: 5px 0; color: #666; font-size: 13px;">協業内容: ${escapeHtml(target)}</p>
                         </div>
                         <div class="card-actions">
-                            <button class="btn" onclick="alert('${escapeHtml(nickname)}さんにリクエストを送りました！')">コンタクトを取る</button>
+                            <button class="btn" onclick="alert('${escapeHtml(nickname)}さんにメッセージを送りました！')">コンタクトを取る</button>
                             <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(nickname)}')">💬 チャット</button>
                         </div>
                     </div>
                 `;
                 partnerList.insertBefore(newPartnerCard, partnerList.firstChild);
 
-                // 3️⃣ 運営ダッシュボード管理テーブルの行作成
+                // 3️⃣ 運営ダッシュボード行追加
                 const userTable = document.getElementById('admin-user-rows');
                 const newRow = document.createElement('tr');
                 newRow.id = `admin-row-${userId}`;
@@ -606,7 +679,6 @@
                 userTable.appendChild(newRow);
 
             } else {
-                // 企業登録処理
                 const corpName = document.getElementById('corp-name').value || "未指定の企業";
                 const corpDesc = document.getElementById('corp-desc').value || "";
                 const corpTarget = document.getElementById('corp-target').value || "";
@@ -624,7 +696,7 @@
                             <span class="card-tag tag-primary">企業案件</span>
                             <h3 style="margin: 10px 0 5px 0;">${escapeHtml(corpName)} / ${escapeHtml(corpTarget)}</h3>
                             <p style="margin: 5px 0; color: #ff6600; font-weight: bold;">条件: ${escapeHtml(corpCondition)}</p>
-                            <p style="margin: 5px 0; color: #666; font-size: 13px;">詳細: ${escapeHtml(corpDesc)}</p>
+                            <p style="margin: 5px 0; color: #666; font-size: 13px;">事業詳細: ${escapeHtml(corpDesc)}</p>
                         </div>
                     </div>
                 `;
@@ -632,41 +704,30 @@
             }
 
             document.getElementById('admin-total-users').innerText = localUserList.length;
-            alert('🎉 プロフィール登録に成功しました！名前の編集や自動連動データが正常に反映されました。');
+            alert('🎉 プロフィール登録に成功しました！優待詳細も含めてすべてのシステムが正常にスタンバイしています。');
             showSection('find-person');
         }
 
-        // 🆕 運営が詳細確認モーダルを開いて、強制退会（アカウント削除）を行える処理ロジック
         function viewAdminDetail(id) {
             const user = localUserList.find(u => u.id === id);
             if(!user) return;
-
             document.getElementById('user-detail-content').innerHTML = `
                 <div class="detail-row"><div class="detail-label">ユーザーID</div><div class="detail-value">${user.id}</div></div>
                 <div class="detail-row"><div class="detail-label">公開名</div><div class="detail-value">${escapeHtml(user.nickname)}</div></div>
                 <div class="detail-row"><div class="detail-label" style="color:red;">本名</div><div class="detail-value" style="font-weight:bold; color:red;">${escapeHtml(user.fullname)}</div></div>
                 <div class="detail-row"><div class="detail-label">本業</div><div class="detail-value">${escapeHtml(user.job)}</div></div>
-                <div class="detail-row"><div class="detail-label">LINE URL</div><div class="detail-value">${escapeHtml(user.line)}</div></div>
+                <div class="detail-row"><div class="detail-label">LINE</div><div class="detail-value">${escapeHtml(user.line)}</div></div>
             `;
-
-            // 強制退会ボタンクリック時の実イベント紐付け
             document.getElementById('admin-delete-btn').onclick = function() {
-                if(confirm(`⚠️ 本当にユーザーID: ${user.id} (${user.nickname}) を強制退会させ、アカウントデータごと完全に削除しますか？`)) {
-                    // 1. 画面上の一般ユーザー向けカードを削除
+                if(confirm(`⚠️ このユーザーを強制退会させ、全カードデータを削除しますか？`)) {
                     if(document.getElementById(`card-person-${user.id}`)) document.getElementById(`card-person-${user.id}`).remove();
                     if(document.getElementById(`card-partner-${user.id}`)) document.getElementById(`card-partner-${user.id}`).remove();
-                    // 2. 管理ダッシュボードのテーブル行を削除
                     if(document.getElementById(`admin-row-${user.id}`)) document.getElementById(`admin-row-${user.id}`).remove();
-                    
-                    // 3. データ配列から除外
                     localUserList = localUserList.filter(u => u.id !== user.id);
                     document.getElementById('admin-total-users').innerText = localUserList.length;
-
-                    alert('🚨 対象のアカウントおよび全カードリストデータを強制削除（強制退会処置）しました。');
-                    closeUserDetailModal();
+                    alert('🚨 データを完全に強制削除しました。'); closeUserDetailModal();
                 }
             };
-
             document.getElementById('user-detail-modal').style.display = 'flex';
         }
 
@@ -679,9 +740,9 @@
         function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
         function toggleForm() { const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; document.getElementById('form-individual').style.display = isCorp ? 'none' : 'block'; document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; }
         function escapeHtml(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;'); }
-        function sendChatMessage() { /* 既存チャットロジック */ }
-        function renderChatBubbles() { /* 既存チャットロジック */ }
-        function updateAdminLogTable() { /* 既存チャットロジック */ }
+        function sendChatMessage() { /* チャット送信 */ }
+        function renderChatBubbles() { /* チャット描写 */ }
+        function updateAdminLogTable() { /* ログ更新 */ }
         function searchPersons() {} function searchJobs() {} function searchPartners() {}
     </script>
 </body>
