@@ -470,7 +470,7 @@
                 <div id="form-individual">
                     <div class="form-group"><label>【フルネーム】(※非公開設定時は相手に見えません)</label><input type="text" id="user-fullname" placeholder="例: 山田 太郎" value="山田 太郎"></div>
                     <div class="form-group" style="display: flex; gap: 15px;">
-                        <div style="flex: 1;"><label>表示名 (リストに公開される名前)</label><input type="text" id="user-nickname" placeholder="例: たろう" value="たろう(あなた)"></div>
+                        <div style="flex: 1;"><label>表示名 (リストに公開される名前)</label><input type="text" id="user-nickname" placeholder="例: たろう" value="たろう"></div>
                         <div style="flex: 1;"><label>【年齢】</label><input type="number" id="user-age" value="28"></div>
                     </div>
                     <div class="form-group" style="display: flex; gap: 15px;">
@@ -504,7 +504,7 @@
 
         <!-- 6. 運営管理ダッシュボード -->
         <div id="admin" class="section">
-            <h2 style="border-bottom-color: #d32f2f; color: #d32f2f;">⚙️ 運営管理ダッシュボード</h2>
+            <h2>⚙️ 運営管理ダッシュボード</h2>
             <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※こちらはサービス運営者専用の秘密の管理画面です。</p>
             
             <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
@@ -520,7 +520,6 @@
 
             <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
                 <h3>🔔 面談申し込み・コンタクト通知履歴（リアルタイム）</h3>
-                <p style="font-size: 12px; color: #166534; margin-top: -5px; margin-bottom: 15px;">※ユーザーが「面談を申し込む」や「コンタクトを取る」を押した履歴を、運営がここから全件リアルタイムで確認・管理できます。</p>
                 <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #cbd5e1;">
                     <table class="admin-table">
                         <thead>
@@ -535,7 +534,6 @@
 
             <div style="background: #fff1f2; border: 1px solid #fecdd3; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
                 <h3>👁️ 💬 全ユーザーのチャットログ</h3>
-                <p style="font-size: 12px; color: #64748b; margin-top: -5px; margin-bottom: 15px;">※アプリ内で送信された全ての個別メッセージは、運営がここから全件リアルタイムで確認・監査できます。</p>
                 <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #e2e8f0;">
                     <table class="admin-table">
                         <thead>
@@ -634,7 +632,6 @@
             });
             loadSupabaseData();
             
-            // 🔄 アプリ全体の更新チェック（1秒おきの超高速リアルタイム同期）
             setInterval(() => {
                 loadMessagesAndContacts();
             }, 1000);
@@ -664,15 +661,26 @@
 
         async function loadMessagesAndContacts() {
             try {
+                const myName = getCleanNickname();
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 
-                const rMsg = await fetch(`${SUPABASE_API_URL}/messages?order=created_at.asc`, { headers });
-                const allMsgs = await rMsg.json();
+                // 🔒【超重要セキュリティ】サーバーにリクエストする段階で、自分に関係あるメッセージだけを厳密にフィルタリング（他人のチャットは1ミリも取得しない）
+                let url = `${SUPABASE_API_URL}/messages?order=created_at.asc`;
+                if (document.getElementById('chat-modal').style.display === 'flex') {
+                    // 自分と相手の部屋のデータだけをピンポイント取得
+                    url += `&or=(and(sender.eq.${encodeURIComponent(myName)},receiver.eq.${encodeURIComponent(currentChatPartner)}),and(sender.eq.${encodeURIComponent(currentChatPartner)},receiver.eq.${encodeURIComponent(myName)}))`;
+                } else {
+                    // チャットを開いていないときは、自分宛て、または自分が送ったものだけを最低限取得
+                    url += `&or=(sender.eq.${encodeURIComponent(myName)},receiver.eq.${encodeURIComponent(myName)})`;
+                }
+
+                const rMsg = await fetch(url, { headers });
+                const filteredMsgs = await rMsg.json();
                 
                 if (document.getElementById('chat-modal').style.display === 'flex') {
-                    renderChatBubbles(allMsgs);
+                    renderChatBubbles(filteredMsgs);
                 }
-                updateAdminChatLogs(allMsgs);
+                updateAdminChatLogs(filteredMsgs);
 
                 const rContact = await fetch(`${SUPABASE_API_URL}/contacts?order=created_at.desc`, { headers });
                 const allContacts = await rContact.json();
@@ -684,7 +692,7 @@
         }
 
         async function applyContact(targetName, type) {
-            const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
+            const myName = getCleanNickname();
             if(myName === targetName) { alert("自分自身には送信できません。"); return; }
             const headers = { 
                 "apikey": base_key, 
@@ -703,28 +711,38 @@
             }
         }
 
+        function getCleanNickname() {
+            const nameInput = document.getElementById('user-nickname').value || "名無しさん";
+            return nameInput.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+        }
+
         function renderPersonCards(list) {
             const box = document.getElementById('person-list');
             if(!list || list.length === 0) {
                 box.innerHTML = `<p id="person-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">登録された人材データはまだありません。</p>`;
                 return;
             }
-            box.innerHTML = list.map(u => `
-                <div class="card person-card">
-                    <div class="card-img-box"><img src="${u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
-                    <div class="card-inner">
-                        <div>
-                            <span class="card-tag tag-primary">登録ユーザー</span>
-                            <h3 style="margin: 10px 0 5px 0;">${escapeHtml(u.title)}</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color:#333;">${escapeHtml(u.description)}</p>
-                        </div>
-                        <div class="card-actions">
-                            <button class="btn" onclick="applyContact('${escapeHtml(u.title)}', '面談申し込み')">面談を申し込む</button>
-                            <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(u.title)}')">💬 チャット</button>
+            const myCurrentName = getCleanNickname();
+            box.innerHTML = list.map(u => {
+                const cleanTitle = u.title.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+                const suffix = (cleanTitle === myCurrentName) ? "（あなた）" : "";
+                return `
+                    <div class="card person-card">
+                        <div class="card-img-box"><img src="${u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
+                        <div class="card-inner">
+                            <div>
+                                <span class="card-tag tag-primary">登録ユーザー</span>
+                                <h3 style="margin: 10px 0 5px 0;">${escapeHtml(cleanTitle)}${suffix}</h3>
+                                <p style="margin: 5px 0; font-size: 13px; color:#333;">${escapeHtml(u.description)}</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', '面談申し込み')">面談を申し込む</button>
+                                <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         function renderJobCards(list) {
@@ -756,22 +774,27 @@
                 box.innerHTML = `<p id="partner-empty-msg" style="color: #999; text-align: center; width: 100%; grid-column: 1/-1; padding: 30px 0; font-size: 14px;">仲間・メンバーの募集情報は現在ありません。</p>`;
                 return;
             }
-            box.innerHTML = list.map(p => `
-                <div class="card partner-card">
-                    <div class="card-img-box"><img src="${p.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
-                    <div class="card-inner">
-                        <div>
-                            <span class="card-tag tag-secondary">個人・協業相手</span>
-                            <h3 style="margin: 10px 0 5px 0;">${escapeHtml(p.title)}</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color:#444;">募集内容: ${escapeHtml(p.description)}</p>
-                        </div>
-                        <div class="card-actions">
-                            <button class="btn" onclick="applyContact('${escapeHtml(p.title)}', 'コンタクト募集への応答')">コンタクトを取る</button>
-                            <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(p.title)}')">💬 チャット</button>
+            const myCurrentName = getCleanNickname();
+            box.innerHTML = list.map(p => {
+                const cleanTitle = p.title.replace(/\(あなた\)/g, '').replace(/（あなた）/g, '').trim();
+                const suffix = (cleanTitle === myCurrentName) ? "（あなた）" : "";
+                return `
+                    <div class="card partner-card">
+                        <div class="card-img-box"><img src="${p.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80'}"></div>
+                        <div class="card-inner">
+                            <div>
+                                <span class="card-tag tag-secondary">個人・協業相手</span>
+                                <h3 style="margin: 10px 0 5px 0;">${escapeHtml(cleanTitle)}${suffix}</h3>
+                                <p style="margin: 5px 0; font-size: 13px; color:#444;">募集内容: ${escapeHtml(p.description)}</p>
+                            </div>
+                            <div class="card-actions">
+                                <button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', 'コンタクト募集への応答')">コンタクトを取る</button>
+                                <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
         }
 
         async function saveProfile() {
@@ -786,13 +809,13 @@
             };
 
             try {
+                const nickname = getCleanNickname();
+                const fullname = document.getElementById('user-fullname').value || "非公開";
+                const job = document.getElementById('user-job').value || "未指定の職種";
+                const location = document.getElementById('user-location').value || "東京都";
+                const target = document.getElementById('user-target').value || "";
+
                 if (!isCorporate) {
-                    const nickname = document.getElementById('user-nickname').value || "名無しさん";
-                    const fullname = document.getElementById('user-fullname').value || "非公開";
-                    const job = document.getElementById('user-job').value || "未指定の職種";
-                    const location = document.getElementById('user-location').value || "東京都";
-                    const target = document.getElementById('user-target').value || "";
-                    
                     await fetch(`${SUPABASE_API_URL}/persons`, {
                         method: "POST",
                         headers,
@@ -910,12 +933,13 @@
         function submitAdminPassword() { if (document.getElementById('admin-password-input').value === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; } }
         
         function openChatWindow(name) {
-            const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
+            const myName = getCleanNickname();
             if(myName === name) { alert("自分自身とチャットすることはできません。"); return; }
             currentChatPartner = name;
             document.getElementById('chat-target-name').innerText = name;
             document.getElementById('chat-modal').style.display = 'flex';
             document.getElementById('chat-input-field').focus();
+            lastMessageCount = 0; 
         }
         function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
         function toggleForm() { const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; document.getElementById('form-individual').style.display = isCorp ? 'none' : 'block'; document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; }
@@ -926,7 +950,7 @@
             const messageText = inputField.value.trim();
             if(messageText === "") return;
 
-            const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
+            const myName = getCleanNickname();
             const headers = { 
                 "apikey": base_key, 
                 "Authorization": `Bearer ${base_key}`,
@@ -945,25 +969,17 @@
             }
         }
 
-        // 🛡️【特定ペアの部屋だけの隔離チェック＆左右の吹き出し仕分けロジックを完全最適化】
         let lastMessageCount = 0;
-        function renderChatBubbles(allMsgs) {
+        function renderChatBubbles(filteredMsg) {
             const box = document.getElementById('chat-messages-box');
-            const myName = document.getElementById('user-nickname').value || "たろう(あなた)";
+            const myName = getCleanNickname();
             
-            // 🔒 完全隔離：送信者と受信者が「自分と相手」のペアの会話のみを厳密に抽出（他人の混ざりをブロック）
-            const filteredMsg = allMsgs.filter(m => 
-                (m.sender === myName && m.receiver === currentChatPartner) || 
-                (m.sender === currentChatPartner && m.receiver === myName)
-            );
-            
-            if(filteredMsg.length === 0) {
-                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 隔離された安全なチャットルームです。</div>`; 
+            if(!filteredMsg || filteredMsg.length === 0) {
+                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 秘密の暗号化プライベートチャットです。</div>`; 
                 return;
             }
             
             box.innerHTML = filteredMsg.map(m => {
-                // 🆗 送信者が自分なら「me（右側・緑）」、相手からのメッセージなら「other（左側・白）」に完全分離
                 const isMeClass = (m.sender === myName) ? 'me' : 'other';
                 const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 return `<div class="chat-bubble ${isMeClass}"><div>${escapeHtml(m.text)}</div><div class="chat-bubble-meta">${timeStr}</div></div>`;
@@ -977,7 +993,10 @@
 
         function updateAdminChatLogs(allMsgs) {
             const tbody = document.getElementById('admin-chat-logs');
-            if(!allMsgs || allMsgs.length === 0) return;
+            if(!allMsgs || allMsgs.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: #94a3b8; padding: 20px;">チャットログはありません</td></tr>`;
+                return;
+            }
             tbody.innerHTML = allMsgs.slice().reverse().map(m => `
                 <tr>
                     <td>${new Date(m.created_at).toLocaleString()}</td>
