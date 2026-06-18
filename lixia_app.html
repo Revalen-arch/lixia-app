@@ -32,7 +32,6 @@
         .btn-admin { background-color: #d32f2f !important; }
         .btn-admin:hover { background-color: #b71c1c !important; }
         
-        /* ヘッダーのプロフィールミニアイコン */
         .header-avatar {
             width: 38px; height: 38px; border-radius: 50%;
             background-color: rgba(255,255,255,0.3); border: 2px solid white;
@@ -78,11 +77,26 @@
         .card-tag.tag-primary { background: #e0f2f1; color: #00796b; }
         .card-tag.tag-secondary { background: #fff3e0; color: #e65100; }
         .card-tag.tag-tertiary { background: #e3f2fd; color: #0d47a1; }
+        
+        .card-actions { display: flex; gap: 8px; margin-top: auto; padding-top: 10px; }
         .btn {
             background-color: var(--primary-color); color: white; border: none;
-            padding: 10px 15px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: auto; font-weight: bold;
+            padding: 10px 12px; border-radius: 4px; cursor: pointer; flex: 1; font-weight: bold; font-size: 13px;
         }
         .btn:hover { background-color: #178c86; }
+        .btn-chat { background-color: #334155; }
+        .btn-chat:hover { background-color: #1e293b; }
+        
+        /* 🆕 外部優待リンク用プレミアムボタンのスタイル */
+        .btn-benefit-link {
+            display: inline-block; background: linear-gradient(135deg, #ff6600, #ff8c00); color: white;
+            text-decoration: none; padding: 15px 30px; border-radius: 30px; font-weight: bold;
+            font-size: 16px; box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3); transition: all 0.3s ease;
+            margin: 20px 0; text-align: center;
+        }
+        .btn-benefit-link:hover {
+            transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 102, 0, 0.5); background: linear-gradient(135deg, #e65100, #ff6600);
+        }
         
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         th, td { border: 1px solid #e0e0e0; padding: 12px; text-align: left; }
@@ -98,7 +112,6 @@
         .admin-box { background: #fff3e0; border: 1px solid #ffcc80; padding: 15px; border-radius: 6px; margin-bottom: 20px; }
         .admin-box h4 { margin: 0 0 10px 0; color: #e65100; }
 
-        /* プロフィール写真アップロードエリアのスタイル */
         .avatar-upload-container {
             display: flex; align-items: center; gap: 20px; margin-bottom: 20px;
             background: #f9f9f9; padding: 15px; border-radius: 8px; border: 1px dashed #ccc;
@@ -109,6 +122,19 @@
         }
         .avatar-preview-box img { width: 100%; height: 100%; object-fit: cover; }
         .avatar-preview-box span { font-size: 12px; color: #777; text-align: center; font-weight: bold; }
+
+        .chat-container { display: flex; flex-direction: column; height: 350px; border: 1px solid #e2e8f0; border-radius: 8px; background: #f8fafc; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+        .chat-bubble { max-width: 75%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.4; word-break: break-all; }
+        .chat-bubble.me { background-color: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-bubble.other { background-color: white; color: #333; align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid #e2e8f0; }
+        .chat-bubble-meta { font-size: 10px; color: rgba(255,255,255,0.7); text-align: right; margin-top: 4px; }
+        .chat-bubble.other .chat-bubble-meta { color: #94a3b8; }
+        .chat-input-area { display: flex; border-top: 1px solid #e2e8f0; background: white; padding: 10px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px; gap: 8px; }
+        .chat-input-area input { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; outline: none; font-size: 14px; }
+        .chat-input-area input:focus { border-color: var(--primary-color); }
+        .chat-send-btn { background: var(--primary-color); color: white; border: none; padding: 0 16px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .chat-send-btn:hover { background: #178c86; }
 
         .modal-overlay {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0;
@@ -154,7 +180,6 @@
                 <button onclick="showSection('profile')">マイページ/登録</button>
                 <button onclick="openAdminModal()" class="btn-admin">⚙️ 運営管理</button>
             </nav>
-            <!-- 登録後に表示されるヘッダーアバター -->
             <img id="header-profile-pic" class="header-avatar" onclick="showSection('profile')" alt="ユーザーアイコン">
         </div>
     </header>
@@ -167,61 +192,79 @@
             <div class="search-box">
                 <input type="text" id="person-keyword" placeholder="キーワード (例: BtoB, SaaS)">
                 <select id="person-category">
-                    <option value="">全ての職種</option>
-                    <option value="engineer">エンジニア</option>
-                    <option value="designer">デザイナー</option>
-                    <option value="marketer">マーケター</option>
-                    <option value="sales">営業・インサイドセールス</option>
-                    <option value="consultant">コンサルタント</option>
-                    <option value="pm">PM・ディレクター</option>
-                    <option value="hr">人事・バックオフィス</option>
-                    <option value="writer">ライター・編集</option>
+                    <option value="">全ての希望職種（細分化）</option>
+                    <option value="frontend">エンジニア(フロントエンド / React・Vue)</option>
+                    <option value="backend">エンジニア(バックエンド / Go・Python・Java)</option>
+                    <option value="infra">エンジニア(インフラ・SRE / AWS・GCP)</option>
+                    <option value="ai_data">エンジニア(生成AI・LLM・データ解析)</option>
+                    <option value="uiux">UI/UXデザイナー / プロダクトデザイン</option>
+                    <option value="pm_pdm">PM・PdM・プロジェクトマネージャー</option>
+                    <option value="sales_new">営業(新規開拓・フィールドセールス)</option>
+                    <option value="sales_cs">営業(カスタマーサクセス・既存フォロー)</option>
+                    <option value="sales_inside">営業(インサイドセールス・テレアポ代行)</option>
+                    <option value="marketer_ad">マーケター(Web広告運用・SEO・SNS運用)</option>
+                    <option value="biz_dev">事業開発・企画・アライアンス提携募集</option>
+                    <option value="hr_recruiter">人事・リクルーター(採用代行・面接官代行)</option>
+                    <option value="backoffice">総務・労務・経理・財務・事務代行</option>
+                    <option value="writer_editor">ライター・編集者・SEOコンテンツ制作</option>
+                    <option value="video_creator">動画クリエイター・YouTube動画編集</option>
+                    <option value="consultant">経営コンサルタント・アドバイザー・顧問</option>
+                    <option value="other_job">その他の職種</option>
                 </select>
                 <select id="person-location" class="pref-select"></select>
                 <button class="search-btn" onclick="searchPersons()">検索する</button>
             </div>
 
             <div class="card-grid" id="person-list">
-                <div class="card person-card" data-category="engineer" data-location="フルリモート">
+                <div class="card person-card" data-category="frontend" data-location="フルリモート">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1607799279861-4dd421887fb3?auto=format&fit=crop&w=400&q=80" alt="Webエンジニア">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">エンジニア</span> <span class="card-tag">フルリモート</span>
+                            <span class="card-tag tag-primary">フロントエンド</span> <span class="card-tag">フルリモート</span>
                             <h3 style="margin: 10px 0 5px 0;">Webエンジニア / Aさん (非公開)</h3>
                             <p style="margin: 5px 0;">スキル: React, Node.js, AWS</p>
                             <p style="margin: 5px 0; color: #666; font-size: 13px;">実績: ECサイト開発、SaaS基盤構築</p>
                         </div>
-                        <button class="btn" onclick="alert('Aさんに面談を申し込みました！')">面談を申し込む</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('Aさんに面談を申し込みました！')">面談を申し込む</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('Aさん')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card person-card" data-category="hr" data-location="東京都">
+                <div class="card person-card" data-category="hr_recruiter" data-location="東京都">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="採用コンサルタント">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">人事・バックオフィス</span> <span class="card-tag">東京都</span>
+                            <span class="card-tag tag-primary">人事・リクルーター</span> <span class="card-tag">東京都</span>
                             <h3 style="margin: 10px 0 5px 0;">採用コンサルタント / Bさん (非公開)</h3>
                             <p style="margin: 5px 0;">スキル: ダイレクトリクルーティング, 面接官</p>
                             <p style="margin: 5px 0; color: #666; font-size: 13px;">実績: エンジニア採用年間50名達成</p>
                         </div>
-                        <button class="btn" onclick="alert('Bさんに面談を申し込みました！')">面談を申し込む</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('Bさんに面談を申し込みました！')">面談を申し込む</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('Bさん')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card person-card" data-category="sales" data-location="大阪府">
+                <div class="card person-card" data-category="sales_new" data-location="大阪府">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=400&q=80" alt="トップセールス">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">営業</span> <span class="card-tag">大阪府</span>
+                            <span class="card-tag tag-primary">新規開拓営業</span> <span class="card-tag">大阪府</span>
                             <h3 style="margin: 10px 0 5px 0;">トップセールス / Cさん (非公開)</h3>
                             <p style="margin: 5px 0;">スキル: BtoB営業, 代理店開拓</p>
                             <p style="margin: 5px 0; color: #666; font-size: 13px;">実績: IT商材の新規開拓で年間売上1位獲得</p>
                         </div>
-                        <button class="btn" onclick="alert('Cさんに面談を申し込みました！')">面談を申し込む</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('Cさんに面談を申し込みました！')">面談を申し込む</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('Cさん')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -233,65 +276,89 @@
             <div class="search-box">
                 <input type="text" id="job-keyword" placeholder="キーワード (例: 立ち上げ, 英語)">
                 <select id="job-industry">
-                    <option value="">全ての業種</option>
-                    <option value="it">IT・Web・通信</option>
-                    <option value="ad">広告・マスコミ</option>
-                    <option value="consulting">コンサルティング</option>
-                    <option value="hr">人材・HR</option>
-                    <option value="finance">金融・保険</option>
-                    <option value="realestate">不動産・建築</option>
-                    <option value="maker">メーカー・製造</option>
-                    <option value="medical">医療・福祉</option>
-                    <option value="retail">小売・飲食</option>
+                    <option value="">全ての対象業種（細分化）</option>
+                    <option value="saas_it">SaaS・クラウド・IT・Web通信</option>
+                    <option value="ai_tech">生成AI・最先端テック・DeepTech</option>
+                    <option value="ec_d2c">ECモール・D2Cブランド・小売流通</option>
+                    <option value="matching">マッチング・シェアサービス・SNSメディア</option>
+                    <option value="ad_agency">広告代理店・PR・マスコミ報道</option>
+                    <option value="consulting">経営コンサルティング・シンクタンク</option>
+                    <option value="edtech">教育産業・スクール・EdTech</option>
+                    <option value="fintech">金融・保険・FinTech・暗号資産</option>
+                    <option value="proptech">不動産テック・PropTech・建築</option>
+                    <option value="medtech">医療・ヘルスケアテック・福祉・MedTech</option>
+                    <option value="foodtech">飲食チェーン・フードデリバリーテック</option>
+                    <option value="tourism">観光・ホテルレジャー・旅行代理店</option>
+                    <option value="maker">メーカー・製造業・IoT・ハードウェア</option>
+                    <option value="hr_services">人材紹介・派遣・HRテック・採用代行</option>
+                    <option value="local_biz">地方創生・まちづくり・官公庁プロジェクト</option>
+                    <option value="other_ind">その他の業種</option>
                 </select>
                 <select id="job-condition">
-                    <option value="">全ての働き方</option>
-                    <option value="remote">フルリモート可</option>
-                    <option value="sidejob">副業・Wワーク歓迎</option>
-                    <option value="parttime">週3日〜OK</option>
+                    <option value="">全ての働き方・条件（詳細）</option>
+                    <option value="remote_full">完全フルリモート(在宅勤務100%)</option>
+                    <option value="remote_hybrid">ハイブリッド勤務(週の半分リモートなど)</option>
+                    <option value="side_weekend">副業歓迎 / 週末・土日のみ稼働OK</option>
+                    <option value="side_night">副業歓迎 / 平日夜間のみの稼働OK</option>
+                    <option value="part_1_2">週1日〜週2日のコミットでOK</option>
+                    <option value="part_3_4">週3日〜週4日のコミット(別案件と並行可)</option>
+                    <option value="full_5">週5日フルコミット(ガッツリ稼ぎたい方向け)</option>
+                    <option value="commute_ok">交通費全額支給（出社ありの場合）</option>
+                    <option value="pc_rental">開発用PC・周辺機器の無償レンタルあり</option>
+                    <option value="to_regular">将来的な正社員・コアメンバー登用あり</option>
+                    <option value="no_exp">未経験・第二新卒チャレンジOKの案件</option>
                 </select>
                 <select id="job-location" class="pref-select"></select>
                 <button class="search-btn" onclick="searchJobs()">検索する</button>
             </div>
 
             <div class="card-grid" id="job-list">
-                <div class="card job-card" data-industry="it" data-condition="remote" data-location="フルリモート">
+                <div class="card job-card" data-industry="saas_it" data-condition="remote_full" data-location="フルリモート">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80" alt="新規SaaS開発">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">IT・Web</span> <span class="card-tag">フルリモート可</span>
+                            <span class="card-tag tag-primary">SaaS・クラウド</span> <span class="card-tag">完全フルリモート</span>
                             <h3 style="margin: 10px 0 5px 0;">株式会社〇〇 / 新規SaaS開発エンジニア</h3>
                             <p style="margin: 5px 0; color: #ff6600; font-weight: bold;">条件: 月額60万円〜 / 稼働100%</p>
                         </div>
-                        <button class="btn" onclick="alert('この案件にエントリーしました！')">話を聞いてみる</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('この案件にエントリーしました！')">話を聞いてみる</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('株式会社〇〇 採用担当')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card job-card" data-industry="medical" data-condition="sidejob" data-location="愛知県">
+                <div class="card job-card" data-industry="medtech" data-condition="side_weekend" data-location="愛知県">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=400&q=80" alt="医療テック広報">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">医療・福祉</span> <span class="card-tag">副業歓迎</span> <span class="card-tag">愛知県</span>
+                            <span class="card-tag tag-primary">医療テック</span> <span class="card-tag">週末・土日のみOK</span> <span class="card-tag">愛知県</span>
                             <h3 style="margin: 10px 0 5px 0;">医療テックベンチャー / 広報・PR担当</h3>
                             <p style="margin: 5px 0; color: #ff6600; font-weight: bold;">条件: 月額10万円〜 / 土日や平日夜のみOK</p>
                         </div>
-                        <button class="btn" onclick="alert('この案件にエントリーしました！')">話を聞いてみる</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('この案件にエントリーしました！')">話を聞いてみる</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('医療テックベンチャー 採用担当')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card job-card" data-industry="hr" data-condition="parttime" data-location="福岡県">
+                <div class="card job-card" data-industry="hr_services" data-condition="part_3_4" data-location="福岡県">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=400&q=80" alt="スカウト運用">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">人材・HR</span> <span class="card-tag">週3日〜OK</span> <span class="card-tag">福岡県</span>
+                            <span class="card-tag tag-primary">人材・採用代行</span> <span class="card-tag">週3日〜週4日</span> <span class="card-tag">福岡県</span>
                             <h3 style="margin: 10px 0 5px 0;">採用代行(RPO) / スカウト運用担当</h3>
                             <p style="margin: 5px 0; color: #ff6600; font-weight: bold;">条件: 時給2,500円 / 平日週3日〜</p>
                         </div>
-                        <button class="btn" onclick="alert('この案件にエントリーしました！')">話を聞いてみる</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('この案件にエントリーしました！')">話を聞いてみる</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('RPO企業 採用担当')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -300,76 +367,109 @@
         <!-- 3. 個人間：仲間・協業相手を探す画面 -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
-            <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で繋がることができます。</p>
+            <p>新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
             
             <div class="search-box">
-                <input type="text" id="partner-keyword" placeholder="キーワード (例: 起業, もくもく会)">
                 <select id="partner-role">
-                    <option value="">全ての職種</option>
-                    <option value="engineer">エンジニア</option>
-                    <option value="designer">デザイナー</option>
-                    <option value="marketer">マーケター</option>
-                    <option value="creator">クリエイター</option>
-                    <option value="sales">営業・事業開発</option>
+                    <option value="">全ての職種（細分化）</option>
+                    <option value="ceo">起業家・発起人・CEO候補</option>
+                    <option value="frontend">エンジニア(フロント・React・Vue)</option>
+                    <option value="backend">エンジニア(バックエンド・Go・Python)</option>
+                    <option value="infra">エンジニア(インフラ・AWS)</option>
+                    <option value="ai">AIエンジニア・データサイエンティスト</option>
+                    <option value="uiux">デザイナー(UI/UX・Webデザイン)</option>
+                    <option value="video">映像クリエイター・動画編集者</option>
+                    <option value="growth">マーケター(Web広告・SEO・グロース)</option>
+                    <option value="sns">SNS運用担当・インフルエンサー</option>
+                    <option value="bizdev">営業・事業開発・企画</option>
+                    <option value="pm">ディレクター・PM・ディスカッション相手</option>
+                    <option value="writer">ライター・編集・コンテンツ制作</option>
+                    <option value="backoffice">人事・広報・バックオフィス</option>
+                    <option value="legal">士業(弁護士・税理士・公認会計士)</option>
+                    <option value="other">その他の職種</option>
                 </select>
                 <select id="partner-industry">
-                    <option value="">得意な業種</option>
-                    <option value="it">IT・Web・アプリ</option>
-                    <option value="ec">EC・小売</option>
-                    <option value="education">教育・EdTech</option>
-                    <option value="entertainment">エンタメ・ゲーム</option>
+                    <option value="">得意な業種（細分化）</option>
+                    <option value="saas">SaaS・BtoBビジネス</option>
+                    <option value="ai_tech">AI・ディープラーテック・生成AI</option>
+                    <option value="ec">EC・D2C・小売・流通</option>
+                    <option value="matching">マッチング・シェアサービス・メディア</option>
+                    <option value="sns_media">SNS・コミュニティ運営</option>
+                    <option value="edtech">教育・EdTech</option>
+                    <option value="ent_game">エンタメ・ゲーム・インディー開発</option>
+                    <option value="fintech">金融・FinTech・ブロックチェーン</option>
+                    <option value="medical">医療・ヘルスケア・介護</option>
+                    <option value="realestate">不動産・建設・PropTech</option>
+                    <option value="food">飲食・フードテック</option>
+                    <option value="local">地方創生・まちづくり・観光</option>
+                    <option value="consulting">コンサルティング・受託開発</option>
+                    <option value="hardware">製造業・メーカー・IoT</option>
                 </select>
                 <select id="partner-purpose">
-                    <option value="">全ての目的</option>
-                    <option value="startup">起業メンバー募集</option>
-                    <option value="project">共同プロジェクト</option>
-                    <option value="exchange">スキル交換・勉強</option>
-                    <option value="hackathon">ハッカソン・イベント参加</option>
-                    <option value="hobby">趣味のプロダクト開発</option>
-                    <option value="talk">情報交換・壁打ち</option>
+                    <option value="">全ての目的（詳細）</option>
+                    <option value="co_founder">共同創業者(Co-Founder)探し</option>
+                    <option value="mvp">初期メンバー募集(プロトタイプ・MVP開発)</option>
+                    <option value="client_work">受託案件のチームメンバー・相棒探し</option>
+                    <option value="sidejob_team">副業・週末プロジェクトの仲間募集</option>
+                    <option value="hobby_dev">趣味のプロダクト・個人開発メンバー募集</option>
+                    <option value="skill_exchange">スキル交換(デザイン↔開発など)</option>
+                    <option value="study_group">勉強会・もくもく会仲間募集</option>
+                    <option value="hackathon">ハッカソン・イベントのチーム結成</option>
+                    <option value="discussion">アイデアの壁打ち・情報交換・人脈作り</option>
+                    <option value="monetize">副業のマネタイズノウハウ交換</option>
                 </select>
+                <input type="text" id="partner-keyword" placeholder="キーワード検索">
                 <select id="partner-location" class="pref-select"></select>
                 <button class="search-btn" onclick="searchPartners()">検索する</button>
             </div>
 
             <div class="card-grid" id="partner-list">
-                <div class="card partner-card" data-role="designer" data-industry="it" data-purpose="startup" data-location="東京都">
+                <div class="card partner-card" data-role="uiux" data-industry="matching" data-purpose="co_founder" data-location="東京都">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=400&q=80" alt="UIUXデザイナー">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">デザイナー</span> <span class="card-tag tag-tertiary">IT・Web</span> <span class="card-tag tag-secondary">起業メンバー募集</span>
+                            <span class="card-tag tag-primary">UI/UXデザイン</span> <span class="card-tag tag-tertiary">マッチング</span> <span class="card-tag tag-secondary">共同創業者探し</span>
                             <h3 style="margin: 10px 0 5px 0;">UI/UXデザイナー / Eさん</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: 新しいWebサービスを一緒に立ち上げるエンジニアさんを探しています！(都内カフェで打ち合わせ希望)</p>
+                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: 新しいCtoCマッチングサービスを立ち上げ中。デザインはほぼ完成しているので、共同創業者としてバックエンド開発をお任せる相棒を探しています！</p>
                         </div>
-                        <button class="btn" onclick="alert('Eさんにメッセージを送りました！')">コンタクトを取る</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('Eさんにメッセージを送りました！')">コンタクトを取る</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('Eさん')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card partner-card" data-role="engineer" data-industry="entertainment" data-purpose="hobby" data-location="フルリモート">
+                <div class="card partner-card" data-role="backend" data-industry="ent_game" data-purpose="hobby_dev" data-location="フルリモート">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=400&q=80" alt="ゲーム開発">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">エンジニア</span> <span class="card-tag tag-tertiary">エンタメ</span> <span class="card-tag tag-secondary">趣味の開発</span>
+                            <span class="card-tag tag-primary">バックエンド</span> <span class="card-tag tag-tertiary">エンタメ・ゲーム</span> <span class="card-tag tag-secondary">趣味の個人開発</span>
                             <h3 style="margin: 10px 0 5px 0;">Unityエンジニア / Fさん</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: 週末に趣味でインディーゲームを作っています。イラストを描けるクリエイターさん募集中！</p>
+                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: 週末の趣味としてインディー用のオンラインゲームを開発しています。現在イラストや3Dモデリング周りを手伝ってくれるクリエイター仲間を募集中です！</p>
                         </div>
-                        <button class="btn" onclick="alert('Fさんにメッセージを送りました！')">コンタクトを取る</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('Fさんにメッセージを送りました！')">コンタクトを取る</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('Fさん')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card partner-card" data-role="sales" data-industry="education" data-purpose="talk" data-location="北海道">
+                <div class="card partner-card" data-role="bizdev" data-industry="edtech" data-purpose="discussion" data-location="北海道">
                     <div class="card-img-box">
                         <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=400&q=80" alt="ディスカッション">
                     </div>
                     <div class="card-inner">
                         <div>
-                            <span class="card-tag tag-primary">事業開発</span> <span class="card-tag tag-tertiary">教育</span> <span class="card-tag tag-secondary">情報交換</span>
+                            <span class="card-tag tag-primary">営業・事業開発</span> <span class="card-tag tag-tertiary">教育・EdTech</span> <span class="card-tag tag-secondary">アイデア壁打ち</span>
                             <h3 style="margin: 10px 0 5px 0;">EdTech事業開発 / Gさん</h3>
-                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: 教育系スタートアップ界隈の方とオンラインで壁打ち（事業の意見交換）がしたいです！</p>
+                            <p style="margin: 5px 0; font-size: 13px; color: #444;">目的: オンライン学習塾向けの新しいプロダクトアイデアがあります。教育系スタートアップや現場の塾運営に詳しい方とオンラインで壁打ち・情報交換をしたいです。</p>
                         </div>
-                        <button class="btn" onclick="alert('Gさんにメッセージを送りました！')">コンタクトを取る</button>
+                        <div class="card-actions">
+                            <button class="btn" onclick="alert('Gさんにメッセージを送りました！')">コンタクトを取る</button>
+                            <button class="btn btn-chat" onclick="openChatWindow('Gさん')">💬 チャット</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -380,6 +480,18 @@
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p>トラベル・レジャー・グルメ・スポーツ・ショッピングまで、全国の人気施設が多数参加中！ジャンルもエリアも問わず、身近な“選ばれる施設”が優待価格で利用可能です。</p>
             
+            <!-- 🆕 外部優待ポータルサイトへ飛べる大特設ボタンをドッキング！ -->
+            <div style="text-align: center; background: #fffcf0; border: 2px solid #ffe0b2; padding: 20px; border-radius: 12px; margin-bottom: 25px;">
+                <h3 style="margin-top: 0; color: #e65100; font-size: 18px;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
+                <p style="font-size: 13px; color: #555; margin-bottom: 10px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの詳細確認・申請が可能です。</p>
+                
+                <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">
+                    🚀 外部優待ページを開く (別タブ移動) ➔
+                </a>
+                
+                <p style="font-size: 11px; color: #999; margin: 0;">※クリックすると提携先の「Cellnet L-Link」外部認証・ログイン画面へ直接ジャンプします。</p>
+            </div>
+
             <h3 style="margin-top: 20px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">主なカテゴリと提携施設例</h3>
             <div class="card-grid" style="grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
                 <div class="card" style="border-top: 3px solid var(--primary-color);">
@@ -441,53 +553,25 @@
             <h3 style="margin-top: 30px; border-bottom: 1px dashed #ccc; padding-bottom: 5px;">一部割引のご紹介</h3>
             <table>
                 <tr>
-                    <th>カテゴリ</th>
-                    <th>サービス名</th>
-                    <th>通常料金</th>
-                    <th style="background-color: #ff6600; color: white;">優待価格</th>
-                    <th>実質のお得額</th>
+                    <th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: #ff6600; color: white;">優待価格</th><th>実質のお得額</th>
                 </tr>
                 <tr>
-                    <td>☕️ カフェ</td>
-                    <td>世界最大級のコーヒーチェーン</td>
-                    <td style="text-decoration: line-through;">5,000円</td>
-                    <td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td>
-                    <td>500円お得</td>
+                    <td>☕️ カフェ</td><td>世界最大級 of コーヒーチェーン</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td><td>500円お得</td>
                 </tr>
                 <tr>
-                    <td>🍴 グルメ</td>
-                    <td>すかいらーく(電子ギフト)</td>
-                    <td style="text-decoration: line-through;">1,000円</td>
-                    <td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td>
-                    <td>100円お得</td>
+                    <td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td><td>100円お得</td>
                 </tr>
                 <tr>
-                    <td>🍚 グルメ</td>
-                    <td>吉野家(牛丼1杯)</td>
-                    <td style="text-decoration: line-through;">500円</td>
-                    <td style="color: #ff6600; font-weight: bold; font-size: 16px;">450円</td>
-                    <td>50円お得</td>
+                    <td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">450円</td><td>50円お得</td>
                 </tr>
                 <tr>
-                    <td>🍿 映画</td>
-                    <td>映画鑑賞券(TOHO等)</td>
-                    <td style="text-decoration: line-through;">2,000円</td>
-                    <td style="color: #ff6600; font-weight: bold; font-size: 16px;">1,300円〜</td>
-                    <td>最大700円お得</td>
+                    <td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">1,300円〜</td><td>最大700円お得</td>
                 </tr>
                 <tr>
-                    <td>🍗 ファストフード</td>
-                    <td>KFC (ケンタッキー)</td>
-                    <td style="text-decoration: line-through;">1,000円</td>
-                    <td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td>
-                    <td>100円お得</td>
+                    <td>🍗 ファストフード</td><td>KFC (ケンタッキー)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">900円</td><td>100円お得</td>
                 </tr>
                 <tr>
-                    <td>⛳️ スポーツ</td>
-                    <td>GDO (ゴルフ予約等)</td>
-                    <td style="text-decoration: line-through;">5,000円</td>
-                    <td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td>
-                    <td>500円お得</td>
+                    <td>⛳️ スポーツ</td><td>GDO (ゴルフ予約等)</td><td style="text-decoration: line-through;">5,000円</td><td style="color: #ff6600; font-weight: bold; font-size: 16px;">4,500円</td><td>500円お得</td>
                 </tr>
             </table>
         </div>
@@ -513,7 +597,6 @@
 
             <form id="profile-form" style="max-width: 700px;">
                 
-                <!-- 🆕 プロフィール写真アップロードエリアを追加 -->
                 <div class="avatar-upload-container">
                     <div class="avatar-preview-box" id="avatar-preview">
                         <span>写真未設定</span>
@@ -526,9 +609,9 @@
                 </div>
 
                 <div id="form-individual">
-                    <div class="form-group"><label>【フルネーム】(※非公開設定時は相手に見えません)</label><input type="text" placeholder="例: 山田 太郎"></div>
+                    <div class="form-group"><label>【フルネーム】(※非公開設定時は相手に見えません)</label><input type="text" id="user-fullname" placeholder="例: 山田 太郎" value="山田 太郎"></div>
                     <div class="form-group" style="display: flex; gap: 15px;">
-                        <div style="flex: 1;"><label>表示名 (リストに公開される名前)</label><input type="text" placeholder="例: T.Y / たろう"></div>
+                        <div style="flex: 1;"><label>表示名 (リストに公開される名前)</label><input type="text" id="user-nickname" placeholder="例: T.Y / たろう" value="たろう(あなた)"></div>
                         <div style="flex: 1;"><label>【年齢】</label><input type="number" placeholder="例: 28"></div>
                     </div>
                     <div class="form-group" style="display: flex; gap: 15px;">
@@ -563,12 +646,12 @@
         <!-- 6. 運営管理ダッシュボード -->
         <div id="admin" class="section">
             <h2 style="border-bottom-color: #d32f2f; color: #d32f2f;">⚙️ 運営管理ダッシュボード</h2>
-            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※現在はサービス公開前（プロトタイプ版）のため、実データはすべて0件です。</p>
+            <p style="font-size: 14px; color: #666; margin-bottom: 20px;">※こちらはサービス運営者専用の秘密の管理画面です。</p>
             
             <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
                 <div style="flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                     <h3 style="margin: 0; color: #555; font-size: 16px;">総登録ユーザー数</h3>
-                    <p style="font-size: 32px; font-weight: bold; margin: 10px 0 0 0; color: #333;">0 <span style="font-size: 14px; color: #999;">名</span></p>
+                    <p style="font-size: 32px; font-weight: bold; margin: 10px 0 0 0; color: #333;">1 <span style="font-size: 14px; color: #999;">名</span></p>
                 </div>
                 <div style="flex: 1; min-width: 200px; background: #fff; padding: 20px; border-radius: 8px; text-align: center; border: 1px solid #ddd; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
                     <h3 style="margin: 0; color: #555; font-size: 16px;">累計マッチング数</h3>
@@ -580,39 +663,63 @@
                 </div>
             </div>
 
+            <div style="background: #fff1f2; border: 1px solid #fecdd3; padding: 20px; border-radius: 8px; margin-bottom: 30px;">
+                <h3 style="color: #9f1239; margin-top: 0; font-size: 18px; display: flex; align-items: center; gap: 8px;">👁️ 💬 全ユーザーのチャット監視ログ（全履歴・リアルタイム表示）</h3>
+                <p style="font-size: 12px; color: #64748b; margin-top: -5px; margin-bottom: 15px;">※アプリ内で送信された全ての個別メッセージは、運営がここから全件リアルタイムで確認・監査できます。</p>
+                <div style="max-height: 220px; overflow-y: auto; background: white; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <table class="admin-table" style="margin-top: 0; font-size: 13px;">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #9f1239; width: 15%;">送信時間</th>
+                                <th style="background-color: #9f1239; width: 20%;">発信者 (あなた)</th>
+                                <th style="background-color: #9f1239; width: 20%;">受信相手</th>
+                                <th style="background-color: #9f1239; width: 45%;">送信メッセージ本文</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-chat-logs">
+                            <tr class="log-row-alert"><td colspan="4" style="text-align: center; color: #94a3b8; padding: 20px;">まだメッセージの送信履歴はありません</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <h3 style="border-bottom: 1px dashed #ccc; padding-bottom: 5px;">ユーザー管理機能デモ（動作確認用ダミーデータ）</h3>
             <p style="font-size: 13px; color: #666;">※リスト右端の「詳細確認」ボタンを押すと、情報修正や個別注意・強制退会などの運営アクションが実行できます。</p>
             <div style="overflow-x: auto;">
                 <table class="admin-table" style="min-width: 800px;">
                     <tr>
-                        <th>ユーザーID</th>
-                        <th>区分</th>
-                        <th>アプリ上の公開名</th>
-                        <th>ステータス</th>
-                        <th>運営操作</th>
+                        <th>ユーザーID</th><th>区分</th><th>アプリ上の公開名</th><th>ステータス</th><th>運営操作</th>
                     </tr>
                     <tr>
-                        <td>U-0001 <span style="color: #999; font-size:11px;">[テスト]</span></td>
-                        <td>個人</td>
-                        <td>T.Y</td>
-                        <td style="color: #2e7d32; font-weight: bold;">正常</td>
+                        <td>U-0001 <span style="color: #999; font-size:11px;">[テスト]</span></td><td>個人</td><td>T.Y</td><td style="color: #2e7d32; font-weight: bold;">正常</td>
                         <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="openUserDetailModal('U-0001', '個人', 'T.Y', '山田 太郎', '正常', 'IT企業でフロントエンドエンジニア', 'https://line.me/ti/p/dummy1', '')">詳細確認</button></td>
                     </tr>
                     <tr>
-                        <td>C-0023 <span style="color: #999; font-size:11px;">[テスト]</span></td>
-                        <td>企業</td>
-                        <td>株式会社Revalen</td>
-                        <td style="color: #2e7d32; font-weight: bold;">正常</td>
+                        <td>C-0023 <span style="color: #999; font-size:11px;">[テスト]</span></td><td>企業</td><td>株式会社Revalen</td><td style="color: #2e7d32; font-weight: bold;">正常</td>
                         <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="openUserDetailModal('C-0023', '企業', '株式会社Revalen', '担当: 鈴木', '正常', 'マッチングプラットフォーム運営', '-', '')">詳細確認</button></td>
                     </tr>
                     <tr>
-                        <td>U-0055 <span style="color: #999; font-size:11px;">[テスト]</span></td>
-                        <td>個人</td>
-                        <td>副業マン</td>
-                        <td style="color: #ef6c00; font-weight: bold;">⚠️ 通報あり</td>
+                        <td>U-0055 <span style="color: #999; font-size:11px;">[テスト]</span></td><td>個人</td><td>副業マン</td><td style="color: #ef6c00; font-weight: bold;">⚠️ 通報あり</td>
                         <td><button style="padding: 6px 12px; font-size: 12px; cursor: pointer; border: 1px solid #ccc; background: white; border-radius: 4px;" onclick="openUserDetailModal('U-0055', '個人', '副業マン', '佐藤 健太', '⚠️ 勧誘通報あり', '情報商材の販売', '非公開設定', '他ユーザーからMLM勧誘の報告が2件入っています。')">詳細確認</button></td>
                     </tr>
                 </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- 💬 アプリ内個別チャット画面のモーダル -->
+    <div id="chat-modal" class="modal-overlay">
+        <div class="modal-content" style="max-width: 500px; padding: 20px;">
+            <h3 style="margin-bottom: 15px; font-size: 18px;">💬 <span id="chat-target-name">相手の名前</span> とのチャット</h3>
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages-box"></div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input-field" placeholder="メッセージを入力...">
+                    <button class="chat-send-btn" onclick="sendChatMessage()">送信</button>
+                </div>
+            </div>
+            <div class="modal-actions" style="margin-top: 15px;">
+                <button class="btn-modal-cancel" onclick="closeChatWindow()" style="width: 100%; padding: 10px;">チャットを閉じる</button>
             </div>
         </div>
     </div>
@@ -654,7 +761,9 @@
             "福岡県", "佐賀県", "長崎県", "熊本県", "大分県", "宮崎県", "鹿児島県", "沖縄県"
         ];
 
-        let globalAvatarUrl = ""; // 画像データを一時保存する変数
+        let globalAvatarUrl = ""; 
+        let currentChatPartner = ""; 
+        let allChatMessages = [];
 
         window.onload = function() {
             const prefSelects = document.querySelectorAll('.pref-select');
@@ -665,29 +774,110 @@
             });
         };
 
-        // 🆕 写真選択時のプレビュー処理機能
         function previewAvatar(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    // マイページの丸枠の中にプレビュー画像を表示
                     document.getElementById('avatar-preview').innerHTML = `<img src="${e.target.result}" alt="プレビュー">`;
-                    globalAvatarUrl = e.target.result; // 一時保存
+                    globalAvatarUrl = e.target.result; 
                 }
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        // 🆕 プロフィール登録ボタンが押された時の処理
         function saveProfile() {
             alert('プロフィールを登録・更新しました。');
             if (globalAvatarUrl !== "") {
-                // 画像が設定されていれば、ヘッダー右上のミニアイコンに即座に反映させる
                 const headerPic = document.getElementById('header-profile-pic');
                 headerPic.src = globalAvatarUrl;
                 headerPic.style.display = "block";
             }
         }
+
+        function openChatWindow(partnerName) {
+            currentChatPartner = partnerName;
+            document.getElementById('chat-target-name').innerText = partnerName;
+            document.getElementById('chat-modal').style.display = 'flex';
+            document.getElementById('chat-input-field').value = '';
+            renderChatBubbles();
+            document.getElementById('chat-input-field').focus();
+        }
+
+        function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
+
+        function sendChatMessage() {
+            const inputField = document.getElementById('chat-input-field');
+            const messageText = inputField.value.trim();
+            if(messageText === "") return;
+
+            const now = new Date();
+            const timeString = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
+            const fullTimeString = now.toLocaleDateString() + ' ' + timeString;
+            const myName = document.getElementById('user-nickname').value || "登録ユーザー(あなた)";
+
+            allChatMessages.push({
+                time: timeString, fullTime: fullTimeString, sender: myName, receiver: currentChatPartner, text: messageText, isMe: true
+            });
+
+            renderChatBubbles();
+            inputField.value = "";
+            updateAdminLogTable();
+
+            setTimeout(() => {
+                const replyText = `ご連絡ありがとうございます！【${currentChatPartner}】です。詳細確認いたしました。よろしくお願いいたします！`;
+                allChatMessages.push({
+                    time: new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0'),
+                    fullTime: new Date().toLocaleDateString() + ' ' + new Date().getHours().toString().padStart(2, '0') + ':' + new Date().getMinutes().toString().padStart(2, '0'),
+                    sender: currentChatPartner, receiver: myName, text: replyText, isMe: false
+                });
+                renderChatBubbles();
+                updateAdminLogTable();
+            }, 1000);
+        }
+
+        function renderChatBubbles() {
+            const box = document.getElementById('chat-messages-box');
+            const myName = document.getElementById('user-nickname').value || "登録ユーザー(あなた)";
+            const filteredMsg = allChatMessages.filter(m => 
+                (m.sender === myName && m.receiver === currentChatPartner) ||
+                (m.sender === currentChatPartner && m.receiver === myName)
+            );
+
+            if(filteredMsg.length === 0) {
+                box.innerHTML = `<div style="text-align:center; color:#94a3b8; font-size:12px; margin-top:20px;">💬 メッセージを送ってマッチングを始めましょう！</div>`;
+                return;
+            }
+
+            box.innerHTML = filteredMsg.map(m => {
+                const isMeClass = (m.sender === myName) ? 'me' : 'other';
+                return `
+                    <div class="chat-bubble ${isMeClass}">
+                        <div>${m.text}</div>
+                        <div class="chat-bubble-meta">${m.time}</div>
+                    </div>
+                `;
+            }).join('');
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function updateAdminLogTable() {
+            const tbody = document.getElementById('admin-chat-logs');
+            if(allChatMessages.length === 0) return;
+            tbody.innerHTML = allChatMessages.slice().reverse().map(m => {
+                return `
+                    <tr>
+                        <td style="color:#64748b; font-weight:bold;">${m.fullTime}</td>
+                        <td style="color:#0f172a; font-weight:600;">${m.sender}</td>
+                        <td style="color:#0f172a; font-weight:600;">${m.receiver}</td>
+                        <td style="background:#f8fafc; font-weight:500; color:#334155;">${m.text}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        document.getElementById('chat-input-field')? document.getElementById('chat-input-field').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') sendChatMessage();
+        }) : null;
 
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.section');
@@ -695,7 +885,6 @@
             document.getElementById(sectionId).classList.add('active');
         }
 
-        // パスワードモーダル
         function openAdminModal() {
             document.getElementById('admin-login-modal').style.display = 'flex';
             document.getElementById('admin-password-input').value = '';
@@ -704,18 +893,9 @@
         function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
         function submitAdminPassword() {
             const password = document.getElementById('admin-password-input').value;
-            if (password === "2816") {
-                closeAdminModal();
-                showSection('admin');
-            } else {
-                document.getElementById('password-error-msg').style.display = 'block';
-            }
+            if (password === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; }
         }
-        document.getElementById('admin-password-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') submitAdminPassword();
-        });
 
-        // ユーザー詳細・アクションモーダル
         function openUserDetailModal(id, type, pubName, realName, status, job, line, notice) {
             let contentHtml = `
                 <div class="detail-row"><div class="detail-label">ユーザーID</div><div class="detail-value">${id}</div></div>
@@ -726,45 +906,21 @@
                 <div class="detail-row"><div class="detail-label">LINE連携</div><div class="detail-value">${line}</div></div>
                 <div class="detail-row" style="border: none;"><div class="detail-label">ステータス</div><div class="detail-value" style="font-weight: bold;">${status}</div></div>
             `;
-            if(notice !== '') {
-                contentHtml += `<div style="background-color: #ffebee; border: 1px solid #ef9a9a; padding: 10px; border-radius: 4px; margin-top: 15px; font-size: 13px; color: #c62828;"><strong>運営メモ：</strong><br>${notice}</div>`;
-            }
-            
+            if(notice !== '') { contentHtml += `<div style="background-color: #ffebee; border: 1px solid #ef9a9a; padding: 10px; border-radius: 4px; margin-top: 15px; font-size: 13px; color: #c62828;"><strong>運営メモ：</strong><br>${notice}</div>`; }
             contentHtml += `
                 <div style="margin-top: 20px; border-top: 2px dashed #ccc; padding-top: 15px;">
                     <h4 style="margin: 0 0 10px 0; color: #333;">🚨 運営アクション実行</h4>
                     <div style="display: flex; gap: 10px; flex-direction: column;">
-                        <button class="admin-action-btn" style="background-color: #1976d2;" onclick="editUserInfo('${id}', '${realName}')">✏️ 登録情報の修正 (名前変更など)</button>
+                        <button class="admin-action-btn" style="background-color: #1976d2;" onclick="editUserInfo('${id}', '${realName}')">✏️ 登録情報の修正</button>
                         <button class="admin-action-btn" style="background-color: #f57c00;" onclick="sendWarning('${id}')">✉️ 個別注意メッセージの送信</button>
                         <button class="admin-action-btn" style="background-color: #d32f2f;" onclick="forceWithdraw('${id}')">⛔️ アカウント強制退会</button>
                     </div>
                 </div>
             `;
-            
             document.getElementById('user-detail-content').innerHTML = contentHtml;
             document.getElementById('user-detail-modal').style.display = 'flex';
         }
         function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
-
-        function editUserInfo(userId, currentName) {
-            const newName = prompt(`【${userId}】の正しい情報を入力・修正してください。`, currentName);
-            if(newName && newName !== currentName) {
-                alert(`ユーザーID：${userId} の登録情報を「${newName}」に修正しました。`);
-                closeUserDetailModal();
-            }
-        }
-        function sendWarning(userId) {
-            const msg = prompt(`【${userId}】への個別注意メッセージを入力してください。`);
-            if(msg) {
-                alert(`ユーザーID：${userId} へ警告メッセージを送信しました。\n内容：「${msg}」`);
-            }
-        }
-        function forceWithdraw(userId) {
-            if(confirm(`本当に【${userId}】を強制退会させますか？\n※この操作は取り消せません。`)) {
-                alert(`ユーザーID：${userId} をシステムから強制退会させました。`);
-                closeUserDetailModal();
-            }
-        }
 
         function toggleForm() {
             const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
@@ -781,10 +937,7 @@
                 const textContent = card.innerText.toLowerCase();
                 const cardCategory = card.getAttribute('data-category');
                 const cardLocation = card.getAttribute('data-location'); 
-                const matchKeyword = keyword === '' || textContent.includes(keyword);
-                const matchCategory = category === '' || cardCategory === category;
-                const matchLocation = location === '' || cardLocation === location; 
-                card.style.display = (matchKeyword && matchCategory && matchLocation) ? 'block' : 'none';
+                card.style.display = ( (keyword === '' || textContent.includes(keyword)) && (category === '' || cardCategory === category) && (location === '' || cardLocation === location) ) ? 'block' : 'none';
             });
         }
 
@@ -799,11 +952,7 @@
                 const cardIndustry = card.getAttribute('data-industry');
                 const cardCondition = card.getAttribute('data-condition');
                 const cardLocation = card.getAttribute('data-location');
-                const matchKeyword = keyword === '' || textContent.includes(keyword);
-                const matchIndustry = industry === '' || cardIndustry === industry;
-                const matchCondition = condition === '' || cardCondition === condition;
-                const matchLocation = location === '' || cardLocation === location;
-                card.style.display = (matchKeyword && matchIndustry && matchCondition && matchLocation) ? 'block' : 'none';
+                card.style.display = ( (keyword === '' || textContent.includes(keyword)) && (industry === '' || cardIndustry === industry) && (condition === '' || cardCondition === condition) && (location === '' || cardLocation === location) ) ? 'block' : 'none';
             });
         }
 
@@ -814,17 +963,20 @@
             const purpose = document.getElementById('partner-purpose').value;
             const location = document.getElementById('partner-location').value;
             const cards = document.querySelectorAll('.partner-card');
+            
             cards.forEach(card => {
                 const textContent = card.innerText.toLowerCase();
                 const cardRole = card.getAttribute('data-role');
                 const cardIndustry = card.getAttribute('data-industry');
                 const cardPurpose = card.getAttribute('data-purpose');
                 const cardLocation = card.getAttribute('data-location');
+                
                 const matchKeyword = keyword === '' || textContent.includes(keyword);
                 const matchRole = role === '' || cardRole === role;
                 const matchIndustry = industry === '' || cardIndustry === industry;
                 const matchPurpose = purpose === '' || cardPurpose === purpose;
                 const matchLocation = location === '' || cardLocation === location;
+                
                 card.style.display = (matchKeyword && matchRole && matchIndustry && matchPurpose && matchLocation) ? 'block' : 'none';
             });
         }
