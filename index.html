@@ -6,47 +6,48 @@
     <title>Lixia (リクシア) - プレステージ・ビジネスマッチング×優待</title>
     <style>
         :root {
-            --bg-main: #090d16;        /* オニキス・ミッドナイト（漆黒の宇宙） */
-            --bg-section: rgba(18, 24, 38, 0.85); /* スモーク・クリスタル（すりガラス調） */
-            --primary-gold: #d4af37;  /* プレミアム・シャンパンゴールド */
-            --gold-hover: #b89327;
-            --text-light: #f8fafc;    /* プラチナホワイト */
-            --text-muted: #94a3b8;    /* スターライトグレー */
-            --border-gold: rgba(212, 175, 55, 0.25); /* 極細のゴールドライン */
+            --bg-main: #fbfbf9;        /* プレステージ・アイボリー（高級感のある白） */
+            --bg-section: rgba(255, 255, 255, 0.95); /* クリアな白（すりガラス調） */
+            --primary-gold: #b48608;  /* 深みのあるプレミアム・ゴールド */
+            --gold-hover: #926c06;
+            --text-main: #1e293b;     /* 上品なチャコールグレー */
+            --text-muted: #64748b;    /* 落ち着いたスレートグレー */
+            --border-gold: rgba(180, 134, 8, 0.25); /* ゴールドの境界線 */
+            --border-light: #e2e8f0;  /* 明るい境界線 */
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", Arial, "Noto Sans CJK JP", sans-serif;
             margin: 0; padding: 0;
-            background-color: var(--bg-main); color: var(--text-light);
-            background-image: radial-gradient(circle at 0% 0%, rgba(20, 30, 55, 0.6) 0%, transparent 50%),
-                              radial-gradient(circle at 100% 100%, rgba(17, 94, 89, 0.2) 0%, transparent 50%);
+            background-color: var(--bg-main); color: var(--text-main);
+            background-image: radial-gradient(circle at 0% 0%, rgba(180, 134, 8, 0.05) 0%, transparent 50%),
+                              radial-gradient(circle at 100% 100%, rgba(17, 94, 89, 0.05) 0%, transparent 50%);
             background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
         }
         header {
-            background-color: rgba(9, 13, 22, 0.9);
+            background-color: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
             padding: 25px 50px; display: flex;
             justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
             border-bottom: 1px solid var(--border-gold);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
         }
-        header h1 { margin: 0; font-size: 28px; font-weight: 900; letter-spacing: 0.05em; color: var(--primary-gold); }
+        header h1 { margin: 0; font-size: 28px; font-weight: 900; letter-spacing: 0.05em; color: var(--primary-gold); font-family: "Cinzel", serif; }
         .header-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
         nav { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
         nav button {
-            background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255,255,255,0.1); color: #cbd5e1;
+            background: #f8fafc; border: 1px solid var(--border-light); color: var(--text-muted);
             padding: 12px 24px; border-radius: 6px;
-            font-size: 13px; cursor: pointer; font-weight: 600; transition: all 0.3s ease;
+            font-size: 13px; cursor: pointer; font-weight: 600; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             letter-spacing: 0.05em;
         }
-        nav button:hover { border-color: var(--primary-gold); color: var(--primary-gold); background: rgba(214, 175, 55, 0.05); transform: translateY(-1px); }
-        .btn-admin { background-color: #7f1d1d !important; border: 1px solid #b91c1c !important; color: #fecdd3 !important; }
-        .btn-admin:hover { background-color: #991b1b !important; color: white !important; }
+        nav button:hover { border-color: var(--primary-gold); color: var(--primary-gold); background: #fffbeb; transform: translateY(-1px); }
+        .btn-admin { background-color: #fef2f2 !important; border: 1px solid #fca5a5 !important; color: #b91c1c !important; }
+        .btn-admin:hover { background-color: #fee2e2 !important; color: #991b1b !important; border-color: #ef4444 !important;}
         
         .login-status-badge {
-            background: linear-gradient(135deg, #1e293b, #0f172a); color: var(--primary-gold); padding: 8px 16px; 
-            border-radius: 6px; font-size: 12px; font-weight: 700; border: 1px solid var(--border-gold); letter-spacing: 0.03em;
+            background: linear-gradient(135deg, #fffbeb, #fef3c7); color: var(--primary-gold); padding: 8px 16px; 
+            border-radius: 6px; font-size: 12px; font-weight: 700; border: 1px solid #fde68a; letter-spacing: 0.03em;
         }
 
         .container { max-width: 1200px; margin: 50px auto; padding: 0 24px; box-sizing: border-box; }
@@ -54,7 +55,7 @@
             background: var(--bg-section); padding: 45px; border-radius: 16px;
             backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             margin-bottom: 40px; display: none; border: 1px solid var(--border-gold);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.04);
             box-sizing: border-box;
         }
         .section.active { display: block; animation: fadeIn 0.5s ease; }
@@ -64,105 +65,103 @@
         h2::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--border-gold), transparent); margin-left: 10px; }
         
         .search-box {
-            background: rgba(255,255,255,0.02); padding: 25px; border-radius: 12px;
+            background: #ffffff; padding: 25px; border-radius: 12px;
             margin-bottom: 35px; display: flex; gap: 15px; align-items: center; flex-wrap: wrap;
-            border: 1px solid rgba(255,255,255,0.05);
+            border: 1px solid var(--border-light); box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
         .search-box input, .search-box select {
-            padding: 14px 20px; border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; font-size: 13px;
-            background-color: #0f172a; color: white; outline: none; transition: all 0.3s; box-sizing: border-box;
+            padding: 14px 20px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 13px;
+            background-color: #f8fafc; color: var(--text-main); outline: none; transition: all 0.3s; box-sizing: border-box;
         }
-        .search-box input:focus, .search-box select:focus { border-color: var(--primary-gold); box-shadow: 0 0 0 3px rgba(214, 175, 55, 0.15); }
+        .search-box input:focus, .search-box select:focus { border-color: var(--primary-gold); background-color: #ffffff; box-shadow: 0 0 0 3px rgba(180, 134, 8, 0.1); }
         .search-box input { flex-grow: 1; min-width: 200px; }
         .search-btn {
-            background-color: var(--primary-gold); color: #090d16; border: none;
+            background-color: var(--primary-gold); color: #ffffff; border: none;
             padding: 14px 28px; border-radius: 6px; cursor: pointer; min-width: 120px; font-weight: 800; transition: all 0.3s; letter-spacing: 0.05em;
         }
-        .search-btn:hover { background-color: var(--gold-hover); transform: translateY(-1px); box-shadow: 0 5px 15px rgba(214, 175, 55, 0.2); }
+        .search-btn:hover { background-color: var(--gold-hover); transform: translateY(-1px); box-shadow: 0 5px 15px rgba(180, 134, 8, 0.2); }
 
         .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 30px; }
-        .card { border: 1px solid rgba(255,255,255,0.05); padding: 0; border-radius: 12px; background: rgba(15,23,42,0.6); overflow: hidden; display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: var(--primary-gold); }
+        .card { border: 1px solid var(--border-light); padding: 0; border-radius: 12px; background: #ffffff; overflow: hidden; display: flex; flex-direction: column; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--primary-gold); }
         .card-inner { padding: 28px; flex-grow: 1; display: flex; flex-direction: column; }
         
-        .card-img-box { width: 100%; height: 190px; background-color: #090d16; overflow: hidden; position: relative; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.85; }
+        .card-img-box { width: 100%; height: 190px; background-color: #f1f5f9; overflow: hidden; position: relative; border-bottom: 1px solid var(--border-light); }
+        .card-img-box img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; opacity: 0.95; }
         .card:hover .card-img-box img { transform: scale(1.05); opacity: 1; }
 
-        .card-tag { display: inline-block; background: rgba(255,255,255,0.05); padding: 5px 12px; border-radius: 4px; font-size: 11px; margin-bottom: 16px; font-weight: 700; color: var(--primary-gold); border: 1px solid var(--border-gold); letter-spacing: 0.05em; text-transform: uppercase; }
+        .card-tag { display: inline-block; background: #fffbeb; padding: 5px 12px; border-radius: 4px; font-size: 11px; margin-bottom: 16px; font-weight: 700; color: var(--primary-gold); border: 1px solid #fde68a; letter-spacing: 0.05em; text-transform: uppercase; }
         
-        .card-inner h3 { font-size: 20px; font-weight: 700; margin: 0 0 12px 0; color: white; }
+        .card-inner h3 { font-size: 20px; font-weight: 700; margin: 0 0 12px 0; color: var(--text-main); }
         
-        .card-actions { display: flex; gap: 12px; margin-top: auto; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .card-actions { display: flex; gap: 12px; margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-light); }
         .btn {
             background-color: transparent; color: var(--primary-gold); border: 1px solid var(--primary-gold);
             padding: 14px 20px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: 700; font-size: 13px; transition: all 0.3s; letter-spacing: 0.05em;
         }
-        .btn:hover { background-color: var(--primary-gold); color: #090d16; box-shadow: 0 5px 15px rgba(214, 175, 55, 0.15); }
-        .btn-chat { background-color: rgba(255,255,255,0.03); color: white; border: 1px solid rgba(255,255,255,0.15); }
-        .btn-chat:hover { background-color: white; color: #090d16; border-color: white; }
+        .btn:hover { background-color: var(--primary-gold); color: white; box-shadow: 0 5px 15px rgba(180, 134, 8, 0.2); }
+        .btn-chat { background-color: #f8fafc; color: var(--text-muted); border: 1px solid var(--border-light); }
+        .btn-chat:hover { background-color: #e2e8f0; color: var(--text-main); border-color: #cbd5e1; }
         
         .btn-benefit-link {
-            display: inline-block; background: linear-gradient(135deg, var(--primary-gold), #b89327); color: #090d16;
+            display: inline-block; background: linear-gradient(135deg, var(--primary-gold), #926c06); color: white;
             text-decoration: none; padding: 18px 45px; border-radius: 6px; font-weight: 800;
-            font-size: 16px; box-shadow: 0 10px 30px rgba(214, 175, 55, 0.2); margin: 25px 0; text-align: center; transition: all 0.3s; letter-spacing: 0.05em;
+            font-size: 16px; box-shadow: 0 10px 30px rgba(180, 134, 8, 0.2); margin: 25px 0; text-align: center; transition: all 0.3s; letter-spacing: 0.05em;
         }
-        .btn-benefit-link:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(214, 175, 55, 0.35); }
+        .btn-benefit-link:hover { transform: translateY(-2px); box-shadow: 0 15px 35px rgba(180, 134, 8, 0.35); }
         
-        /* 🚨【携帯最適化】テーブルが画面外に突き抜けないようにラップする防護壁を追加 */
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-top: 25px; border-radius: 8px; border: 1px solid var(--border-gold); }
-        table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 14px; background: rgba(15,23,42,0.4); overflow: hidden; }
+        table { width: 100%; border-collapse: collapse; margin-top: 0; font-size: 14px; background: #ffffff; overflow: hidden; }
         th, td { border: 1px solid var(--border-gold); padding: 18px; text-align: left; white-space: nowrap; }
-        th { background-color: rgba(214, 175, 55, 0.08); color: var(--primary-gold); font-weight: 700; }
-        td { color: #e2e8f0; }
+        th { background-color: #fffbeb; color: var(--primary-gold); font-weight: 700; }
+        td { color: var(--text-main); }
 
         .form-group { margin-bottom: 25px; }
         .form-group label { display: block; font-weight: 700; margin-bottom: 10px; font-size: 14px; color: var(--primary-gold); }
         
         .avatar-upload-container {
             display: flex; align-items: center; gap: 28px; margin-bottom: 30px;
-            background: rgba(255,255,255,0.01); padding: 25px; border-radius: 12px; border: 1px dashed var(--border-gold); flex-wrap: wrap;
+            background: #ffffff; padding: 25px; border-radius: 12px; border: 1px dashed var(--border-gold); flex-wrap: wrap;
         }
         .avatar-preview-box {
-            width: 90px; height: 95px; border-radius: 50%; background: #0f172a;
+            width: 90px; height: 95px; border-radius: 50%; background: #f8fafc;
             display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid var(--primary-gold);
         }
         .avatar-preview-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .chat-container { display: flex; flex-direction: column; height: 400px; border: 1px solid var(--border-gold); border-radius: 12px; background: #0b111e; overflow: hidden; }
+        .chat-container { display: flex; flex-direction: column; height: 400px; border: 1px solid var(--border-gold); border-radius: 12px; background: #f8fafc; overflow: hidden; }
         .chat-messages { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 14px; }
         .chat-bubble { max-width: 75%; padding: 14px 20px; border-radius: 16px; font-size: 14px; line-height: 1.6; word-break: break-all; }
-        .chat-bubble.me { background-color: var(--primary-gold); color: #090d16; align-self: flex-end; border-bottom-right-radius: 2px; font-weight:600; }
-        .chat-bubble.other { background-color: #1e293b; color: white; align-start: flex-start; border-bottom-left-radius: 2px; border: 1px solid rgba(255,255,255,0.05); }
-        .chat-bubble-meta { font-size: 10px; color: rgba(0, 0, 0, 0.4); text-align: right; margin-top: 6px; }
-        .chat-bubble.me .chat-bubble-meta { color: rgba(9, 13, 22, 0.5); }
-        .chat-bubble.other .chat-bubble-meta { color: #64748b; }
-        .chat-input-area { display: flex; border-top: 1px solid var(--border-gold); background: #0f172a; padding: 18px; gap: 12px; }
+        .chat-bubble.me { background-color: var(--primary-gold); color: white; align-self: flex-end; border-bottom-right-radius: 2px; font-weight:600; }
+        .chat-bubble.other { background-color: white; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--border-light); }
+        .chat-bubble-meta { font-size: 10px; color: rgba(255,255,255,0.8); text-align: right; margin-top: 6px; }
+        .chat-bubble.other .chat-bubble-meta { color: #94a3b8; }
+        .chat-input-area { display: flex; border-top: 1px solid var(--border-gold); background: #ffffff; padding: 18px; gap: 12px; }
 
         .modal-overlay {
             display: none; 
             position: fixed; z-index: 1000; left: 0; top: 0;
-            width: 100%; height: 100%; background-color: rgba(9, 13, 22, 0.8);
+            width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6);
             align-items: center; justify-content: center; backdrop-filter: blur(8px);
             padding: 20px; box-sizing: border-box;
         }
         .modal-content {
-            background-color: #121826; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; width: 100%; max-width: 460px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); box-sizing: border-box; max-height: 90vh; overflow-y: auto;
+            background-color: #ffffff; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; width: 100%; max-width: 460px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15); box-sizing: border-box; max-height: 90vh; overflow-y: auto;
         }
         .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;}
         .modal-actions { display: flex; gap: 10px; margin-top: 20px;}
         .modal-actions button { flex: 1; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; }
-        .btn-modal-cancel { background-color: #e0e0e0; color: #333; }
+        .btn-modal-cancel { background-color: #f1f5f9; color: var(--text-main); }
+        .btn-modal-cancel:hover { background-color: #e2e8f0; }
         
-        footer { background-color: #050810; color: #64748b; text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 13px; border-top: 4px solid var(--primary-gold); letter-spacing: 0.05em; }
+        footer { background-color: #ffffff; color: var(--text-muted); text-align: center; padding: 40px 20px; margin-top: 60px; font-size: 13px; border-top: 4px solid var(--primary-gold); letter-spacing: 0.05em; }
         footer .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 15px; flex-wrap: wrap; }
         footer .footer-links span { cursor: pointer; color: var(--primary-gold); font-weight: bold; text-decoration: underline; }
-        footer .footer-links span:hover { color: #ffffff; }
-        .policy-text { max-height: 250px; overflow-y: auto; text-align: left; font-size: 12px; color: #94a3b8; line-height: 1.6; background: #0f172a; padding: 20px; border-radius: 8px; border: 1px solid var(--border-gold); }
+        footer .footer-links span:hover { color: var(--gold-hover); }
+        .policy-text { max-height: 250px; overflow-y: auto; text-align: left; font-size: 12px; color: var(--text-main); line-height: 1.6; background: #f8fafc; padding: 20px; border-radius: 8px; border: 1px solid var(--border-light); }
         .policy-text h4 { margin-top: 15px; margin-bottom: 5px; color: var(--primary-gold); border-left: 3px solid var(--primary-gold); padding-left: 6px; }
 
-        /* 🚨【携帯デバイス専用メディアクエリ】スマホ画面で完全にデザインを美しく保つプロの設計 */
         @media screen and (max-width: 768px) {
             header { padding: 20px; justify-content: center; text-align: center; }
             header h1 { width: 100%; margin-bottom: 10px; font-size: 24px; }
@@ -201,7 +200,6 @@
 
     <div class="container">
         
-        <!-- 1. 人材を探す(企業) -->
         <div id="find-person" class="section active">
             <h2>人材候補リスト（企業様向け）</h2>
             <div class="search-box">
@@ -232,7 +230,6 @@
             <div class="card-grid" id="person-list"></div>
         </div>
 
-        <!-- 2. 案件を探す(個人) -->
         <div id="find-job" class="section">
             <h2>案件リスト（個人様向け）</h2>
             <div class="search-box">
@@ -276,7 +273,6 @@
             <div class="card-grid" id="job-list"></div>
         </div>
 
-        <!-- 3. 仲間を探す(個人間) -->
         <div id="find-partner" class="section">
             <h2>協業・仲間探し（個人同士）</h2>
             <p style="color:var(--text-muted); margin-bottom:25px;">新しいプロジェクトの立ち上げ、起業の相棒、スキル交換など、個人同士で深く繋がることができます。</p>
@@ -318,12 +314,11 @@
             <div class="card-grid" id="partner-list"></div>
         </div>
 
-        <!-- 4. 無料優待サービス -->
         <div id="benefits" class="section">
             <h2>無料優待サービス (約3万施設以上)</h2>
             <p style="color:var(--text-muted); margin-bottom:30px;">最高峰のステータスホルダーに相応しい、全国3万施設以上のプレミアムな無料優待パッケージです。</p>
             
-            <div style="text-align: center; background: rgba(214,175,55,0.05); border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; margin-bottom: 35px;">
+            <div style="text-align: center; background: #fffbeb; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; margin-bottom: 35px;">
                 <h3 style="margin-top: 0; color: var(--primary-gold); font-size: 20px; font-weight:900; letter-spacing:0.05em;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
                 <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 25px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの申請が可能です。</p>
                 <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ポータルを開く (別タブ) ➔</a>
@@ -334,52 +329,51 @@
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:20px;">
-                        <h4>✈️ トラベル (15,000施設以上)</h4>
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">✈️ トラベル (15,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">HIS, 大江戸温泉物語, ROUTE INN HOTELS, Trip.com 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:20px;">
-                        <h4>🎬 レジャー (3,000施設以上)</h4>
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🎬 レジャー (3,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">TOHO CINEMAS, 富士急ハイランド, サンリオピューロランド 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:20px;">
-                        <h4>🍔 グルメ (5,000施設以上)</h4>
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🍔 グルメ (5,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">PIZZA-LA, 銀座ライオン, ドムドムハンバーガー, 吉野家 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner" style="padding:20px;">
-                        <h4>🏃 スポーツ (3,000施設以上)</h4>
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🏃 スポーツ (3,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">chocoZAP, JOY FIT, GDO, MEGALOS 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner">
-                        <h4>🏢 ライフサポート (6,000施設以上)</h4>
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🏢 ライフサポート (6,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">洋服の青山, OWNDAYS, トレファク, メガネスーパー 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80"></div>
                     <div class="card-inner">
-                        <h4>🎓 キャリア (1,000施設以上)</h4>
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🎓 キャリア (1,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">ユーキャン, 英会話イーオン, ABC Cooking Studio 等</p>
                     </div>
                 </div>
             </div>
 
             <h3 style="margin-top: 40px; margin-bottom:15px; font-weight:800; color:var(--primary-gold);">優待割引料金テーブル一覧</h3>
-            <!-- 🚨 スマホはみ出し防止のレスポンシブコンテナで包み込み -->
             <div class="table-responsive">
                 <table>
-                    <tr><th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: var(--primary-gold); color: #090d16; font-weight:800;">優待価格</th><th>実質のお得額</th></tr>
+                    <tr><th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: var(--primary-gold); color: #ffffff; font-weight:800;">優待価格</th><th>実質のお得額</th></tr>
                     <tr><td>☕️ カフェ</td><td>世界最大級 of コーヒーチェーン</td><td style="text-decoration: line-through;">5,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">4,500円</td><td>500円お得</td></tr>
                     <tr><td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">900円</td><td>100円お得</td></tr>
                     <tr><td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">450円</td><td>50円お得</td></tr>
@@ -390,23 +384,22 @@
             </div>
         </div>
 
-        <!-- 5. マイページ / 登録・ログイン -->
         <div id="profile" class="section">
             <h2>マイページ / メンバーシップ認証・開設</h2>
             
-            <div style="background: rgba(255,255,255,0.01); padding: 25px; border-radius: 12px; margin-bottom: 35px; border: 1px solid var(--border-gold); border-left: 5px solid var(--primary-gold);">
+            <div style="background: #ffffff; padding: 25px; border-radius: 12px; margin-bottom: 35px; border: 1px solid var(--border-gold); border-left: 5px solid var(--primary-gold);">
                 <h4 style="margin:0 0 8px 0; font-size:16px; color:var(--primary-gold);">🔑 プレステージ・セキュアログイン</h4>
                 <p style="font-size: 13px; margin: 0 0 15px 0; color: var(--text-muted);">登録した「識別番号付き表示名（例: テスト#8103）」と暗証番号を入力してください。</p>
                 <div style="display:flex; gap:12px; flex-wrap: wrap;">
-                    <input type="text" id="login-name-input" placeholder="表示名 (例: テスト#8103)" style="padding:12px; border:1px solid rgba(255,255,255,0.1); border-radius:6px; flex:2; min-width:160px;">
-                    <input type="password" id="login-pass-input" placeholder="暗証番号" maxlength="4" style="padding:12px; border:1px solid rgba(255,255,255,0.1); border-radius:6px; flex:1; min-width:90px; text-align:center;">
+                    <input type="text" id="login-name-input" placeholder="表示名 (例: テスト#8103)" style="padding:12px; border:1px solid var(--border-light); border-radius:6px; flex:2; min-width:160px; background: #f8fafc; color: var(--text-main);">
+                    <input type="password" id="login-pass-input" placeholder="暗証番号" maxlength="4" style="padding:12px; border:1px solid var(--border-light); border-radius:6px; flex:1; min-width:90px; text-align:center; background: #f8fafc; color: var(--text-main);">
                     <button type="button" class="search-btn" onclick="switchLoginUser()">ログイン</button>
                 </div>
             </div>
 
-            <hr style="border:0; border-top:1px solid var(--border-gold); margin:35px 0;">
+            <hr style="border:0; border-top:1px solid var(--border-light); margin:35px 0;">
 
-            <h3>👤 新規メンバーシップ登録</h3>
+            <h3 style="color: var(--text-main);">👤 新規メンバーシップ登録</h3>
             <div style="margin-bottom: 25px;">
                 <label style="cursor: pointer; margin-right: 20px; font-weight:700;"><input type="radio" name="user_type" value="individual" checked> 👤 個人メンバー</label>
                 <label style="cursor: pointer; font-weight:700;"><input type="radio" name="user_type" value="corporate"> 🏢 法人メンバー</label>
@@ -432,10 +425,12 @@
                     <div style="flex: 1;"><label>【年齢】</label><input type="number" id="user-age" value="28"></div>
                 </div>
                 <div class="form-group"><label>【本業・コアスキル】</label><input type="text" id="user-job" value="IT企業でフロントエンドエンジニア (歴5年)"></div>
+                
                 <div class="form-group"><label>【副業・サイドプロジェクト内容】</label><input type="text" id="user-sidejob" value="週末にWebデザインやUI設計の受託をしています"></div>
+                
                 <div class="form-group"><label>【繋がりたいパートナーへの希望要件】</label><textarea id="user-target" rows="4">新しいアプリを一緒に立ち上げてくれるデザイナーの仲間を募集中です！</textarea></div>
                 
-                <div class="form-group" style="background: rgba(255,255,255,0.01); padding: 20px; border-radius: 12px; border: 1px solid var(--border-gold); margin-top:25px;">
+                <div class="form-group" style="background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid var(--border-gold); margin-top:25px;">
                     <label style="color: var(--primary-gold); font-weight:800;">LINE公式/ダイレクト追加連携</label>
                     <div style="margin: 10px 0;">
                         <label style="margin-right: 20px; cursor: pointer; font-weight:700;"><input type="radio" name="line_ok" value="OK" checked> 🆗 ダイレクト追加を許可</label>
@@ -447,23 +442,22 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn" style="padding: 16px; font-size: 15px; margin-top:25px;" onclick="saveProfile()">Lixia メンバーシップを開設する</button>
+                <button type="button" class="btn" style="padding: 16px; font-size: 15px; margin-top:25px; background-color: var(--primary-gold); color:#ffffff; border:none;" onclick="saveProfile()">Lixia メンバーシップを開設する</button>
             </form>
         </div>
 
-        <!-- 6. 運営管理 -->
         <div id="admin" class="section">
             <h2>⚙️ 運営管理ダッシュボード</h2>
             <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width:200px; background: #000; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border-gold);">
+                <div style="flex: 1; min-width:200px; background: #ffffff; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border-light);">
                     <h3>総ユーザー数</h3><p style="font-size: 32px; font-weight: bold; margin:0; color:var(--primary-gold);"><span id="admin-total-users">0</span> 名</p>
                 </div>
-                <div style="flex: 1; min-width:200px; background: #000; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border-gold);">
+                <div style="flex: 1; min-width:200px; background: #ffffff; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border-light);">
                     <h3>累計コンタクト数</h3><p style="font-size: 32px; font-weight: bold; margin:0; color:var(--primary-gold);"><span id="admin-total-contacts">0</span> 件</p>
                 </div>
             </div>
 
-            <div style="background: rgba(214,175,55,0.05); padding: 20px; border-radius: 12px; margin-bottom: 30px; border:1px solid var(--border-gold);">
+            <div style="background: #fffbeb; padding: 20px; border-radius: 12px; margin-bottom: 30px; border:1px solid var(--border-gold);">
                 <h3>🔔 面談申し込み履歴</h3>
                 <div class="table-responsive">
                     <table>
@@ -473,7 +467,7 @@
                 </div>
             </div>
 
-            <div style="background: rgba(153,27,27,0.1); padding: 20px; border-radius: 12px; border:1px solid #991b1b;">
+            <div style="background: #fef2f2; padding: 20px; border-radius: 12px; border:1px solid #fecdd3;">
                 <h3>👁️ 全チャットログ</h3>
                 <div class="table-responsive">
                     <table>
@@ -498,7 +492,7 @@
             <span onclick="openPolicyModal('privacy')">プライバシーポリシー</span>
             <span onclick="openPolicyModal('terms')">利用規約</span>
         </div>
-        <p>© 2026 Lixia. Black Onyx Prestige Platinum Version.</p>
+        <p>© 2026 Lixia. Light Prestige Edition.</p>
     </footer>
 
     <div id="policy-modal" class="modal-overlay">
@@ -506,14 +500,13 @@
             <h3 id="policy-modal-title" style="color:var(--primary-gold); margin-top:0;">規約文書</h3>
             <div id="policy-modal-text" class="policy-text"></div>
             <div class="modal-actions" style="margin-top: 20px;">
-                <button class="btn" style="background-color:var(--primary-gold); color:#090d16; border:none;" onclick="closePolicyModal()">内容を確認しました</button>
+                <button class="btn" style="background-color:var(--primary-gold); color:#ffffff; border:none;" onclick="closePolicyModal()">内容を確認しました</button>
             </div>
         </div>
     </div>
 
-    <!-- 各種モーダル -->
     <div id="chat-modal" class="modal-overlay">
-        <div class="modal-content" style="max-width: 500px; padding: 25px; background:#090d16; border:1px solid var(--primary-gold);">
+        <div class="modal-content" style="max-width: 500px; padding: 25px; border:1px solid var(--primary-gold);">
             <h3 style="color:var(--primary-gold);">💬 セキュア・暗号チャットスレッド</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
@@ -529,24 +522,24 @@
     </div>
 
     <div id="user-detail-modal" class="modal-overlay">
-        <div class="modal-content" style="max-width: 500px; background:#090d16; border:1px solid #991b1b;">
+        <div class="modal-content" style="max-width: 500px; border:1px solid #991b1b;">
             <h3 style="color:#ef4444;">👤 ユーザー詳細情報 (運営専用)</h3>
             <div id="user-detail-content"></div>
             <div class="modal-actions" style="margin-top: 25px;">
-                <button class="btn-modal-submit" id="admin-delete-btn" style="background-color: #991b1b;">🚨 強制退会・データ削除</button>
+                <button class="btn-modal-submit" id="admin-delete-btn" style="background-color: #991b1b; color: white;">🚨 強制退会・データ削除</button>
                 <button class="btn-modal-cancel" onclick="closeUserDetailModal()">閉じる</button>
             </div>
         </div>
     </div>
 
     <div id="admin-login-modal" class="modal-overlay">
-        <div class="modal-content" style="text-align: center; background:#090d16; border:1px solid #991b1b;">
-            <h3>🔒 運営システム認証</h3>
+        <div class="modal-content" style="text-align: center; border:1px solid #991b1b;">
+            <h3 style="color:#ef4444;">🔒 運営システム認証</h3>
             <input type="password" id="admin-password-input" placeholder="パスワード">
             <p id="password-error-msg" class="modal-error">⚠️ パスワードが違います</p>
             <div class="modal-actions">
                 <button class="btn-modal-cancel" onclick="closeAdminModal()">閉じる</button>
-                <button class="btn-modal-submit" onclick="submitAdminPassword()">認証</button>
+                <button class="btn-modal-submit" style="background-color: #ef4444; color: white;" onclick="submitAdminPassword()">認証</button>
             </div>
         </div>
     </div>
@@ -586,7 +579,7 @@
                 textBox.innerHTML = `<h4>1. 個人情報の収集</h4><p>Lixiaは、マッチングおよび面談調整のため、表示名、暗証番号、スキル要件、およびLINE連絡先等の限定データを収集します。</p><h4>2. データの秘匿・隔離</h4><p>個別暗号化プライベートチャットデータ、および面談オファー通知履歴は、認証された当事者およびシステム監査の運営者以外への開示をサーバーレベルでブロックします。</p><h4>3. 安全管理措置</h4><p>不正アクセスおよびなりすましを防止するため、全データノードはSSL暗号化通信を適用し、安全に管理されています。</p>`;
             } else {
                 titleBox.innerText = "📜 利用規約（プレステージ会員規約）";
-                textBox.innerHTML = `<h4>第1条 (目的)</h4><p>本規約は、プレステージ・マッチングプラットフォーム「Lixia」における、会員同士の健全かつ秘匿性の高いビジネマッチングおよび無料優待サービスの利用環境を定義します。</p><h4>第2条 (禁止事項)</h4><p>他者のハッシュ付き公開名を用いたなりすましログイン、不正なチャット乱入の試み、公序良俗に反する面談オファー、初期共通暗証番号（1234）の放置行為を厳重に禁止します。</p><h4>第3条 (強制抹消)</h4><p>禁止事項に違反した場合、運営管理ダッシュボードの監査権限に基づき、事前通告なくシステムアカウント全データを永久に強制抹消処分とします。</p>`;
+                textBox.innerHTML = `<h4>第1条 (目的)</h4><p>本規約は、プレステージ・マッチングプラットフォーム「Lixia」における、会員同士の健全かつ秘匿性の高いビジネスマッチングおよび無料優待サービスの利用環境を定義します。</p><h4>第2条 (禁止事項)</h4><p>他者のハッシュ付き公開名を用いたなりすましログイン、不正なチャット乱入の試み、公序良俗に反する面談オファー、初期共通暗証番号（1234）の放置行為を厳重に禁止します。</p><h4>第3条 (強制抹消)</h4><p>禁止事項に違反した場合、運営管理ダッシュボードの監査権限に基づき、事前通告なくシステムアカウント全データを永久に強制抹消処分とします。</p>`;
             }
             document.getElementById('policy-modal').style.display = 'flex';
         }
@@ -612,7 +605,7 @@
             try {
                 const response = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${encodeURIComponent(inputName)}`, { headers });
                 const userRecords = await response.json();
-                if(!userRecords || userRecords.length === 0) { alert("⚠️ メンバーレコードが見つかりません。"); return; }
+                if(!userRecords || userRecords.length === 0) { alert("⚠️ メンバーレコードが見つかりません。タグ(#付き)まで正確に入力してください。"); return; }
                 
                 if (userRecords[0].password === inputPass) {
                     myStaticLoginName = inputName;
@@ -684,7 +677,7 @@
 
         function renderPersonCards(list) {
             const box = document.getElementById('person-list');
-            if(!list || list.length === 0) { box.innerHTML = `<p style="color: #64748b;">データがありません。</p>`; return; }
+            if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">データがありません。</p>`; return; }
             box.innerHTML = list.map(u => {
                 const cleanTitle = u.title.trim();
                 const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
@@ -708,7 +701,7 @@
 
         function renderJobCards(list) {
             const box = document.getElementById('job-list');
-            if(!list || list.length === 0) { box.innerHTML = `<p style="color: #64748b;">現在公開中のプレミアム案件はありません。</p>`; return; }
+            if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">現在公開中のプレミアム案件はありません。</p>`; return; }
             box.innerHTML = list.map(j => `
                 <div class="card">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80"></div>
@@ -719,7 +712,7 @@
 
         function renderPartnerCards(list) {
             const box = document.getElementById('partner-list');
-            if(!list || list.length === 0) { box.innerHTML = `<p style="color: #64748b;">募集情報がありません。</p>`; return; }
+            if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">募集情報がありません。</p>`; return; }
             box.innerHTML = list.map(p => {
                 const cleanTitle = p.title.trim();
                 const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
@@ -773,6 +766,7 @@
                 myStaticLoginName = nickname;
                 localStorage.setItem('lixia_login_user', nickname);
                 document.getElementById('current-user-badge').innerText = `👤 ${myStaticLoginName}`;
+                
                 alert(`🎉 ラグジュアリーメンバーシップを開設しました。\n\n会員ID：【 ${nickname} 】`);
                 await loadSupabaseData();
                 showSection('find-person');
@@ -796,7 +790,7 @@
         let lastMessageCount = 0;
         function renderChatBubbles(filteredMsg) {
             const box = document.getElementById('chat-messages-box');
-            if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:#64748b; font-size:12px; margin-top:20px;">💬 エンドツーエンド暗号化空間。</div>`; return; }
+            if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:20px;">💬 エンドツーエンド暗号化空間。</div>`; return; }
             box.innerHTML = filteredMsg.map(m => {
                 const isMeClass = (m.sender === myStaticLoginName) ? 'me' : 'other';
                 const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
