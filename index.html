@@ -125,8 +125,8 @@
             background: #ffffff; padding: 25px; border-radius: 12px; border: 1px dashed var(--border-gold); flex-wrap: wrap;
         }
         .avatar-preview-box {
-            width: 90px; height: 90px; border-radius: 50%; background: #f8fafc;
-            display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid var(--primary-gold);
+            width: 100%; max-width: 320px; height: 190px; border-radius: 8px; background: #f8fafc;
+            display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid var(--border-light);
         }
         .avatar-preview-box img { width: 100%; height: 100%; object-fit: cover; }
 
@@ -366,6 +366,7 @@
                     <tr><th>カテゴリ</th><th>サービス名</th><th>通常料金</th><th style="background-color: var(--primary-gold); color: #ffffff; font-weight:800;">優待価格</th><th>実質のお得額</th></tr>
                     <tr><td>☕️ カフェ</td><td>世界最大級 of コーヒーチェーン</td><td style="text-decoration: line-through;">5,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">4,500円</td><td>500円お得</td></tr>
                     <tr><td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">900円</td><td>100円お得</td></tr>
+                    <tr><td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">450円</td><td>50円お得</td></tr>
                     <tr><td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">1,300円〜</td><td>最大700円お得</td></tr>
                 </table>
             </div>
@@ -384,6 +385,17 @@
                 </div>
             </div>
 
+            <div id="my-messages-area" style="display:none; background: #ffffff; padding: 30px; border-radius: 12px; border: 1px solid var(--border-gold); margin-bottom: 35px;">
+                <h3 style="color: var(--primary-gold); margin-top:0;">📬 メッセージ＆オファー履歴</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">※あなた宛てのオファーや、やり取りしたチャットの相手一覧です。ここからいつでも連絡を再開できます。</p>
+                <div class="table-responsive">
+                    <table>
+                        <thead><tr><th>相手の公開名</th><th>ステータス</th><th>操作</th></tr></thead>
+                        <tbody id="my-chat-list"></tbody>
+                    </table>
+                </div>
+            </div>
+
             <hr style="border:0; border-top:1px solid var(--border-light); margin:35px 0;">
 
             <h3 style="color: var(--text-main);">👤 新規メンバーシップ登録 (アカウント作成)</h3>
@@ -396,12 +408,12 @@
 
             <form id="profile-form" style="max-width: 750px;">
                 <div class="avatar-upload-container">
-                    <div style="display:flex; flex-direction:column; align-items:center;">
-                        <div class="avatar-preview-box" id="avatar-preview"><span style="color:var(--text-muted); font-size:11px;">未設定</span></div>
-                        <p style="font-size:11px; color:var(--text-muted); margin-top:8px; text-align:center;">※リスト上ではこのように<br>丸く切り抜かれます</p>
+                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                        <p style="font-size:11px; color:var(--text-muted); margin-top:0; margin-bottom:10px;">※リスト上ではこのように表示されます（プレビュー）</p>
+                        <div class="avatar-preview-box" id="avatar-preview"><span style="color:var(--text-muted); font-size:11px;">画像未設定</span></div>
                     </div>
                     <div style="flex:1;">
-                        <label style="display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px;">アイコン・アバター登録 (任意)</label>
+                        <label style="display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px;">アイコン・アイキャッチ登録 (任意)</label>
                         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">あなたらしい写真や企業ロゴを設定するとマッチング率が飛躍的に高まります。</p>
                         <input type="file" id="avatar-input" accept="image/*" onchange="previewAvatar(this)">
                     </div>
@@ -548,8 +560,9 @@
                 
                 <div class="form-group">
                     <label>案件アイキャッチ画像 (任意)</label>
+                    <p style="font-size:11px; color:var(--text-muted); margin-top:0; margin-bottom:10px;">※リスト上での表示プレビュー</p>
                     <input type="file" accept="image/*" onchange="previewJobImg(this)">
-                    <div id="job-img-preview" style="margin-top:10px; max-width:200px; border-radius:8px; overflow:hidden; border:1px solid var(--border-light); display:none;"></div>
+                    <div id="job-img-preview" style="margin-top:10px; width:100%; max-width:320px; height:190px; border-radius:8px; overflow:hidden; border:1px solid var(--border-light); display:none;"></div>
                 </div>
                 
                 <div class="form-group" style="display:flex; gap:15px; flex-wrap:wrap;">
@@ -630,6 +643,19 @@
                         <input type="text" id="job-post-condition" placeholder="詳細な単価や条件 (例: 月30万円〜 / 週3日稼働)">
                     </div>
                 </div>
+
+                <div class="form-group" style="background: #ffffff; padding: 20px; border-radius: 12px; border: 1px solid var(--border-gold); margin-top:25px;">
+                    <label style="color: var(--primary-gold); font-weight:800;">案件の連絡先/LINE設定</label>
+                    <div style="margin: 10px 0;">
+                        <label style="margin-right: 20px; cursor: pointer; font-weight:700;"><input type="radio" name="job_line_ok" value="OK" checked> 🆗 ダイレクト追加・連絡を許可</label>
+                        <label style="cursor: pointer; font-weight:700;"><input type="radio" name="job_line_ok" value="NG"> 🆖 アプリ内チャットのみ</label>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <label style="font-size:12px; color:var(--text-muted); font-weight:700;">LINE友だち追加リンクURL等 (任意)</label>
+                        <input type="text" id="job-post-line" placeholder="https://line.me/ti/p/..." value="">
+                    </div>
+                </div>
+
                 <button type="button" class="search-btn" style="width:100%; margin-top:10px;" onclick="postNewJob()">案件を公開する</button>
             </div>
         </div>
@@ -728,8 +754,9 @@
             
             <div class="form-group" id="edit-img-group">
                 <label>画像（写真）の変更</label>
+                <p style="font-size:11px; color:var(--text-muted); margin-top:0; margin-bottom:10px;">※リスト上での表示プレビュー</p>
                 <input type="file" accept="image/*" onchange="previewEditImg(this)">
-                <div id="edit-img-preview" style="margin-top:10px; height:120px; border-radius:8px; overflow:hidden; border:1px solid var(--border-light); text-align:center;"></div>
+                <div id="edit-img-preview" style="margin-top:10px; width:100%; max-width:320px; height:190px; border-radius:8px; overflow:hidden; border:1px solid var(--border-light); background:#f8fafc; display:flex; align-items:center; justify-content:center;"></div>
             </div>
 
             <div class="form-group">
@@ -770,6 +797,7 @@
         let currentChatPartner = ""; let fetchedUsers = []; let myStaticLoginName = ""; let knownContactIds = new Set(); let isFirstLoad = true;
         let globalAvatarUrl = ""; 
         let globalJobAvatarUrl = ""; 
+        let knownMessageIds = new Set(); 
 
         const url_part1 = "https://"; const url_part2 = "yuhbcmvbcklplxmadoka"; const url_part3 = ".supabase.co";
         const base_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1aGJjbXZiY2tscGx4bWFkb2thIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3OTE2NjksImV4cCI6MjA5NzM2NzY2OX0.sf7QRIkngAcgMewV9mB6YFWSoKlBiCjDxkgQWtSSS2U";
@@ -826,7 +854,7 @@
                 reader.onload = function(e) {
                     const previewBox = document.getElementById('job-img-preview');
                     previewBox.style.display = 'block';
-                    previewBox.innerHTML = `<img src="${e.target.result}" style="width:100%;height:auto;display:block;">`;
+                    previewBox.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
                     globalJobAvatarUrl = e.target.result; 
                 }
                 reader.readAsDataURL(input.files[0]);
@@ -888,20 +916,77 @@
                     url += `&or=(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(myStaticLoginName)})`;
                 }
 
-                const rMsg = await fetch(url, { headers }); const filteredMsgs = await rMsg.json();
-                if (document.getElementById('chat-modal').style.display === 'flex') { renderChatBubbles(filteredMsgs); }
-                updateAdminChatLogs(filteredMsgs);
+                const rMsg = await fetch(url, { headers }); const allMsgs = await rMsg.json();
+                
+                if (document.getElementById('chat-modal').style.display === 'flex' && currentChatPartner) {
+                    // 🚨【セキュリティ防護壁】当人同士のチャット以外をフロントで徹底的に弾き落とす
+                    const strictFilteredMsgs = allMsgs.filter(m => 
+                        (m.sender === myStaticLoginName && m.receiver === currentChatPartner) ||
+                        (m.sender === currentChatPartner && m.receiver === myStaticLoginName)
+                    );
+                    renderChatBubbles(strictFilteredMsgs); 
+                }
+                
+                updateAdminChatLogs(allMsgs);
+
+                // 新着メッセージ通知＆チャット即時遷移
+                allMsgs.forEach(m => {
+                    if (m.receiver === myStaticLoginName && !knownMessageIds.has(m.id)) {
+                        knownMessageIds.add(m.id);
+                        if(!isFirstLoad && currentChatPartner !== m.sender) {
+                            if(confirm(`💬【新着メッセージ】\n${m.sender} 様からメッセージが届きました。\n今すぐチャット画面を開いて返信しますか？`)) {
+                                openChatWindow(m.sender);
+                            }
+                        }
+                    } else {
+                        knownMessageIds.add(m.id);
+                    }
+                });
 
                 const rContact = await fetch(`${SUPABASE_API_URL}/contacts?order=created_at.desc`, { headers });
                 const allContacts = await rContact.json(); updateAdminContactDashboard(allContacts);
 
+                // 新着オファー通知＆チャット即時遷移
                 allContacts.forEach(c => {
                     if (c.receiver === myStaticLoginName && !knownContactIds.has(c.id)) {
                         knownContactIds.add(c.id);
-                        if (!isFirstLoad) { alert(`🔔【通知】${c.sender}様から連絡が届きました！`); }
+                        if (!isFirstLoad) { 
+                            if(confirm(`🔔【新着オファー通知】\n${c.sender} 様からオファーが届きました！\n今すぐチャット画面を開いて連絡を取りますか？`)) {
+                                openChatWindow(c.sender);
+                            }
+                        }
                     } else { knownContactIds.add(c.id); }
                 });
                 isFirstLoad = false;
+
+                // マイページ用：自分のチャット＆オファー履歴の更新
+                let myPartners = new Set();
+                allMsgs.forEach(m => {
+                    if(m.sender !== myStaticLoginName && m.sender) myPartners.add(m.sender);
+                    if(m.receiver !== myStaticLoginName && m.receiver) myPartners.add(m.receiver);
+                });
+                allContacts.forEach(c => {
+                    if(c.sender === myStaticLoginName && c.receiver) myPartners.add(c.receiver);
+                    if(c.receiver === myStaticLoginName && c.sender) myPartners.add(c.sender);
+                });
+
+                const msgArea = document.getElementById('my-messages-area');
+                if(msgArea) {
+                    msgArea.style.display = 'block';
+                    const tbody = document.getElementById('my-chat-list');
+                    if(myPartners.size === 0) {
+                        tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:var(--text-muted); padding:15px;">まだメッセージやオファーの履歴がありません。</td></tr>`;
+                    } else {
+                        tbody.innerHTML = Array.from(myPartners).map(partner => {
+                            return `<tr>
+                                <td style="font-weight:bold; color:var(--text-main);">${escapeHtml(partner)}</td>
+                                <td style="color:var(--text-muted); font-size:12px;">やり取り履歴あり</td>
+                                <td><button class="btn btn-chat" style="padding:8px 16px; font-size:12px;" onclick="openChatWindow('${escapeHtml(partner)}')">💬 チャットを開く</button></td>
+                            </tr>`;
+                        }).join('');
+                    }
+                }
+
             } catch (e) { console.error(e); }
         }
 
@@ -918,7 +1003,6 @@
             } catch (e) { alert("送信エラー"); }
         }
 
-        // HTMLレンダリング内でID渡しに統一し、バグを完全消滅
         function renderPersonCards(list) {
             const box = document.getElementById('person-list');
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">データがありません。</p>`; return; }
@@ -938,7 +1022,7 @@
                             <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${linkedDesc}</p>
                             <div class="card-actions">
                                 ${isMe 
-                                  ? `<button class="btn btn-edit" onclick="openEditModal('${u.id}', '${u._table}')">✏️ 編集する</button>` 
+                                  ? `<button class="btn btn-edit" onclick="openEditModal('${u.id}', '${u._table}')">✏️ プロフを編集する</button>` 
                                   : `<button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', '面談申し込み')">オファーを送る</button>
                                      <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
                                 }
@@ -949,6 +1033,7 @@
             }).join('');
         }
 
+        // 🚨 案件の「投稿者に連絡する」チャット機能を修正
         function renderJobCards(list) {
             const box = document.getElementById('job-list');
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">現在公開中の案件はありません。</p>`; return; }
@@ -956,8 +1041,10 @@
                 const isMyJob = j.description.includes(`[投稿元: ${myStaticLoginName}]`);
                 const isMeText = isMyJob ? "（あなたの投稿）" : "";
                 const finalImg = j.tag || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
-                const match = j.description.match(/\[投稿元: (.+)\]/);
-                const posterName = match ? match[1] : "";
+                
+                // 【バグ修正】空白等が含まれていても正確に名前だけを抽出する正規表現
+                const match = j.description.match(/\[投稿元:\s*([^\]]+)\]/);
+                const posterName = match ? match[1].trim() : "";
                 const linkedDesc = escapeAndLinkify(j.description);
                 
                 return `
@@ -997,7 +1084,7 @@
                             <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${linkedDesc}</p>
                             <div class="card-actions">
                                 ${isMe 
-                                  ? `<button class="btn btn-edit" onclick="openEditModal('${p.id}', '${p._table}')">✏️ 編集する</button>`
+                                  ? `<button class="btn btn-edit" onclick="openEditModal('${p.id}', '${p._table}')">✏️ 募集を編集する</button>`
                                   : `<button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
                                 }
                             </div>
@@ -1007,7 +1094,6 @@
             }).join('');
         }
 
-        // 💡【ハイブリッド入力の保存処理】プルダウンとテキストを合体させる
         async function saveProfile() {
             let baseNickname = document.getElementById('user-nickname').value.replace(/#\d{4}/g, '').trim();
             const password = document.getElementById('user-password').value.trim();
@@ -1026,7 +1112,6 @@
                 const fullname = document.getElementById('user-fullname').value || "非公開";
                 
                 if (!isCorporate) {
-                    // 個人のハイブリッド入力値を取得
                     let jobCatEl = document.getElementById('user-job-category');
                     let jobCat = jobCatEl.value ? jobCatEl.options[jobCatEl.selectedIndex].text : '';
                     let jobText = document.getElementById('user-job').value.trim();
@@ -1053,7 +1138,6 @@
                         body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `地域: ${location}\n副業展開: ${sidejob}\n希望内容: ${finalTarget}\n${lineInfoStr}` })
                     });
                 } else {
-                    // 法人のハイブリッド入力値を取得
                     let indEl = document.getElementById('corp-industry');
                     let indText = indEl.value ? indEl.options[indEl.selectedIndex].text : '';
                     let bizText = document.getElementById('corp-biz').value.trim();
@@ -1082,7 +1166,6 @@
             } catch (e) { console.error(e); }
         }
 
-        // 💡【ハイブリッド入力の保存処理】案件の投稿
         async function postNewJob() {
             if (!myStaticLoginName) { alert("案件を投稿するには、先にアカウントのログインを行ってください。"); return; }
             
@@ -1093,7 +1176,6 @@
 
             if(!title || !desc) { alert("案件名と業務内容を入力してください。"); return; }
 
-            // ハイブリッド取得
             let indEl = document.getElementById('job-post-industry');
             let indText = indEl.value ? indEl.options[indEl.selectedIndex].text : '';
 
@@ -1105,11 +1187,17 @@
             const conditionDetail = document.getElementById('job-post-condition').value.trim();
             const finalCondition = condText ? `[${condText}] ${conditionDetail}` : conditionDetail;
 
+            // 🚨 案件投稿用の連絡先(LINE)設定を取得
+            const lineOkRadio = document.querySelector('input[name="job_line_ok"]:checked').value;
+            const lineUrl = document.getElementById('job-post-line').value.trim();
+            const lineInfoStr = (lineOkRadio === "OK" && lineUrl) ? `[案件連絡先 URL: ${lineUrl} ]` : (lineOkRadio === "OK" ? `[案件連絡先: 🆗 ダイレクト追加OK]` : `[案件連絡先: 🆖 アプリ内チャットのみ]`);
+
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
             const finalTag = globalJobAvatarUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
             const linkStr = link ? `\n\n【詳細資料・参考HP】\n${link}` : '';
             const indRoleStr = (indText || roleText) ? `【業種】${indText || '未指定'}\n【職種】${roleText || '未指定'}\n` : '';
-            const finalDesc = `${indRoleStr}【エリア】${area}\n【条件】${finalCondition}\n\n【詳細】\n${desc}${linkStr}\n\n[投稿元: ${myStaticLoginName}]`;
+            
+            const finalDesc = `${indRoleStr}【エリア】${area}\n【条件】${finalCondition}\n\n【詳細】\n${desc}${linkStr}\n\n${lineInfoStr}\n\n[投稿元: ${myStaticLoginName}]`;
 
             try {
                 await fetch(`${SUPABASE_API_URL}/jobs`, {
@@ -1121,6 +1209,7 @@
                 document.getElementById('job-post-desc').value = "";
                 document.getElementById('job-post-link').value = "";
                 document.getElementById('job-post-condition').value = "";
+                document.getElementById('job-post-line').value = "";
                 
                 await loadSupabaseData();
                 showSection('find-job');
@@ -1141,7 +1230,6 @@
             } catch (e) { console.error(e); }
         }
 
-        let lastMessageCount = 0;
         function renderChatBubbles(filteredMsg) {
             const box = document.getElementById('chat-messages-box');
             if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:20px;">💬 暗号化空間。会話を開始してください。</div>`; return; }
@@ -1159,6 +1247,7 @@
             currentChatPartner = name; document.getElementById('chat-target-name').innerText = name;
             document.getElementById('chat-modal').style.display = 'flex';
             document.getElementById('chat-input-field').focus(); lastMessageCount = 0;
+            loadMessagesAndContacts(); // 開いた瞬間に履歴をロード
         }
 
         function updateAdminDashboard() { 
@@ -1197,7 +1286,7 @@
         }
         function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
 
-        // ✏️【完全修復】データ編集機能のロジック
+        // ✏️ データ編集機能のロジック
         let editingUserId = null;
         let editingUserTable = null;
         let editingUserTag = null;
@@ -1217,7 +1306,7 @@
             if(editingUserTag) {
                 previewBox.innerHTML = `<img src="${editingUserTag}" style="width:100%;height:100%;object-fit:cover;">`;
             } else {
-                previewBox.innerHTML = `<span style="font-size:11px;color:var(--text-muted);line-height:120px;">画像なし</span>`;
+                previewBox.innerHTML = `<span style="font-size:11px;color:var(--text-muted);line-height:190px;">画像なし</span>`;
             }
 
             if(table === 'jobs') {
