@@ -297,20 +297,20 @@
                     <option value="bizdev">営業・事業開発(BizDev)・アライアンス企画</option>
                     <option value="pm">ディレクター・PM・PdM・プロジェクト推進</option>
                     <option value="writer">ライター・編集者・コンテンツ制作・翻訳</option>
-                    <option value="backoffice">人事・広報・経理・バックオフィス全全般</option>
+                    <option value="backoffice">人事・広報・経理・バックオフィス全般</option>
                     <option value="legal">士業(弁護士・税理士・公認会計士・社労士)</option>
                     <option value="other">その他の職種・何でも屋</option>
                 </select>
                 <select id="partner-purpose">
                     <option value="">全ての目的（詳細）</option>
                     <option value="co_founder">共同創業者(Co-Founder)・右腕探し</option>
-                    <option value="mvp">初期メンバー募集(プロトタイプ・MVP開発)</option>
+                    <option value="mvp">初期スタートアップメンバー募集(プロトタイプ・MVP開発)</option>
                     <option value="client_work">受託案件のチームメンバー・頼れる相棒探し</option>
                     <option value="sidejob_team">副業・週末プロジェクトの新規立ち上げ仲間募集</option>
                     <option value="hobby_dev">趣味のプロダクト・個人開発・オープンソースのメンバー募集</option>
                     <option value="skill_exchange">スキル交換(例：デザインするから開発してほしい等)</option>
                     <option value="study_group">技術勉強会・輪読会・もくもく会の仲間募集</option>
-                    <option value="hackathon">ハッカソン・イベントのチーム結成</option>
+                    <option value="hackathon">ハッカソン・ビジコン・ピッチイベントのチーム結成</option>
                     <option value="discussion">アイデアの壁打ち・業界の情報交換・有益な人脈作り</option>
                     <option value="monetize">副業のマネタイズ・独立起業のノウハウ共有</option>
                     <option value="mentor">メンター探し・アドバイザー就任希望</option>
@@ -326,7 +326,7 @@
             <p style="color:var(--text-muted); margin-bottom:30px;">最高峰のステータスホルダーに相応しい、全国3万施設以上のプレミアムな無料優待パッケージです。</p>
             
             <div style="text-align: center; background: #fffbeb; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; margin-bottom: 35px;">
-                <h3 style="margin-top: 0; color: var(--primary-gold); font-size: 20px; font-weight:900; letter-spacing:0.05em;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
+                <h3 style="margin-top: 0; color: var(--primary-gold); font-size: 20px; font-weight:900; letter-spacing:0.05em;">✨ 会員限定の優待総合ポータルサイト ✨</h3>
                 <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 25px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの申請が可能です。</p>
                 <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ポータルを開く (別タブ) ➔</a>
             </div>
@@ -427,14 +427,14 @@
 
             <form id="profile-form" style="max-width: 750px;">
                 <div class="avatar-upload-container">
-                    <div>
+                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
+                        <p style="font-size:11px; color:var(--text-muted); margin-top:0; margin-bottom:10px;">※リスト上ではこのように表示されます（プレビュー）</p>
+                        <div class="avatar-preview-box" id="avatar-preview"><span style="color:var(--text-muted); font-size:11px;">画像未設定</span></div>
+                    </div>
+                    <div style="flex:1;">
                         <label style="display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px;">アイコン・アイキャッチ登録 (任意)</label>
                         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">あなたらしい写真や企業ロゴを設定するとマッチング率が飛躍的に高まります。</p>
                         <input type="file" id="avatar-input" accept="image/*" onchange="previewAvatar(this)">
-                    </div>
-                    <p style="font-size:11px; color:var(--text-muted); margin-top:10px; margin-bottom:0;">※実際のリスト上ではこのように表示されます（プレビュー）</p>
-                    <div class="avatar-preview-box" id="avatar-preview" style="width:100%; max-width:320px; height:190px; border-radius:12px; border:1px solid var(--border-light); background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
-                        <span style="color:var(--text-muted); font-size:11px;">画像未設定</span>
                     </div>
                 </div>
 
@@ -490,7 +490,7 @@
                             <option value="hobby_dev">趣味のプロダクト・個人開発・オープンソースのメンバー募集</option>
                             <option value="skill_exchange">スキル交換(例：デザインするから開発してほしい等)</option>
                             <option value="study_group">技術勉強会・輪読会・もくもく会の仲間募集</option>
-                            <option value="hackathon">ハッカソン・イベントのチーム結成</option>
+                            <option value="hackathon">ハッカソン・ビジコン・ピッチイベントのチーム結成</option>
                             <option value="discussion">アイデアの壁打ち・業界の情報交換・有益な人脈作り</option>
                             <option value="monetize">副業のマネタイズ・独立起業のノウハウ共有</option>
                             <option value="mentor">メンター探し・アドバイザー就任希望</option>
@@ -717,7 +717,6 @@
             </div>
             
             <h3 style="margin-top:30px;">ユーザー・データ管理（修正・退会）</h3>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">※ユーザーの入力ミスや職種の誤りがあった場合、運営側から直接「編集」ボタンでデータを上書き修正できます。</p>
             <div class="table-responsive">
                 <table class="admin-table">
                     <thead><tr><th>レコードID</th><th>アプリ上の公開名/案件名</th><th>ステータス</th><th>運営操作 (詳細/編集)</th></tr></thead>
@@ -747,7 +746,7 @@
 
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 25px; border:1px solid var(--primary-gold);">
-            <h3 style="color:var(--primary-gold);">💬 セキュア・暗号チャットスレッド</h3>
+            <h3 style="color:var(--primary-gold);">💬 <span id="chat-target-name">お相手</span> とのセキュア・暗号チャット</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
                 <div class="chat-input-area">
@@ -875,6 +874,10 @@
         function pgQuote(str) {
             if(!str) return '""';
             return encodeURIComponent('"' + str.replace(/"/g, '""') + '"');
+        }
+        function escapeJsStr(str) {
+            if (!str) return '';
+            return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
         }
 
         function toggleForm() { 
@@ -1036,7 +1039,7 @@
                             return `<tr>
                                 <td style="font-weight:bold; color:var(--text-main);">${escapeHtml(partner)}</td>
                                 <td style="color:var(--text-muted); font-size:12px;">やり取り履歴あり</td>
-                                <td><button class="btn btn-chat" style="padding:8px 16px; font-size:12px;" onclick="openChatWindow('${escapeHtml(partner)}')">💬 チャットを開く</button></td>
+                                <td><button class="btn btn-chat" style="padding:8px 16px; font-size:12px;" onclick="openChatWindow('${escapeJsStr(partner)}')">💬 チャットを開く</button></td>
                             </tr>`;
                         }).join('');
                     }
@@ -1077,7 +1080,7 @@
                 const cleanTitle = u.title.trim();
                 const isMe = (cleanTitle === myStaticLoginName);
                 const suffix = isMe ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 const linkedDesc = escapeAndLinkify(u.description);
                 
                 return `
@@ -1090,8 +1093,8 @@
                             <div class="card-actions">
                                 ${isMe 
                                   ? `<button class="btn btn-edit" onclick="openEditModal('${u.id}', '${u._table}')">✏️ プロフを編集する</button>` 
-                                  : `<button class="btn" onclick="promptOffer('${escapeHtml(cleanTitle)}')">🎯 オファーを送る</button>
-                                     <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
+                                  : `<button class="btn" onclick="promptOffer('${escapeJsStr(cleanTitle)}')">🎯 オファーを送る</button>
+                                     <button class="btn btn-chat" onclick="openChatWindow('${escapeJsStr(cleanTitle)}')">💬 チャット</button>`
                                 }
                             </div>
                         </div>
@@ -1122,7 +1125,7 @@
                         <div class="card-actions">
                             ${isMyJob 
                               ? `<button class="btn btn-edit" onclick="openEditModal('${j.id}', '${j._table}')">✏️ 案件を編集する</button>`
-                              : (posterName ? `<button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(posterName)}')">💬 投稿者に連絡する</button>` : '')
+                              : (posterName ? `<button class="btn btn-chat" onclick="openChatWindow('${escapeJsStr(posterName)}')">💬 投稿者に連絡する</button>` : '')
                             }
                         </div>
                     </div>
@@ -1150,8 +1153,8 @@
                             <div class="card-actions">
                                 ${isMe 
                                   ? `<button class="btn btn-edit" onclick="openEditModal('${p.id}', '${p._table}')">✏️ 募集を編集する</button>`
-                                  : `<button class="btn" onclick="promptOffer('${escapeHtml(cleanTitle)}')">🎯 提案・オファー</button>
-                                     <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
+                                  : `<button class="btn" onclick="promptOffer('${escapeJsStr(cleanTitle)}')">🎯 提案・オファー</button>
+                                     <button class="btn btn-chat" onclick="openChatWindow('${escapeJsStr(cleanTitle)}')">💬 チャット</button>`
                                 }
                             </div>
                         </div>
@@ -1187,17 +1190,6 @@
             document.getElementById('edit-modal').style.display = 'flex';
         }
 
-        function previewEditImg(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('edit-img-preview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
-                    editingUserTag = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
         function closeEditModal() { document.getElementById('edit-modal').style.display = 'none'; }
 
         async function saveEditData() {
@@ -1231,22 +1223,6 @@
                 console.error(e); alert("データの修正に失敗しました。");
             }
         }
-
-        function updateAdminContactDashboard(list) {
-            document.getElementById('admin-total-contacts').innerText = list.length;
-            const tbody = document.getElementById('admin-contact-logs');
-            tbody.innerHTML = list.map(c => `<tr><td>${new Date(c.created_at).toLocaleTimeString()}</td><td>${escapeHtml(c.type)}</td><td>${escapeHtml(c.sender)}</td><td>${escapeHtml(c.receiver)}</td></tr>`).join('');
-        }
-        function updateAdminChatLogs(allMsgs) {
-            const tbody = document.getElementById('admin-chat-logs');
-            tbody.innerHTML = allMsgs.slice().reverse().map(m => `<tr><td>${new Date(m.created_at).toLocaleTimeString()}</td><td>${escapeHtml(m.sender)}</td><td>${escapeHtml(m.receiver)}</td><td>${escapeHtml(m.text)}</td></tr>`).join('');
-        }
-        function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
-        function showSection(sectionId) { document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); document.getElementById(sectionId).classList.add('active'); }
-        function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; }
-        function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
-        function submitAdminPassword() { if (document.getElementById('admin-password-input').value === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; } }
-        function escapeHtml(str) { if (!str) return ''; return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
     </script>
 </body>
 </html>
