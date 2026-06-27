@@ -72,7 +72,7 @@
             background-color: #f8fafc; color: var(--text-main); outline: none; transition: all 0.3s; box-sizing: border-box;
         }
         .search-box input:focus, .search-box select:focus { border-color: var(--primary-gold); background-color: #ffffff; box-shadow: 0 0 0 3px rgba(180, 134, 8, 0.1); }
-        .search-box input { flex-grow: 1; min-width: 150px; }
+        .search-box input { flex-grow: 1; min-width: 200px; }
         .search-btn {
             background-color: var(--primary-gold); color: #ffffff; border: none;
             padding: 14px 28px; border-radius: 6px; cursor: pointer; min-width: 120px; font-weight: 800; transition: all 0.3s; letter-spacing: 0.05em;
@@ -93,14 +93,16 @@
         .card-inner h3 { font-size: 20px; font-weight: 700; margin: 0 0 12px 0; color: var(--text-main); }
         .card-inner p { font-size:13px; color:var(--text-muted); line-height:1.6; white-space: pre-wrap; margin:0; }
         
-        .card-actions { display: flex; gap: 12px; margin-top: auto; padding-top: 24px; border-top: 1px solid var(--border-light); }
+        .card-actions { display: flex; gap: 10px; margin-top: auto; padding-top: 20px; border-top: 1px solid var(--border-light); flex-wrap: wrap;}
         .btn {
             background-color: transparent; color: var(--primary-gold); border: 1px solid var(--primary-gold);
-            padding: 14px 20px; border-radius: 6px; cursor: pointer; flex: 1; font-weight: 700; font-size: 13px; transition: all 0.3s; letter-spacing: 0.05em;
+            padding: 12px 14px; border-radius: 6px; cursor: pointer; flex: 1; min-width: 100px; font-weight: 700; font-size: 13px; transition: all 0.3s; letter-spacing: 0.05em; text-align: center;
         }
         .btn:hover { background-color: var(--primary-gold); color: white; box-shadow: 0 5px 15px rgba(180, 134, 8, 0.2); }
         .btn-chat { background-color: #f8fafc; color: var(--text-muted); border: 1px solid var(--border-light); }
         .btn-chat:hover { background-color: #e2e8f0; color: var(--text-main); border-color: #cbd5e1; }
+        .btn-edit { background-color: #f1f5f9; color: #475569; border: 1px dashed #94a3b8; }
+        .btn-edit:hover { background-color: #e2e8f0; color: #1e293b; border-style: solid;}
         
         .btn-benefit-link {
             display: inline-block; background: linear-gradient(135deg, var(--primary-gold), #926c06); color: white;
@@ -123,7 +125,7 @@
             background: #ffffff; padding: 25px; border-radius: 12px; border: 1px dashed var(--border-gold); flex-wrap: wrap;
         }
         .avatar-preview-box {
-            width: 90px; height: 95px; border-radius: 50%; background: #f8fafc;
+            width: 90px; height: 90px; border-radius: 50%; background: #f8fafc;
             display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px solid var(--primary-gold);
         }
         .avatar-preview-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -134,7 +136,6 @@
         .chat-bubble.me { background-color: var(--primary-gold); color: white; align-self: flex-end; border-bottom-right-radius: 2px; font-weight:600; }
         .chat-bubble.other { background-color: white; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; border: 1px solid var(--border-light); }
         .chat-bubble-meta { font-size: 10px; color: rgba(255,255,255,0.8); text-align: right; margin-top: 6px; }
-        .chat-bubble.other .chat-bubble-meta { color: #94a3b8; }
         .chat-input-area { display: flex; border-top: 1px solid var(--border-gold); background: #ffffff; padding: 18px; gap: 12px; }
 
         .modal-overlay {
@@ -142,7 +143,7 @@
             align-items: center; justify-content: center; backdrop-filter: blur(8px); padding: 20px; box-sizing: border-box;
         }
         .modal-content {
-            background-color: #ffffff; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; width: 100%; max-width: 480px;
+            background-color: #ffffff; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; width: 100%; max-width: 550px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.15); box-sizing: border-box; max-height: 90vh; overflow-y: auto;
         }
         .modal-error { color: #d32f2f; font-size: 13px; font-weight: bold; display: none; text-align: center; margin-bottom: 15px;}
@@ -411,9 +412,13 @@
 
             <form id="profile-form" style="max-width: 750px;">
                 <div class="avatar-upload-container">
-                    <div class="avatar-preview-box" id="avatar-preview"><span style="color:var(--text-muted); font-size:11px;">未設定</span></div>
-                    <div>
+                    <div style="display:flex; flex-direction:column; align-items:center;">
+                        <div class="avatar-preview-box" id="avatar-preview"><span style="color:var(--text-muted); font-size:11px;">未設定</span></div>
+                        <p style="font-size:11px; color:var(--text-muted); margin-top:8px; text-align:center;">※リスト上ではこのように<br>丸く切り抜かれます</p>
+                    </div>
+                    <div style="flex:1;">
                         <label style="display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px;">アイコン・アバター登録 (任意)</label>
+                        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">あなたらしい写真や企業ロゴを設定するとマッチング率が飛躍的に高まります。</p>
                         <input type="file" id="avatar-input" accept="image/*" onchange="previewAvatar(this)">
                     </div>
                 </div>
@@ -441,7 +446,7 @@
                             <label style="cursor: pointer; font-weight:700;"><input type="radio" name="line_ok" value="NG"> 🆖 アプリ内チャットのみ</label>
                         </div>
                         <div style="margin-top: 12px;">
-                            <label style="font-size:12px; color:var(--text-muted); font-weight:700;">LINE友だち追加リンクURL</label>
+                            <label style="font-size:12px; color:var(--text-muted); font-weight:700;">LINE友だち追加リンクURL (任意)</label>
                             <input type="text" id="user-line" placeholder="https://line.me/ti/p/..." value="">
                         </div>
                     </div>
@@ -462,10 +467,19 @@
 
             <div id="job-posting-area" style="background: #fffbeb; padding: 30px; border-radius: 12px; border: 1px solid #fde68a;">
                 <h3 style="color: var(--primary-gold); margin-top:0;">💼 新規案件・プロジェクトを投稿する</h3>
-                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">※ログイン中のアカウント（個人/法人問わず）の名前で「案件リスト」に掲載されます。</p>
+                <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">※ログイン中のアカウントの名前で掲載されます。投稿後もカードの「✏️編集」から修正が可能です。</p>
+                
+                <div class="form-group">
+                    <label>案件アイキャッチ画像 (任意)</label>
+                    <input type="file" accept="image/*" onchange="previewJobImg(this)">
+                    <div id="job-img-preview" style="margin-top:10px; max-width:200px; border-radius:8px; overflow:hidden; border:1px solid var(--border-light); display:none;"></div>
+                </div>
                 
                 <div class="form-group"><label>案件・プロジェクト名</label><input type="text" id="job-post-title" placeholder="例: 【フルリモート】新規SaaSのUI/UXデザイナー募集"></div>
                 <div class="form-group"><label>業務内容・必須スキル等</label><textarea id="job-post-desc" rows="4" placeholder="例: 新規立ち上げのBtoB向けSaaSのUIデザインをお願いします。Figmaの経験必須。"></textarea></div>
+                
+                <div class="form-group"><label>詳細資料・参考HPのURL (任意)</label><input type="text" id="job-post-link" placeholder="https:// (PDFリンクやNotion、会社HPなど)"></div>
+                
                 <div class="form-group" style="display: flex; gap: 15px; flex-wrap:wrap;">
                     <div style="flex: 1; min-width: 150px;"><label>対象エリア/勤務地</label><select id="job-post-area" class="pref-select"></select></div>
                     <div style="flex: 1; min-width: 150px;"><label>稼働条件・単価</label><input type="text" id="job-post-condition" placeholder="例: 月30万円〜 / 週3日稼働"></div>
@@ -506,10 +520,10 @@
             </div>
             
             <h3 style="margin-top:30px;">ユーザー・データ管理（修正・退会）</h3>
-            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">※ユーザーの入力ミスや職種の誤りがあった場合、運営側から直接「編集」ボタンでデータを修正できます。</p>
+            <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 15px;">※ユーザーの入力ミスや職種の誤りがあった場合、運営側から直接「編集」ボタンでデータを上書き修正できます。</p>
             <div class="table-responsive">
                 <table class="admin-table">
-                    <thead><tr><th>レコード種別</th><th>アプリ上の公開名/案件名</th><th>ステータス</th><th>運営操作 (詳細/編集)</th></tr></thead>
+                    <thead><tr><th>レコードID</th><th>アプリ上の公開名/案件名</th><th>ステータス</th><th>運営操作 (詳細/編集)</th></tr></thead>
                     <tbody id="admin-user-rows"></tbody>
                 </table>
             </div>
@@ -561,25 +575,34 @@
         </div>
     </div>
 
-    <div id="admin-edit-modal" class="modal-overlay">
+    <div id="edit-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 600px; border:1px solid var(--primary-gold);">
-            <h3 style="color:var(--primary-gold);">✏️ データ修正・サポート編集</h3>
-            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">※ユーザーが職種やプロフィールを間違えた場合、ここで直接テキストを修正して保存してください。</p>
-            <div class="form-group">
-                <label>公開名（ログインID）</label>
-                <input type="text" id="admin-edit-title">
+            <h3 style="color:var(--primary-gold);">✏️ 投稿データの編集・上書き</h3>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 15px;">※現在の登録内容がテキストエリアに入っています。自由に書き直して保存してください。</p>
+            
+            <div class="form-group" id="edit-img-group">
+                <label>画像（写真）の変更</label>
+                <input type="file" accept="image/*" onchange="previewEditImg(this)">
+                <div id="edit-img-preview" style="margin-top:10px; height:120px; border-radius:8px; overflow:hidden; border:1px solid var(--border-light); text-align:center;"></div>
             </div>
-            <div class="form-group" id="admin-edit-pass-group">
-                <label>暗証番号（パスワード）</label>
-                <input type="text" id="admin-edit-pass">
-            </div>
+
             <div class="form-group">
-                <label>プロフィール・職種・案件内容の全データ</label>
-                <textarea id="admin-edit-desc" rows="10"></textarea>
+                <label>公開名（または案件名）</label>
+                <input type="text" id="edit-title">
+            </div>
+            
+            <div class="form-group" id="edit-pass-group">
+                <label>ログイン暗証番号 (パスワード)</label>
+                <input type="text" id="edit-pass" placeholder="案件の編集時は不要です">
+            </div>
+
+            <div class="form-group">
+                <label>プロフィール・職種・案件内容など全てのテキストデータ</label>
+                <textarea id="edit-desc" rows="12"></textarea>
             </div>
             <div class="modal-actions" style="margin-top: 25px;">
-                <button class="btn" style="background-color: var(--primary-gold); color: white; border: none;" onclick="saveAdminEdit()">上書き保存する</button>
-                <button class="btn-modal-cancel" onclick="closeAdminEditModal()">キャンセル</button>
+                <button class="btn" style="background-color: var(--primary-gold); color: white; border: none;" onclick="saveEditData()">内容を上書き保存する</button>
+                <button class="btn-modal-cancel" onclick="closeEditModal()">キャンセル</button>
             </div>
         </div>
     </div>
@@ -597,10 +620,10 @@
     </div>
 
     <script>
-        // 💡 エリア区分データ（地方区分へざっくり化）
         const prefectures = ["全国", "北海道", "東北", "関東", "北陸", "関西", "中国", "四国", "九州", "沖縄"];
         let currentChatPartner = ""; let fetchedUsers = []; let myStaticLoginName = ""; let knownContactIds = new Set(); let isFirstLoad = true;
         let globalAvatarUrl = ""; 
+        let globalJobAvatarUrl = ""; 
 
         const url_part1 = "https://"; const url_part2 = "yuhbcmvbcklplxmadoka"; const url_part3 = ".supabase.co";
         const base_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1aGJjbXZiY2tscGx4bWFkb2thIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3OTE2NjksImV4cCI6MjA5NzM2NzY2OX0.sf7QRIkngAcgMewV9mB6YFWSoKlBiCjDxkgQWtSSS2U";
@@ -630,26 +653,35 @@
             document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; 
         }
 
-        function openPolicyModal(type) {
-            const titleBox = document.getElementById('policy-modal-title');
-            const textBox = document.getElementById('policy-modal-text');
-            if(type === 'privacy') {
-                titleBox.innerText = "🛡️ プライバシーポリシー";
-                textBox.innerHTML = `<h4>1. 個人情報の収集</h4><p>Lixiaは、マッチングおよび面談調整のため、表示名、暗証番号、スキル要件、およびLINE連絡先等の限定データを収集します。</p><h4>2. データの秘匿・隔離</h4><p>個別暗号化プライベートチャットデータ、および面談オファー通知履歴は、認証された当事者およびシステム監査の運営者以外への開示をサーバーレベルでブロックします。</p><h4>3. 安全管理措置</h4><p>不正アクセスおよびなりすましを防止するため、全データノードはSSL暗号化通信を適用し、安全に管理されています。</p>`;
-            } else {
-                titleBox.innerText = "📜 利用規約（プレステージ会員規約）";
-                textBox.innerHTML = `<h4>第1条 (目的)</h4><p>本規約は、プレステージ・マッチングプラットフォーム「Lixia」における、会員同士の健全かつ秘匿性の高いビジネスマッチングおよび無料優待サービスの利用環境を定義します。</p><h4>第2条 (禁止事項)</h4><p>他者のハッシュ付き公開名を用いたなりすましログイン、不正なチャット乱入の試み、公序良俗に反する面談オファー、初期共通暗証番号（1234）の放置行為を厳重に禁止します。</p><h4>第3条 (強制抹消)</h4><p>禁止事項に違反した場合、運営管理ダッシュボードの監査権限に基づき、事前通告なくシステムアカウント全データを永久に強制抹消処分とします。</p>`;
-            }
-            document.getElementById('policy-modal').style.display = 'flex';
+        // 🔗 URLを自動でaタグ(青文字リンク)に変換するヘルパー関数
+        function escapeAndLinkify(str) {
+            if (!str) return '';
+            let escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            const urlRegex = /(https?:\/\/[^\s]+)/g;
+            return escaped.replace(urlRegex, function(url) {
+                return `<a href="${url}" target="_blank" style="color:var(--primary-gold); text-decoration:underline; word-break:break-all;">${url}</a>`;
+            });
         }
-        function closePolicyModal() { document.getElementById('policy-modal').style.display = 'none'; }
 
         function previewAvatar(input) {
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    document.getElementById('avatar-preview').innerHTML = `<img src="${e.target.result}" alt="プレビュー">`;
+                    document.getElementById('avatar-preview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
                     globalAvatarUrl = e.target.result; 
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function previewJobImg(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const previewBox = document.getElementById('job-img-preview');
+                    previewBox.style.display = 'block';
+                    previewBox.innerHTML = `<img src="${e.target.result}" style="width:100%;height:auto;display:block;">`;
+                    globalJobAvatarUrl = e.target.result; 
                 }
                 reader.readAsDataURL(input.files[0]);
             }
@@ -682,7 +714,7 @@
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 const rPerson = await fetch(`${SUPABASE_API_URL}/persons?order=created_at.desc`, { headers });
                 const persons = await rPerson.json(); 
-                persons.forEach(p => p._table = 'persons'); // 運営編集用にテーブル名を紐付け
+                persons.forEach(p => p._table = 'persons');
                 renderPersonCards(persons);
 
                 const rJob = await fetch(`${SUPABASE_API_URL}/jobs?order=created_at.desc`, { headers });
@@ -745,18 +777,26 @@
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">データがありません。</p>`; return; }
             box.innerHTML = list.map(u => {
                 const cleanTitle = u.title.trim();
-                const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
+                const isMe = (cleanTitle === myStaticLoginName);
+                const suffix = isMe ? "（あなた）" : "";
                 const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                
+                // リンク化して表示
+                const linkedDesc = escapeAndLinkify(u.description);
+                
                 return `
                     <div class="card">
                         <div class="card-img-box"><img src="${finalImg}"></div>
                         <div class="card-inner">
                             <span class="card-tag">登録アカウント</span>
                             <h3>${escapeHtml(cleanTitle)}${suffix}</h3>
-                            <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${escapeHtml(u.description)}</p>
+                            <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${linkedDesc}</p>
                             <div class="card-actions">
-                                <button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', '面談申し込み')">オファーを送る</button>
-                                <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>
+                                ${isMe 
+                                  ? `<button class="btn btn-edit" onclick="openEditModal('${u.id}', '${u._table}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}', '${u.tag || ''}', '${escapeHtml(u.password || '')}')">✏️ 編集する</button>` 
+                                  : `<button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', '面談申し込み')">オファーを送る</button>
+                                     <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
+                                }
                             </div>
                         </div>
                     </div>
@@ -768,19 +808,26 @@
             const box = document.getElementById('job-list');
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">現在公開中の案件はありません。</p>`; return; }
             box.innerHTML = list.map(j => {
-                const isMe = j.description.includes(`[投稿元: ${myStaticLoginName}]`) ? "（あなたの投稿）" : "";
+                const isMyJob = j.description.includes(`[投稿元: ${myStaticLoginName}]`);
+                const isMeText = isMyJob ? "（あなたの投稿）" : "";
                 const finalImg = j.tag || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
                 const match = j.description.match(/\[投稿元: (.+)\]/);
                 const posterName = match ? match[1] : "";
+                const linkedDesc = escapeAndLinkify(j.description);
                 
                 return `
                 <div class="card">
                     <div class="card-img-box"><img src="${finalImg}"></div>
                     <div class="card-inner">
                         <span class="card-tag">PROJECT</span>
-                        <h3>${escapeHtml(j.title)} ${isMe}</h3>
-                        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${escapeHtml(j.description)}</p>
-                        ${posterName && !isMe ? `<div class="card-actions"><button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(posterName)}')">💬 投稿者に連絡する</button></div>` : ''}
+                        <h3>${escapeHtml(j.title)} ${isMeText}</h3>
+                        <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${linkedDesc}</p>
+                        <div class="card-actions">
+                            ${isMyJob 
+                              ? `<button class="btn btn-edit" onclick="openEditModal('${j.id}', '${j._table}', '${escapeHtml(j.title)}', '${escapeHtml(j.description)}', '${j.tag || ''}', '')">✏️ 案件を編集する</button>`
+                              : (posterName ? `<button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(posterName)}')">💬 投稿者に連絡する</button>` : '')
+                            }
+                        </div>
                     </div>
                 </div>
             `}).join('');
@@ -791,13 +838,25 @@
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">募集情報がありません。</p>`; return; }
             box.innerHTML = list.map(p => {
                 const cleanTitle = p.title.trim();
-                const suffix = (cleanTitle === myStaticLoginName) ? "（あなた）" : "";
+                const isMe = (cleanTitle === myStaticLoginName);
+                const suffix = isMe ? "（あなた）" : "";
                 const finalImg = p.tag || 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80';
+                const linkedDesc = escapeAndLinkify(p.description);
+
                 return `
                     <div class="card">
                         <div class="card-img-box"><img src="${finalImg}"></div>
-                        <div class="card-inner"><span class="card-tag">ALLIANCE PARTNER</span><h3>${escapeHtml(cleanTitle)}${suffix}</h3><p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">募集内容: ${escapeHtml(p.description)}</p>
-                        <div class="card-actions"><button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button></div></div>
+                        <div class="card-inner">
+                            <span class="card-tag">ALLIANCE PARTNER</span>
+                            <h3>${escapeHtml(cleanTitle)}${suffix}</h3>
+                            <p style="font-size:13px;color:var(--text-muted);line-height:1.6;white-space:pre-wrap;">${linkedDesc}</p>
+                            <div class="card-actions">
+                                ${isMe 
+                                  ? `<button class="btn btn-edit" onclick="openEditModal('${p.id}', '${p._table}', '${escapeHtml(p.title)}', '${escapeHtml(p.description)}', '${p.tag || ''}', '${escapeHtml(p.password || '')}')">✏️ 編集する</button>`
+                                  : `<button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
+                                }
+                            </div>
+                        </div>
                     </div>
                 `;
             }).join('');
@@ -828,7 +887,7 @@
                     
                     const lineOkRadio = document.querySelector('input[name="line_ok"]:checked').value;
                     const lineUrl = document.getElementById('user-line').value.trim();
-                    const lineInfoStr = (lineOkRadio === "OK") ? `[LINE:${lineUrl}]` : `[LINE非開示]`;
+                    const lineInfoStr = (lineOkRadio === "OK" && lineUrl) ? `[LINE URL: ${lineUrl} ]` : (lineOkRadio === "OK" ? `[LINE: 🆗 追加OK]` : `[LINE: 🆖 アプリ内チャットのみ]`);
 
                     await fetch(`${SUPABASE_API_URL}/persons`, {
                         method: "POST", headers,
@@ -860,18 +919,20 @@
         }
 
         async function postNewJob() {
-            if (!myStaticLoginName) { alert("案件を投稿するには、先にアカウントのログイン（または新規作成）を行ってください。"); return; }
+            if (!myStaticLoginName) { alert("案件を投稿するには、先にアカウントのログインを行ってください。"); return; }
             
             const title = document.getElementById('job-post-title').value.trim();
             const desc = document.getElementById('job-post-desc').value.trim();
             const condition = document.getElementById('job-post-condition').value.trim() || "要相談";
             const area = document.getElementById('job-post-area').value || "未指定";
+            const link = document.getElementById('job-post-link').value.trim();
 
             if(!title || !desc) { alert("案件名と業務内容を入力してください。"); return; }
 
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
-            const finalTag = globalAvatarUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
-            const finalDesc = `【エリア】${area}\n【条件】${condition}\n\n【詳細】\n${desc}\n\n[投稿元: ${myStaticLoginName}]`;
+            const finalTag = globalJobAvatarUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
+            const linkStr = link ? `\n\n【詳細資料・参考HP】\n${link}` : '';
+            const finalDesc = `【エリア】${area}\n【条件】${condition}\n\n【詳細】\n${desc}${linkStr}\n\n[投稿元: ${myStaticLoginName}]`;
 
             try {
                 await fetch(`${SUPABASE_API_URL}/jobs`, {
@@ -881,6 +942,7 @@
                 alert("🎉 案件の公開が完了しました！");
                 document.getElementById('job-post-title').value = "";
                 document.getElementById('job-post-desc').value = "";
+                document.getElementById('job-post-link').value = "";
                 
                 await loadSupabaseData();
                 showSection('find-job');
@@ -921,18 +983,91 @@
             document.getElementById('chat-input-field').focus(); lastMessageCount = 0;
         }
 
-        // 🛠️ 運営ダッシュボードに「編集機能」を搭載
+        // 🛠️【バグ修正済】ユーザー＆運営兼用：データ編集機能
+        let editingUserId = null;
+        let editingUserTable = null;
+        let editingUserTag = null;
+
+        function openEditModal(id, table, title, desc, tag, pass) {
+            editingUserId = id;
+            editingUserTable = table;
+            editingUserTag = tag || '';
+            document.getElementById('edit-title').value = title;
+            document.getElementById('edit-desc').value = desc;
+            
+            const previewBox = document.getElementById('edit-img-preview');
+            if(editingUserTag) {
+                previewBox.innerHTML = `<img src="${editingUserTag}" style="width:100%;height:100%;object-fit:cover;">`;
+            } else {
+                previewBox.innerHTML = `<span style="font-size:11px;color:var(--text-muted);line-height:120px;">画像なし</span>`;
+            }
+
+            if(table === 'jobs') {
+                document.getElementById('edit-pass-group').style.display = 'none';
+            } else {
+                document.getElementById('edit-pass-group').style.display = 'block';
+                document.getElementById('edit-pass').value = pass;
+            }
+            document.getElementById('edit-modal').style.display = 'flex';
+        }
+
+        function previewEditImg(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('edit-img-preview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+                    editingUserTag = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function closeEditModal() { document.getElementById('edit-modal').style.display = 'none'; }
+
+        async function saveEditData() {
+            const newTitle = document.getElementById('edit-title').value.trim();
+            const newDesc = document.getElementById('edit-desc').value.trim();
+            const newPass = document.getElementById('edit-pass').value.trim();
+
+            if(!newTitle || !newDesc) { alert("項目が入力されていません。"); return; }
+
+            // ⚠️ 完全バグ修正：Prefer: return=minimal を付与してPATCHエラーを回避
+            const headers = { 
+                "apikey": base_key, 
+                "Authorization": `Bearer ${base_key}`, 
+                "Content-Type": "application/json",
+                "Prefer": "return=minimal"
+            };
+            
+            const payload = { title: newTitle, description: newDesc, tag: editingUserTag };
+            if (editingUserTable !== 'jobs') { payload.password = newPass; }
+
+            try {
+                const response = await fetch(`${SUPABASE_API_URL}/${editingUserTable}?id=eq.${editingUserId}`, {
+                    method: "PATCH", headers, body: JSON.stringify(payload)
+                });
+                
+                if(!response.ok) throw new Error("Update Failed");
+
+                alert("✅ データの編集・上書き保存が完了しました。");
+                closeEditModal();
+                loadSupabaseData();
+            } catch (e) {
+                console.error(e); alert("データの修正に失敗しました。");
+            }
+        }
+
         function updateAdminDashboard() { 
             document.getElementById('admin-total-users').innerText = fetchedUsers.length;
             const tbody = document.getElementById('admin-user-rows');
             tbody.innerHTML = fetchedUsers.map((u, index) => `
                 <tr>
-                    <td>DB-${index+1} <br><span style="font-size:10px;color:#94a3b8;">(${u._table})</span></td>
+                    <td>DB-${index+1}<br><span style="font-size:10px;color:#94a3b8;">(${u._table})</span></td>
                     <td>${escapeHtml(u.title)}</td>
                     <td>アクティブ</td>
                     <td>
-                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid var(--primary-gold); color:var(--primary-gold); cursor:pointer; margin-right:4px;" onclick="viewAdminDetail('${u.id}', '${u._table}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}', '${escapeHtml(u.password || '')}')">詳細</button>
-                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #3b82f6; color:#3b82f6; cursor:pointer;" onclick="openAdminEditModal('${u.id}', '${u._table}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}', '${escapeHtml(u.password || '')}')">編集</button>
+                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #3b82f6; color:#3b82f6; cursor:pointer; margin-right:4px;" onclick="openEditModal('${u.id}', '${u._table}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}', '${u.tag || ''}', '${escapeHtml(u.password || '')}')">編集</button>
+                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #ef4444; color:#ef4444; cursor:pointer;" onclick="viewAdminDetail('${u.id}', '${u._table}', '${escapeHtml(u.title)}', '${escapeHtml(u.description)}', '${escapeHtml(u.password || '')}')">削除</button>
                     </td>
                 </tr>
             `).join('');
@@ -940,7 +1075,6 @@
         
         function viewAdminDetail(id, table, title, desc, password) {
             document.getElementById('user-detail-content').innerHTML = `
-                <div class="detail-row"><div class="detail-label">テーブル</div><div class="detail-value">${table}</div></div>
                 <div class="detail-row"><div class="detail-label">公開ID</div><div class="detail-value" style="color:var(--primary-gold); font-weight:bold;">${title}</div></div>
                 <div class="detail-row"><div class="detail-label">🔒 登録暗証番号</div><div class="detail-value" style="color:#22c55e; font-weight:bold; font-size:16px; letter-spacing:2px;">${password || '設定・取得なし'}</div></div>
                 <div class="detail-row"><div class="detail-label">機密データ</div><div class="detail-value" style="white-space:pre-wrap;">${desc}</div></div>
@@ -955,59 +1089,6 @@
             document.getElementById('user-detail-modal').style.display = 'flex';
         }
         function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
-
-        // ✏️ データ修正用モーダルの処理
-        let editingUserId = null;
-        let editingUserTable = null;
-
-        function openAdminEditModal(id, table, title, desc, pass) {
-            editingUserId = id;
-            editingUserTable = table;
-            document.getElementById('admin-edit-title').value = title;
-            document.getElementById('admin-edit-desc').value = desc;
-            
-            // jobsテーブルにはパスワードがないので隠す
-            if(table === 'jobs') {
-                document.getElementById('admin-edit-pass-group').style.display = 'none';
-            } else {
-                document.getElementById('admin-edit-pass-group').style.display = 'block';
-                document.getElementById('admin-edit-pass').value = pass;
-            }
-            
-            document.getElementById('admin-edit-modal').style.display = 'flex';
-        }
-
-        function closeAdminEditModal() { document.getElementById('admin-edit-modal').style.display = 'none'; }
-
-        async function saveAdminEdit() {
-            const newTitle = document.getElementById('admin-edit-title').value.trim();
-            const newDesc = document.getElementById('admin-edit-desc').value.trim();
-            const newPass = document.getElementById('admin-edit-pass').value.trim();
-
-            if(!newTitle || !newDesc) { alert("必須項目が入力されていません。"); return; }
-
-            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
-            
-            const payload = { title: newTitle, description: newDesc };
-            if (editingUserTable !== 'jobs') {
-                payload.password = newPass; // jobsテーブル以外はパスワードも更新
-            }
-
-            try {
-                await fetch(`${SUPABASE_API_URL}/${editingUserTable}?id=eq.${editingUserId}`, {
-                    method: "PATCH",
-                    headers,
-                    body: JSON.stringify(payload)
-                });
-                alert("✅ データの修正・上書き保存が完了しました。");
-                closeAdminEditModal();
-                loadSupabaseData();
-            } catch (e) {
-                console.error(e);
-                alert("データの修正に失敗しました。");
-            }
-        }
-
         function updateAdminContactDashboard(list) {
             document.getElementById('admin-total-contacts').innerText = list.length;
             const tbody = document.getElementById('admin-contact-logs');
