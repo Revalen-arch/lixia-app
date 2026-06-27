@@ -44,6 +44,8 @@
         nav button:hover { border-color: var(--primary-gold); color: var(--primary-gold); background: #fffbeb; transform: translateY(-1px); }
         .btn-admin { background-color: #fef2f2 !important; border: 1px solid #fca5a5 !important; color: #b91c1c !important; }
         .btn-admin:hover { background-color: #fee2e2 !important; color: #991b1b !important; border-color: #ef4444 !important;}
+        .btn-logout { background-color: #fef2f2 !important; border: 1px solid #fecdd3 !important; color: #ef4444 !important; }
+        .btn-logout:hover { background-color: #fee2e2 !important; color: #b91c1c !important; border-color: #ef4444 !important;}
         
         .login-status-badge {
             background: linear-gradient(135deg, #fffbeb, #fef3c7); color: var(--primary-gold); padding: 8px 16px; 
@@ -121,8 +123,8 @@
         .form-group label { display: block; font-weight: 700; margin-bottom: 10px; font-size: 14px; color: var(--primary-gold); }
         
         .avatar-upload-container {
-            display: flex; align-items: center; gap: 28px; margin-bottom: 30px;
-            background: #ffffff; padding: 25px; border-radius: 12px; border: 1px dashed var(--border-gold); flex-wrap: wrap;
+            display: flex; flex-direction: column; align-items: flex-start; gap: 15px; margin-bottom: 30px;
+            background: #ffffff; padding: 25px; border-radius: 12px; border: 1px dashed var(--border-gold);
         }
         .avatar-preview-box {
             width: 100%; max-width: 320px; height: 190px; border-radius: 8px; background: #f8fafc;
@@ -191,6 +193,7 @@
                 <button onclick="showSection('find-partner')">仲間を探す(個人間)</button>
                 <button onclick="showSection('benefits')">優待サービス</button>
                 <button onclick="showSection('profile')">マイページ/設定</button>
+                <button id="btn-logout" class="btn-logout" onclick="logoutUser()" style="display:none;">🚪 ログアウト</button>
                 <button onclick="openAdminModal()" class="btn-admin">⚙️ 運営管理</button>
             </nav>
         </div>
@@ -294,20 +297,20 @@
                     <option value="bizdev">営業・事業開発(BizDev)・アライアンス企画</option>
                     <option value="pm">ディレクター・PM・PdM・プロジェクト推進</option>
                     <option value="writer">ライター・編集者・コンテンツ制作・翻訳</option>
-                    <option value="backoffice">人事・広報・経理・バックオフィス全般</option>
+                    <option value="backoffice">人事・広報・経理・バックオフィス全全般</option>
                     <option value="legal">士業(弁護士・税理士・公認会計士・社労士)</option>
                     <option value="other">その他の職種・何でも屋</option>
                 </select>
                 <select id="partner-purpose">
                     <option value="">全ての目的（詳細）</option>
                     <option value="co_founder">共同創業者(Co-Founder)・右腕探し</option>
-                    <option value="mvp">初期スタートアップメンバー募集(プロトタイプ・MVP開発)</option>
+                    <option value="mvp">初期メンバー募集(プロトタイプ・MVP開発)</option>
                     <option value="client_work">受託案件のチームメンバー・頼れる相棒探し</option>
                     <option value="sidejob_team">副業・週末プロジェクトの新規立ち上げ仲間募集</option>
                     <option value="hobby_dev">趣味のプロダクト・個人開発・オープンソースのメンバー募集</option>
                     <option value="skill_exchange">スキル交換(例：デザインするから開発してほしい等)</option>
                     <option value="study_group">技術勉強会・輪読会・もくもく会の仲間募集</option>
-                    <option value="hackathon">ハッカソン・ビジコン・ピッチイベントのチーム結成</option>
+                    <option value="hackathon">ハッカソン・イベントのチーム結成</option>
                     <option value="discussion">アイデアの壁打ち・業界の情報交換・有益な人脈作り</option>
                     <option value="monetize">副業のマネタイズ・独立起業のノウハウ共有</option>
                     <option value="mentor">メンター探し・アドバイザー就任希望</option>
@@ -323,7 +326,7 @@
             <p style="color:var(--text-muted); margin-bottom:30px;">最高峰のステータスホルダーに相応しい、全国3万施設以上のプレミアムな無料優待パッケージです。</p>
             
             <div style="text-align: center; background: #fffbeb; border: 1px solid var(--border-gold); padding: 35px; border-radius: 16px; margin-bottom: 35px;">
-                <h3 style="margin-top: 0; color: var(--primary-gold); font-size: 20px; font-weight:900; letter-spacing:0.05em;">✨ 会員限定の優待総合ポータルサイト ✨</h3>
+                <h3 style="margin-top: 0; color: var(--primary-gold); font-size: 20px; font-weight:900; letter-spacing:0.05em;">✨ 会員限定の優待総合ポータルサイトはこちら ✨</h3>
                 <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 25px;">提携アカウントをお持ちの方は、以下の外部提携ログインページより全優待サービスの申請が可能です。</p>
                 <a href="https://cellnet_l-link.fc-club.com/" target="_blank" class="btn-benefit-link">🚀 外部優待ポータルを開く (別タブ) ➔</a>
             </div>
@@ -358,6 +361,20 @@
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">chocoZAP, JOY FIT, GDO, MEGALOS 等</p>
                     </div>
                 </div>
+                <div class="card" style="border-top: 4px solid var(--primary-gold);">
+                    <div class="card-img-box"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80"></div>
+                    <div class="card-inner" style="padding:20px;">
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🏢 ライフサポート (6,000施設以上)</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">洋服の青山, OWNDAYS, トレファク, メガネスーパー 等</p>
+                    </div>
+                </div>
+                <div class="card" style="border-top: 4px solid var(--primary-gold);">
+                    <div class="card-img-box"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80"></div>
+                    <div class="card-inner" style="padding:20px;">
+                        <h4 style="margin:0 0 8px 0; font-size:16px;">🎓 キャリア (1,000施設以上)</h4>
+                        <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">ユーキャン, 英会話イーオン, ABC Cooking Studio 等</p>
+                    </div>
+                </div>
             </div>
 
             <h3 style="margin-top: 40px; margin-bottom:15px; font-weight:800; color:var(--primary-gold);">優待割引料金テーブル一覧</h3>
@@ -368,6 +385,8 @@
                     <tr><td>🍴 グルメ</td><td>すかいらーく(電子ギフト)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">900円</td><td>100円お得</td></tr>
                     <tr><td>🍚 グルメ</td><td>吉野家(牛丼1杯)</td><td style="text-decoration: line-through;">500円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">450円</td><td>50円お得</td></tr>
                     <tr><td>🍿 映画</td><td>映画鑑賞券(TOHO等)</td><td style="text-decoration: line-through;">2,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">1,300円〜</td><td>最大700円お得</td></tr>
+                    <tr><td>🍗 ファストフード</td><td>KFC (ケンタッキー)</td><td style="text-decoration: line-through;">1,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">900円</td><td>100円お得</td></tr>
+                    <tr><td>⛳️ スポーツ</td><td>GDO (ゴルフ予約等)</td><td style="text-decoration: line-through;">5,000円</td><td style="color: var(--primary-gold); font-weight: bold; font-size: 15px;">4,500円</td><td>500円お得</td></tr>
                 </table>
             </div>
         </div>
@@ -408,14 +427,14 @@
 
             <form id="profile-form" style="max-width: 750px;">
                 <div class="avatar-upload-container">
-                    <div style="display:flex; flex-direction:column; align-items:flex-start;">
-                        <p style="font-size:11px; color:var(--text-muted); margin-top:0; margin-bottom:10px;">※リスト上ではこのように表示されます（プレビュー）</p>
-                        <div class="avatar-preview-box" id="avatar-preview"><span style="color:var(--text-muted); font-size:11px;">画像未設定</span></div>
-                    </div>
-                    <div style="flex:1;">
+                    <div>
                         <label style="display: block; font-weight: 700; margin-bottom: 6px; font-size: 14px;">アイコン・アイキャッチ登録 (任意)</label>
                         <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">あなたらしい写真や企業ロゴを設定するとマッチング率が飛躍的に高まります。</p>
                         <input type="file" id="avatar-input" accept="image/*" onchange="previewAvatar(this)">
+                    </div>
+                    <p style="font-size:11px; color:var(--text-muted); margin-top:10px; margin-bottom:0;">※実際のリスト上ではこのように表示されます（プレビュー）</p>
+                    <div class="avatar-preview-box" id="avatar-preview" style="width:100%; max-width:320px; height:190px; border-radius:12px; border:1px solid var(--border-light); background:#f8fafc; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+                        <span style="color:var(--text-muted); font-size:11px;">画像未設定</span>
                     </div>
                 </div>
 
@@ -471,7 +490,7 @@
                             <option value="hobby_dev">趣味のプロダクト・個人開発・オープンソースのメンバー募集</option>
                             <option value="skill_exchange">スキル交換(例：デザインするから開発してほしい等)</option>
                             <option value="study_group">技術勉強会・輪読会・もくもく会の仲間募集</option>
-                            <option value="hackathon">ハッカソン・ビジコン・ピッチイベントのチーム結成</option>
+                            <option value="hackathon">ハッカソン・イベントのチーム結成</option>
                             <option value="discussion">アイデアの壁打ち・業界の情報交換・有益な人脈作り</option>
                             <option value="monetize">副業のマネタイズ・独立起業のノウハウ共有</option>
                             <option value="mentor">メンター探し・アドバイザー就任希望</option>
@@ -662,6 +681,12 @@
 
         <div id="admin" class="section">
             <h2>⚙️ 運営管理ダッシュボード</h2>
+            
+            <div class="search-box" style="background: #ffffff; padding: 15px; border-radius: 8px; margin-bottom: 20px; border: 1px solid var(--border-light); display: flex; align-items: center;">
+                <span style="font-size: 16px; margin-right: 10px;">🔍</span>
+                <input type="text" id="admin-search-input" placeholder="公開名や案件名で検索..." onkeyup="filterAdminTable()" style="flex: 1; border: none; outline: none; background: transparent; color: var(--text-main); font-size: 14px;">
+            </div>
+
             <div style="display: flex; gap: 20px; margin-bottom: 30px; flex-wrap: wrap;">
                 <div style="flex: 1; min-width:200px; background: #ffffff; padding: 20px; border-radius: 12px; text-align: center; border: 1px solid var(--border-light);">
                     <h3>総ユーザー数</h3><p style="font-size: 32px; font-weight: bold; margin:0; color:var(--primary-gold);"><span id="admin-total-users">0</span> 名</p>
@@ -816,10 +841,41 @@
                 myStaticLoginName = localStorage.getItem('lixia_login_user');
                 document.getElementById('current-user-badge').innerText = `👤 ${myStaticLoginName}`;
                 document.getElementById('login-name-input').value = myStaticLoginName;
+                document.getElementById('btn-logout').style.display = 'inline-block';
             }
             loadSupabaseData();
             setInterval(() => { loadMessagesAndContacts(); }, 1000);
         };
+
+        function logoutUser() {
+            if(confirm("現在のアカウントからログアウトしますか？")) {
+                localStorage.removeItem('lixia_login_user');
+                myStaticLoginName = "";
+                document.getElementById('current-user-badge').innerText = `👤 GUEST MODE`;
+                document.getElementById('btn-logout').style.display = 'none';
+                const msgArea = document.getElementById('my-messages-area');
+                if(msgArea) msgArea.style.display = 'none';
+                alert("ログアウトが完了しました。");
+                loadSupabaseData(); 
+            }
+        }
+
+        function filterAdminTable() {
+            const keyword = document.getElementById('admin-search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#admin-user-rows tr');
+            rows.forEach(row => {
+                const nameCell = row.cells[1];
+                if (nameCell) {
+                    const text = nameCell.innerText.toLowerCase();
+                    row.style.display = text.includes(keyword) ? '' : 'none';
+                }
+            });
+        }
+
+        function pgQuote(str) {
+            if(!str) return '""';
+            return encodeURIComponent('"' + str.replace(/"/g, '""') + '"');
+        }
 
         function toggleForm() { 
             const isCorp = document.querySelector('input[name="user_type"]:checked').value === 'corporate'; 
@@ -827,7 +883,6 @@
             document.getElementById('form-corporate').style.display = isCorp ? 'block' : 'none'; 
         }
 
-        // 🔗 URLを自動でaタグ(青文字リンク)に変換する機能
         function escapeAndLinkify(str) {
             if (!str) return '';
             let escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -868,7 +923,7 @@
             
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
             try {
-                const response = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${encodeURIComponent(inputName)}`, { headers });
+                const response = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${pgQuote(inputName)}`, { headers });
                 const userRecords = await response.json();
                 if(!userRecords || userRecords.length === 0) { alert("⚠️ アカウントが見つかりません。タグ(#付き)まで正確に入力してください。"); return; }
                 
@@ -877,6 +932,7 @@
                     localStorage.setItem('lixia_login_user', inputName);
                     document.getElementById('current-user-badge').innerText = `👤 ${myStaticLoginName}`;
                     document.getElementById('login-pass-input').value = ""; 
+                    document.getElementById('btn-logout').style.display = 'inline-block';
                     alert("✅ パスワード認証完了。アカウントにログインしました。");
                     loadSupabaseData();
                 } else { alert("❌ 暗証番号が違います。"); }
@@ -910,43 +966,43 @@
             try {
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 let url = `${SUPABASE_API_URL}/messages?order=created_at.asc`;
-                if (document.getElementById('chat-modal').style.display === 'flex') {
-                    url += `&or=(and(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(currentChatPartner)}),and(sender.eq.${encodeURIComponent(currentChatPartner)},receiver.eq.${encodeURIComponent(myStaticLoginName)}))`;
+                
+                const m = pgQuote(myStaticLoginName);
+                if (document.getElementById('chat-modal').style.display === 'flex' && currentChatPartner) {
+                    const p = pgQuote(currentChatPartner);
+                    url += `&or=(and(sender.eq.${m},receiver.eq.${p}),and(sender.eq.${p},receiver.eq.${m}))`;
                 } else {
-                    url += `&or=(sender.eq.${encodeURIComponent(myStaticLoginName)},receiver.eq.${encodeURIComponent(myStaticLoginName)})`;
+                    url += `&or=(sender.eq.${m},receiver.eq.${m})`;
                 }
 
                 const rMsg = await fetch(url, { headers }); const allMsgs = await rMsg.json();
                 
                 if (document.getElementById('chat-modal').style.display === 'flex' && currentChatPartner) {
-                    // 🚨【セキュリティ防護壁】当人同士のチャット以外をフロントで徹底的に弾き落とす
-                    const strictFilteredMsgs = allMsgs.filter(m => 
-                        (m.sender === myStaticLoginName && m.receiver === currentChatPartner) ||
-                        (m.sender === currentChatPartner && m.receiver === myStaticLoginName)
+                    const strictFilteredMsgs = allMsgs.filter(msg => 
+                        (msg.sender === myStaticLoginName && msg.receiver === currentChatPartner) ||
+                        (msg.sender === currentChatPartner && msg.receiver === myStaticLoginName)
                     );
                     renderChatBubbles(strictFilteredMsgs); 
                 }
                 
                 updateAdminChatLogs(allMsgs);
 
-                // 新着メッセージ通知＆チャット即時遷移
-                allMsgs.forEach(m => {
-                    if (m.receiver === myStaticLoginName && !knownMessageIds.has(m.id)) {
-                        knownMessageIds.add(m.id);
-                        if(!isFirstLoad && currentChatPartner !== m.sender) {
-                            if(confirm(`💬【新着メッセージ】\n${m.sender} 様からメッセージが届きました。\n今すぐチャット画面を開いて返信しますか？`)) {
-                                openChatWindow(m.sender);
+                allMsgs.forEach(msg => {
+                    if (msg.receiver === myStaticLoginName && !knownMessageIds.has(msg.id)) {
+                        knownMessageIds.add(msg.id);
+                        if(!isFirstLoad && currentChatPartner !== msg.sender) {
+                            if(confirm(`💬【新着メッセージ】\n${msg.sender} 様からメッセージが届きました。\n今すぐチャット画面を開いて返信しますか？`)) {
+                                openChatWindow(msg.sender);
                             }
                         }
                     } else {
-                        knownMessageIds.add(m.id);
+                        knownMessageIds.add(msg.id);
                     }
                 });
 
                 const rContact = await fetch(`${SUPABASE_API_URL}/contacts?order=created_at.desc`, { headers });
                 const allContacts = await rContact.json(); updateAdminContactDashboard(allContacts);
 
-                // 新着オファー通知＆チャット即時遷移
                 allContacts.forEach(c => {
                     if (c.receiver === myStaticLoginName && !knownContactIds.has(c.id)) {
                         knownContactIds.add(c.id);
@@ -959,11 +1015,10 @@
                 });
                 isFirstLoad = false;
 
-                // マイページ用：自分のチャット＆オファー履歴の更新
                 let myPartners = new Set();
-                allMsgs.forEach(m => {
-                    if(m.sender !== myStaticLoginName && m.sender) myPartners.add(m.sender);
-                    if(m.receiver !== myStaticLoginName && m.receiver) myPartners.add(m.receiver);
+                allMsgs.forEach(msg => {
+                    if(msg.sender !== myStaticLoginName && msg.sender) myPartners.add(msg.sender);
+                    if(msg.receiver !== myStaticLoginName && msg.receiver) myPartners.add(msg.receiver);
                 });
                 allContacts.forEach(c => {
                     if(c.sender === myStaticLoginName && c.receiver) myPartners.add(c.receiver);
@@ -990,17 +1045,29 @@
             } catch (e) { console.error(e); }
         }
 
-        async function applyContact(targetName, type) {
-            if(!myStaticLoginName) { alert("連絡を取るにはログインが必要です。"); return; }
+        async function promptOffer(targetName) {
+            if(!myStaticLoginName) { alert("オファーを送るにはログインが必要です。"); return; }
             if(myStaticLoginName === targetName) { alert("自分自身には送信できません。"); return; }
-            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
-            try {
-                await fetch(`${SUPABASE_API_URL}/contacts`, {
-                    method: "POST", headers,
-                    body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, type: type })
-                });
-                alert(`🎉 ${targetName}様へ「${type}」を送信しました。`);
-            } catch (e) { alert("送信エラー"); }
+            
+            const offerType = prompt(`【オファー送信】\n${targetName} 様へ送るオファーの種別や挨拶を入力してください。\n例: スカウト面談のお願い、協業の提案 など`, "スカウト・面談オファー");
+            
+            if(offerType !== null && offerType.trim() !== "") {
+                const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
+                try {
+                    await fetch(`${SUPABASE_API_URL}/contacts`, {
+                        method: "POST", headers,
+                        body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, type: offerType.trim() })
+                    });
+                    
+                    await fetch(`${SUPABASE_API_URL}/messages`, {
+                        method: "POST", headers,
+                        body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, text: `【オファー通知】${offerType.trim()} を送信しました。` })
+                    });
+
+                    alert(`🎉 ${targetName}様へオファーを送信しました！\nメッセージ履歴からチャットが可能です。`);
+                    loadMessagesAndContacts();
+                } catch (e) { alert("送信エラーが発生しました。"); }
+            }
         }
 
         function renderPersonCards(list) {
@@ -1010,7 +1077,7 @@
                 const cleanTitle = u.title.trim();
                 const isMe = (cleanTitle === myStaticLoginName);
                 const suffix = isMe ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 const linkedDesc = escapeAndLinkify(u.description);
                 
                 return `
@@ -1023,7 +1090,7 @@
                             <div class="card-actions">
                                 ${isMe 
                                   ? `<button class="btn btn-edit" onclick="openEditModal('${u.id}', '${u._table}')">✏️ プロフを編集する</button>` 
-                                  : `<button class="btn" onclick="applyContact('${escapeHtml(cleanTitle)}', '面談申し込み')">オファーを送る</button>
+                                  : `<button class="btn" onclick="promptOffer('${escapeHtml(cleanTitle)}')">🎯 オファーを送る</button>
                                      <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
                                 }
                             </div>
@@ -1033,7 +1100,6 @@
             }).join('');
         }
 
-        // 🚨 案件の「投稿者に連絡する」チャット機能を修正
         function renderJobCards(list) {
             const box = document.getElementById('job-list');
             if(!list || list.length === 0) { box.innerHTML = `<p style="color: var(--text-muted);">現在公開中の案件はありません。</p>`; return; }
@@ -1042,7 +1108,6 @@
                 const isMeText = isMyJob ? "（あなたの投稿）" : "";
                 const finalImg = j.tag || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
                 
-                // 【バグ修正】空白等が含まれていても正確に名前だけを抽出する正規表現
                 const match = j.description.match(/\[投稿元:\s*([^\]]+)\]/);
                 const posterName = match ? match[1].trim() : "";
                 const linkedDesc = escapeAndLinkify(j.description);
@@ -1085,7 +1150,8 @@
                             <div class="card-actions">
                                 ${isMe 
                                   ? `<button class="btn btn-edit" onclick="openEditModal('${p.id}', '${p._table}')">✏️ 募集を編集する</button>`
-                                  : `<button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
+                                  : `<button class="btn" onclick="promptOffer('${escapeHtml(cleanTitle)}')">🎯 提案・オファー</button>
+                                     <button class="btn btn-chat" onclick="openChatWindow('${escapeHtml(cleanTitle)}')">💬 チャット</button>`
                                 }
                             </div>
                         </div>
@@ -1093,203 +1159,6 @@
                 `;
             }).join('');
         }
-
-        async function saveProfile() {
-            let baseNickname = document.getElementById('user-nickname').value.replace(/#\d{4}/g, '').trim();
-            const password = document.getElementById('user-password').value.trim();
-            
-            if(!baseNickname) { alert("表示名を入力してください。"); return; }
-            if(!password || password.length < 4) { alert("4桁の暗証番号を設定してください。"); return; }
-            if(password === "1234") { alert("❌ 「1234」はセキュリティ保護のため登録できません。"); return; }
-
-            const randomId = Math.floor(1000 + Math.random() * 9000);
-            const nickname = `${baseNickname}#${randomId}`;
-
-            const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
-            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
-
-            try {
-                const fullname = document.getElementById('user-fullname').value || "非公開";
-                
-                if (!isCorporate) {
-                    let jobCatEl = document.getElementById('user-job-category');
-                    let jobCat = jobCatEl.value ? jobCatEl.options[jobCatEl.selectedIndex].text : '';
-                    let jobText = document.getElementById('user-job').value.trim();
-                    const finalJob = jobCat ? `[${jobCat}] ${jobText}` : jobText;
-
-                    let purpEl = document.getElementById('user-partner-purpose');
-                    let purpText = purpEl.value ? purpEl.options[purpEl.selectedIndex].text : '';
-                    let targetText = document.getElementById('user-target').value.trim();
-                    const finalTarget = purpText ? `[目的: ${purpText}]\n${targetText}` : targetText;
-
-                    const sidejob = document.getElementById('user-sidejob').value; 
-                    const location = document.getElementById('user-location-reg').value || "未指定";
-                    
-                    const lineOkRadio = document.querySelector('input[name="line_ok"]:checked').value;
-                    const lineUrl = document.getElementById('user-line').value.trim();
-                    const lineInfoStr = (lineOkRadio === "OK" && lineUrl) ? `[LINE URL: ${lineUrl} ]` : (lineOkRadio === "OK" ? `[LINE: 🆗 追加OK]` : `[LINE: 🆖 アプリ内チャットのみ]`);
-
-                    await fetch(`${SUPABASE_API_URL}/persons`, {
-                        method: "POST", headers,
-                        body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `本業: ${finalJob}\n副業: ${sidejob}\n地域: ${location}\n展望: ${finalTarget}\n${lineInfoStr}\n[本名:${fullname}]` })
-                    });
-                    await fetch(`${SUPABASE_API_URL}/partners`, {
-                        method: "POST", headers,
-                        body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `地域: ${location}\n副業展開: ${sidejob}\n希望内容: ${finalTarget}\n${lineInfoStr}` })
-                    });
-                } else {
-                    let indEl = document.getElementById('corp-industry');
-                    let indText = indEl.value ? indEl.options[indEl.selectedIndex].text : '';
-                    let bizText = document.getElementById('corp-biz').value.trim();
-                    const finalBiz = indText ? `[${indText}] ${bizText}` : bizText;
-
-                    let roleEl = document.getElementById('corp-target-role');
-                    let roleText = roleEl.value ? roleEl.options[roleEl.selectedIndex].text : '';
-                    let corpTargetText = document.getElementById('corp-target').value.trim();
-                    const finalCorpTarget = roleText ? `[希望職種: ${roleText}]\n${corpTargetText}` : corpTargetText;
-
-                    const location = document.getElementById('corp-location-reg').value || "未指定";
-                    
-                    await fetch(`${SUPABASE_API_URL}/persons`, {
-                        method: "POST", headers,
-                        body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `[法人アカウント]\n事業内容: ${finalBiz}\n拠点: ${location}\n求める人材: ${finalCorpTarget}\n[担当:${fullname}]` })
-                    });
-                }
-                
-                myStaticLoginName = nickname;
-                localStorage.setItem('lixia_login_user', nickname);
-                document.getElementById('current-user-badge').innerText = `👤 ${myStaticLoginName}`;
-                
-                alert(`🎉 アカウント作成完了！\n\nあなたのログインIDは【 ${nickname} 】です。案件の投稿も可能になりました！`);
-                await loadSupabaseData();
-                showSection('find-person');
-            } catch (e) { console.error(e); }
-        }
-
-        async function postNewJob() {
-            if (!myStaticLoginName) { alert("案件を投稿するには、先にアカウントのログインを行ってください。"); return; }
-            
-            const title = document.getElementById('job-post-title').value.trim();
-            const desc = document.getElementById('job-post-desc').value.trim();
-            const area = document.getElementById('job-post-area').value || "未指定";
-            const link = document.getElementById('job-post-link').value.trim();
-
-            if(!title || !desc) { alert("案件名と業務内容を入力してください。"); return; }
-
-            let indEl = document.getElementById('job-post-industry');
-            let indText = indEl.value ? indEl.options[indEl.selectedIndex].text : '';
-
-            let roleEl = document.getElementById('job-post-role');
-            let roleText = roleEl.value ? roleEl.options[roleEl.selectedIndex].text : '';
-
-            let condEl = document.getElementById('job-post-condition-select');
-            let condText = condEl.value ? condEl.options[condEl.selectedIndex].text : '';
-            const conditionDetail = document.getElementById('job-post-condition').value.trim();
-            const finalCondition = condText ? `[${condText}] ${conditionDetail}` : conditionDetail;
-
-            // 🚨 案件投稿用の連絡先(LINE)設定を取得
-            const lineOkRadio = document.querySelector('input[name="job_line_ok"]:checked').value;
-            const lineUrl = document.getElementById('job-post-line').value.trim();
-            const lineInfoStr = (lineOkRadio === "OK" && lineUrl) ? `[案件連絡先 URL: ${lineUrl} ]` : (lineOkRadio === "OK" ? `[案件連絡先: 🆗 ダイレクト追加OK]` : `[案件連絡先: 🆖 アプリ内チャットのみ]`);
-
-            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
-            const finalTag = globalJobAvatarUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
-            const linkStr = link ? `\n\n【詳細資料・参考HP】\n${link}` : '';
-            const indRoleStr = (indText || roleText) ? `【業種】${indText || '未指定'}\n【職種】${roleText || '未指定'}\n` : '';
-            
-            const finalDesc = `${indRoleStr}【エリア】${area}\n【条件】${finalCondition}\n\n【詳細】\n${desc}${linkStr}\n\n${lineInfoStr}\n\n[投稿元: ${myStaticLoginName}]`;
-
-            try {
-                await fetch(`${SUPABASE_API_URL}/jobs`, {
-                    method: "POST", headers,
-                    body: JSON.stringify({ title: title, description: finalDesc, tag: finalTag })
-                });
-                alert("🎉 案件の公開が完了しました！");
-                document.getElementById('job-post-title').value = "";
-                document.getElementById('job-post-desc').value = "";
-                document.getElementById('job-post-link').value = "";
-                document.getElementById('job-post-condition').value = "";
-                document.getElementById('job-post-line').value = "";
-                
-                await loadSupabaseData();
-                showSection('find-job');
-            } catch (e) { console.error(e); }
-        }
-
-        async function sendChatMessage() {
-            const inputField = document.getElementById('chat-input-field');
-            const messageText = inputField.value.trim();
-            if(messageText === "" || !myStaticLoginName) return;
-            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
-            try {
-                await fetch(`${SUPABASE_API_URL}/messages`, {
-                    method: "POST", headers,
-                    body: JSON.stringify({ sender: myStaticLoginName, receiver: currentChatPartner, text: messageText })
-                });
-                inputField.value = "";
-            } catch (e) { console.error(e); }
-        }
-
-        function renderChatBubbles(filteredMsg) {
-            const box = document.getElementById('chat-messages-box');
-            if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:20px;">💬 暗号化空間。会話を開始してください。</div>`; return; }
-            box.innerHTML = filteredMsg.map(m => {
-                const isMeClass = (m.sender === myStaticLoginName) ? 'me' : 'other';
-                const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                return `<div class="chat-bubble ${isMeClass}"><div>${escapeHtml(m.text)}</div><div class="chat-bubble-meta">${timeStr}</div></div>`;
-            }).join('');
-            if (filteredMsg.length !== lastMessageCount) { box.scrollTop = box.scrollHeight; lastMessageCount = filteredMsg.length; }
-        }
-
-        function openChatWindow(name) {
-            if(!myStaticLoginName) { alert("認証が必要です。"); return; }
-            if(myStaticLoginName === name) { alert("不正なリクエストです。"); return; }
-            currentChatPartner = name; document.getElementById('chat-target-name').innerText = name;
-            document.getElementById('chat-modal').style.display = 'flex';
-            document.getElementById('chat-input-field').focus(); lastMessageCount = 0;
-            loadMessagesAndContacts(); // 開いた瞬間に履歴をロード
-        }
-
-        function updateAdminDashboard() { 
-            document.getElementById('admin-total-users').innerText = fetchedUsers.length;
-            const tbody = document.getElementById('admin-user-rows');
-            tbody.innerHTML = fetchedUsers.map((u, index) => `
-                <tr>
-                    <td>DB-${index+1}<br><span style="font-size:10px;color:#94a3b8;">(${u._table})</span></td>
-                    <td>${escapeHtml(u.title)}</td>
-                    <td>アクティブ</td>
-                    <td>
-                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #3b82f6; color:#3b82f6; cursor:pointer; margin-right:4px;" onclick="openEditModal('${u.id}', '${u._table}')">編集</button>
-                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #ef4444; color:#ef4444; cursor:pointer;" onclick="viewAdminDetail('${u.id}', '${u._table}')">削除</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-        
-        function viewAdminDetail(id, table) {
-            const user = fetchedUsers.find(u => String(u.id) === String(id) && u._table === table);
-            if(!user) return;
-
-            document.getElementById('user-detail-content').innerHTML = `
-                <div class="detail-row"><div class="detail-label">公開ID</div><div class="detail-value" style="color:var(--primary-gold); font-weight:bold;">${escapeHtml(user.title)}</div></div>
-                <div class="detail-row"><div class="detail-label">🔒 登録暗証番号</div><div class="detail-value" style="color:#22c55e; font-weight:bold; font-size:16px; letter-spacing:2px;">${escapeHtml(user.password || '設定・取得なし')}</div></div>
-                <div class="detail-row"><div class="detail-label">機密データ</div><div class="detail-value" style="white-space:pre-wrap;">${escapeHtml(user.description)}</div></div>
-            `;
-            document.getElementById('admin-delete-btn').onclick = async function() {
-                if(confirm(`⚠️ データを永久抹消しますか？`)) {
-                    const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
-                    await fetch(`${SUPABASE_API_URL}/${table}?id=eq.${id}`, { method: "DELETE", headers });
-                    alert('🚨 抹消を完了しました。'); closeUserDetailModal(); loadSupabaseData();
-                }
-            };
-            document.getElementById('user-detail-modal').style.display = 'flex';
-        }
-        function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
-
-        // ✏️ データ編集機能のロジック
-        let editingUserId = null;
-        let editingUserTable = null;
-        let editingUserTag = null;
 
         function openEditModal(id, table) {
             const user = fetchedUsers.find(u => String(u.id) === String(id) && u._table === table);
