@@ -363,14 +363,14 @@
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=400&q=80"></div>
-                    <div class="card-inner">
+                    <div class="card-inner" style="padding:20px;">
                         <h4 style="margin:0 0 8px 0; font-size:16px;">🏢 ライフサポート (6,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">洋服の青山, OWNDAYS, トレファク, メガネスーパー 等</p>
                     </div>
                 </div>
                 <div class="card" style="border-top: 4px solid var(--primary-gold);">
                     <div class="card-img-box"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80"></div>
-                    <div class="card-inner">
+                    <div class="card-inner" style="padding:20px;">
                         <h4 style="margin:0 0 8px 0; font-size:16px;">🎓 キャリア (1,000施設以上)</h4>
                         <p style="font-size: 13px; color: var(--text-muted); margin: 0; line-height:1.5;">ユーキャン, 英会話イーオン, ABC Cooking Studio 等</p>
                     </div>
@@ -558,7 +558,7 @@
                             <option value="marketer_ad">マーケター(Web広告運用・SEO・SNS運用・CRM)</option>
                             <option value="biz_dev">事業開発(BizDev)・企画・アライアンス提携</option>
                             <option value="hr_recruiter">人事・リクルーター(採用代行・面接官・労務)</option>
-                            <option value="backoffice">総務・経理・財務・法務・事務・アシスタント</option>
+                            <option value="backoffice">総務・経理・財務・法務・事務・アシ ক্রস</option>
                             <option value="writer_editor">ライター・編集者・SEOコンテンツ・コピーライター</option>
                             <option value="video_creator">動画クリエイター・YouTube編集・アニメーション</option>
                             <option value="consultant">経営コンサルタント・ITコンサル・アドバイザー・顧問</option>
@@ -746,8 +746,7 @@
 
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 25px; border:1px solid var(--primary-gold);">
-            <h3 style="color:var(--primary-gold); margin-top:0;">💬 <span id="chat-target-name">お相手</span> とのセキュア・暗号チャット</h3>
-            
+            <h3 style="color:var(--primary-gold); margin-top:0;">💬 <span id="chat-target-name"></span> 様とのチャット</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
                 <div class="chat-input-area">
@@ -818,7 +817,6 @@
     </div>
 
     <script>
-        // 以降の全てのシステム・スクリプト（完全修復・防御バリア組み込み済）
         const prefectures = ["全国", "北海道", "東北", "関東", "北陸", "関西", "中国", "四国", "九州", "沖縄"];
         let currentChatPartner = ""; let fetchedUsers = []; let myStaticLoginName = ""; let knownContactIds = new Set(); let isFirstLoad = true;
         let globalAvatarUrl = ""; 
@@ -847,8 +845,6 @@
             loadSupabaseData();
             setInterval(() => { loadMessagesAndContacts(); }, 1000);
         };
-
-        // ... この後も前回のスクリプトが1文字も欠けずに続きます（文字数節約のため表示上は関数宣言のみ記載していますが、システム機能としては100%保持・稼働します）
 
         function logoutUser() {
             if(confirm("現在のアカウントからログアウトしますか？")) {
@@ -880,7 +876,6 @@
             return encodeURIComponent('"' + str.replace(/"/g, '""') + '"');
         }
 
-        // 🚨【セキュリティ強化】JS内での文字化けやSyntaxエラーを完璧に防ぐエスケープ処理
         function escapeJsStr(str) {
             if (!str) return '';
             return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
@@ -937,7 +932,6 @@
             
             const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
             try {
-                // pgQuoteで完全に保護された通信
                 const response = await fetch(`${SUPABASE_API_URL}/persons?title=eq.${pgQuote(inputName)}`, { headers });
                 const userRecords = await response.json();
                 if(!userRecords || userRecords.length === 0) { alert("⚠️ アカウントが見つかりません。タグ(#付き)まで正確に入力してください。"); return; }
@@ -982,7 +976,6 @@
                 const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
                 let url = `${SUPABASE_API_URL}/messages?order=created_at.asc`;
                 
-                // 🚨【セキュリティ防壁】pgQuoteにより、#などの記号による通信切断を100%防止！
                 const m = pgQuote(myStaticLoginName);
                 if (document.getElementById('chat-modal').style.display === 'flex' && currentChatPartner) {
                     const p = pgQuote(currentChatPartner);
@@ -994,7 +987,6 @@
                 const rMsg = await fetch(url, { headers }); const allMsgs = await rMsg.json();
                 
                 if (document.getElementById('chat-modal').style.display === 'flex' && currentChatPartner) {
-                    // フロントエンドでも二重でフィルタリング（他人のチャット混入の完全防御）
                     const strictFilteredMsgs = allMsgs.filter(msg => 
                         (msg.sender === myStaticLoginName && msg.receiver === currentChatPartner) ||
                         (msg.sender === currentChatPartner && msg.receiver === myStaticLoginName)
@@ -1062,7 +1054,6 @@
             } catch (e) { console.error(e); }
         }
 
-        // 🎯【追加】企業・個人から詳細テキスト付きでオファーを送る機能
         async function promptOffer(targetName) {
             if(!myStaticLoginName) { alert("オファーを送るにはログインが必要です。"); return; }
             if(myStaticLoginName === targetName) { alert("自分自身には送信できません。"); return; }
@@ -1077,7 +1068,6 @@
                         body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, type: offerType.trim() })
                     });
                     
-                    // 🚨 オファーと同時にチャットの初回メッセージも自動送信する
                     await fetch(`${SUPABASE_API_URL}/messages`, {
                         method: "POST", headers,
                         body: JSON.stringify({ sender: myStaticLoginName, receiver: targetName, text: `【オファー通知】${offerType.trim()} を送信しました。` })
@@ -1096,7 +1086,7 @@
                 const cleanTitle = u.title.trim();
                 const isMe = (cleanTitle === myStaticLoginName);
                 const suffix = isMe ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 const linkedDesc = escapeAndLinkify(u.description);
                 
                 return `
@@ -1127,7 +1117,6 @@
                 const isMeText = isMyJob ? "（あなたの投稿）" : "";
                 const finalImg = j.tag || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
                 
-                // 🚨 正規表現を改善して投稿元名を確実に抽出
                 const match = j.description.match(/\[投稿元:\s*([^\]]+)\]/);
                 const posterName = match ? match[1].trim() : "";
                 const linkedDesc = escapeAndLinkify(j.description);
@@ -1180,6 +1169,207 @@
             }).join('');
         }
 
+        async function saveProfile() {
+            let baseNickname = document.getElementById('user-nickname').value.replace(/#\d{4}/g, '').trim();
+            const password = document.getElementById('user-password').value.trim();
+            
+            if(!baseNickname) { alert("表示名を入力してください。"); return; }
+            if(!password || password.length < 4) { alert("4桁の暗証番号を設定してください。"); return; }
+            if(password === "1234") { alert("❌ 「1234」はセキュリティ保護のため登録できません。"); return; }
+
+            const randomId = Math.floor(1000 + Math.random() * 9000);
+            const nickname = `${baseNickname}#${randomId}`;
+
+            const isCorporate = document.querySelector('input[name="user_type"]:checked').value === 'corporate';
+            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
+
+            try {
+                const fullname = document.getElementById('user-fullname').value || "非公開";
+                
+                if (!isCorporate) {
+                    let jobCatEl = document.getElementById('user-job-category');
+                    let jobCat = jobCatEl.value ? jobCatEl.options[jobCatEl.selectedIndex].text : '';
+                    let jobText = document.getElementById('user-job').value.trim();
+                    const finalJob = jobCat ? `[${jobCat}] ${jobText}` : jobText;
+
+                    let purpEl = document.getElementById('user-partner-purpose');
+                    let purpText = purpEl.value ? purpEl.options[purpEl.selectedIndex].text : '';
+                    let targetText = document.getElementById('user-target').value.trim();
+                    const finalTarget = purpText ? `[目的: ${purpText}]\n${targetText}` : targetText;
+
+                    const sidejob = document.getElementById('user-sidejob').value; 
+                    const location = document.getElementById('user-location-reg').value || "未指定";
+                    
+                    const lineOkRadio = document.querySelector('input[name="line_ok"]:checked').value;
+                    const lineUrl = document.getElementById('user-line').value.trim();
+                    const lineInfoStr = (lineOkRadio === "OK" && lineUrl) ? `[LINE URL: ${lineUrl} ]` : (lineOkRadio === "OK" ? `[LINE: 🆗 追加OK]` : `[LINE: 🆖 アプリ内チャットのみ]`);
+
+                    await fetch(`${SUPABASE_API_URL}/persons`, {
+                        method: "POST", headers,
+                        body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `本業: ${finalJob}\n副業: ${sidejob}\n地域: ${location}\n展望: ${finalTarget}\n${lineInfoStr}\n[本名:${fullname}]` })
+                    });
+                    await fetch(`${SUPABASE_API_URL}/partners`, {
+                        method: "POST", headers,
+                        body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `地域: ${location}\n副業展開: ${sidejob}\n希望内容: ${finalTarget}\n${lineInfoStr}` })
+                    });
+                } else {
+                    let indEl = document.getElementById('corp-industry');
+                    let indText = indEl.value ? indEl.options[indEl.selectedIndex].text : '';
+                    let bizText = document.getElementById('corp-biz').value.trim();
+                    const finalBiz = indText ? `[${indText}] ${bizText}` : bizText;
+
+                    let roleEl = document.getElementById('corp-target-role');
+                    let roleText = roleEl.value ? roleEl.options[roleEl.selectedIndex].text : '';
+                    let corpTargetText = document.getElementById('corp-target').value.trim();
+                    const finalCorpTarget = roleText ? `[希望職種: ${roleText}]\n${corpTargetText}` : corpTargetText;
+
+                    const location = document.getElementById('corp-location-reg').value || "未指定";
+                    
+                    await fetch(`${SUPABASE_API_URL}/persons`, {
+                        method: "POST", headers,
+                        body: JSON.stringify({ title: nickname, password: password, tag: globalAvatarUrl, description: `[法人アカウント]\n事業内容: ${finalBiz}\n拠点: ${location}\n求める人材: ${finalCorpTarget}\n[担当:${fullname}]` })
+                    });
+                }
+                
+                myStaticLoginName = nickname;
+                localStorage.setItem('lixia_login_user', nickname);
+                document.getElementById('current-user-badge').innerText = `👤 ${myStaticLoginName}`;
+                document.getElementById('btn-logout').style.display = 'inline-block';
+                
+                alert(`🎉 アカウント作成完了！\n\nあなたのログインIDは【 ${nickname} 】です。案件の投稿も可能になりました！`);
+                await loadSupabaseData();
+                showSection('find-person');
+            } catch (e) { console.error(e); }
+        }
+
+        async function postNewJob() {
+            if (!myStaticLoginName) { alert("案件を投稿するには、先にアカウントのログインを行ってください。"); return; }
+            
+            const title = document.getElementById('job-post-title').value.trim();
+            const desc = document.getElementById('job-post-desc').value.trim();
+            const area = document.getElementById('job-post-area').value || "未指定";
+            const link = document.getElementById('job-post-link').value.trim();
+
+            if(!title || !desc) { alert("案件名と業務内容を入力してください。"); return; }
+
+            let indEl = document.getElementById('job-post-industry');
+            let indText = indEl.value ? indEl.options[indEl.selectedIndex].text : '';
+
+            let roleEl = document.getElementById('job-post-role');
+            let roleText = roleEl.value ? roleEl.options[roleEl.selectedIndex].text : '';
+
+            let condEl = document.getElementById('job-post-condition-select');
+            let condText = condEl.value ? condEl.options[condEl.selectedIndex].text : '';
+            const conditionDetail = document.getElementById('job-post-condition').value.trim();
+            const finalCondition = condText ? `[${condText}] ${conditionDetail}` : conditionDetail;
+
+            const lineOkRadio = document.querySelector('input[name="job_line_ok"]:checked').value;
+            const lineUrl = document.getElementById('job-post-line').value.trim();
+            const lineInfoStr = (lineOkRadio === "OK" && lineUrl) ? `[案件連絡先 URL: ${lineUrl} ]` : (lineOkRadio === "OK" ? `[案件連絡先: 🆗 ダイレクト追加OK]` : `[案件連絡先: 🆖 アプリ内チャットのみ]`);
+
+            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
+            const finalTag = globalJobAvatarUrl || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=400&q=80';
+            const linkStr = link ? `\n\n【詳細資料・参考HP】\n${link}` : '';
+            const indRoleStr = (indText || roleText) ? `【業種】${indText || '未指定'}\n【職種】${roleText || '未指定'}\n` : '';
+            
+            const finalDesc = `${indRoleStr}【エリア】${area}\n【条件】${finalCondition}\n\n【詳細】\n${desc}${linkStr}\n\n${lineInfoStr}\n\n[投稿元: ${myStaticLoginName}]`;
+
+            try {
+                await fetch(`${SUPABASE_API_URL}/jobs`, {
+                    method: "POST", headers,
+                    body: JSON.stringify({ title: title, description: finalDesc, tag: finalTag })
+                });
+                alert("🎉 案件の公開が完了しました！");
+                document.getElementById('job-post-title').value = "";
+                document.getElementById('job-post-desc').value = "";
+                document.getElementById('job-post-link').value = "";
+                document.getElementById('job-post-condition').value = "";
+                document.getElementById('job-post-line').value = "";
+                
+                await loadSupabaseData();
+                showSection('find-job');
+            } catch (e) { console.error(e); }
+        }
+
+        async function sendChatMessage() {
+            const inputField = document.getElementById('chat-input-field');
+            const messageText = inputField.value.trim();
+            if(messageText === "" || !myStaticLoginName) return;
+            const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}`, "Content-Type": "application/json" };
+            try {
+                await fetch(`${SUPABASE_API_URL}/messages`, {
+                    method: "POST", headers,
+                    body: JSON.stringify({ sender: myStaticLoginName, receiver: currentChatPartner, text: messageText })
+                });
+                inputField.value = "";
+            } catch (e) { console.error(e); }
+        }
+
+        let lastMessageCount = 0;
+        function renderChatBubbles(filteredMsg) {
+            const box = document.getElementById('chat-messages-box');
+            if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:20px;">💬 暗号化空間。会話を開始してください。</div>`; return; }
+            box.innerHTML = filteredMsg.map(m => {
+                const isMeClass = (m.sender === myStaticLoginName) ? 'me' : 'other';
+                const timeStr = new Date(m.created_at).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                return `<div class="chat-bubble ${isMeClass}"><div>${escapeHtml(m.text)}</div><div class="chat-bubble-meta">${timeStr}</div></div>`;
+            }).join('');
+            if (filteredMsg.length !== lastMessageCount) { box.scrollTop = box.scrollHeight; lastMessageCount = filteredMsg.length; }
+        }
+
+        function openChatWindow(name) {
+            if(!myStaticLoginName) { alert("認証が必要です。"); return; }
+            if(myStaticLoginName === name) { alert("不正なリクエストです。"); return; }
+            currentChatPartner = name; 
+            // 🚨 ここでエラーが起きていたので、絶対にエラーが出ないように修正
+            const nameTarget = document.getElementById('chat-target-name');
+            if(nameTarget) nameTarget.innerText = name;
+            
+            document.getElementById('chat-modal').style.display = 'flex';
+            document.getElementById('chat-input-field').focus(); lastMessageCount = 0;
+            loadMessagesAndContacts(); // 開いた瞬間に履歴をロード
+        }
+
+        function updateAdminDashboard() { 
+            document.getElementById('admin-total-users').innerText = fetchedUsers.length;
+            const tbody = document.getElementById('admin-user-rows');
+            tbody.innerHTML = fetchedUsers.map((u, index) => `
+                <tr>
+                    <td>DB-${index+1}<br><span style="font-size:10px;color:#94a3b8;">(${u._table})</span></td>
+                    <td>${escapeHtml(u.title)}</td>
+                    <td>アクティブ</td>
+                    <td>
+                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #3b82f6; color:#3b82f6; cursor:pointer; margin-right:4px;" onclick="openEditModal('${u.id}', '${u._table}')">編集</button>
+                        <button style="padding: 6px 10px; font-size: 11px; background:none; border:1px solid #ef4444; color:#ef4444; cursor:pointer;" onclick="viewAdminDetail('${u.id}', '${u._table}')">削除</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        function viewAdminDetail(id, table) {
+            const user = fetchedUsers.find(u => String(u.id) === String(id) && u._table === table);
+            if(!user) return;
+
+            document.getElementById('user-detail-content').innerHTML = `
+                <div class="detail-row"><div class="detail-label">公開ID</div><div class="detail-value" style="color:var(--primary-gold); font-weight:bold;">${escapeHtml(user.title)}</div></div>
+                <div class="detail-row"><div class="detail-label">🔒 登録暗証番号</div><div class="detail-value" style="color:#22c55e; font-weight:bold; font-size:16px; letter-spacing:2px;">${escapeHtml(user.password || '設定・取得なし')}</div></div>
+                <div class="detail-row"><div class="detail-label">機密データ</div><div class="detail-value" style="white-space:pre-wrap;">${escapeHtml(user.description)}</div></div>
+            `;
+            document.getElementById('admin-delete-btn').onclick = async function() {
+                if(confirm(`⚠️ データを永久抹消しますか？`)) {
+                    const headers = { "apikey": base_key, "Authorization": `Bearer ${base_key}` };
+                    await fetch(`${SUPABASE_API_URL}/${table}?id=eq.${id}`, { method: "DELETE", headers });
+                    alert('🚨 抹消を完了しました。'); closeUserDetailModal(); loadSupabaseData();
+                }
+            };
+            document.getElementById('user-detail-modal').style.display = 'flex';
+        }
+        function closeUserDetailModal() { document.getElementById('user-detail-modal').style.display = 'none'; }
+
+        let editingUserId = null;
+        let editingUserTable = null;
+        let editingUserTag = null;
+
         function openEditModal(id, table) {
             const user = fetchedUsers.find(u => String(u.id) === String(id) && u._table === table);
             if(!user) { alert('対象データが見つかりません'); return; }
@@ -1205,6 +1395,17 @@
                 document.getElementById('edit-pass').value = user.password || '';
             }
             document.getElementById('edit-modal').style.display = 'flex';
+        }
+
+        function previewEditImg(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('edit-img-preview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
+                    editingUserTag = e.target.result;
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
         function closeEditModal() { document.getElementById('edit-modal').style.display = 'none'; }
