@@ -140,6 +140,12 @@
         .chat-bubble-meta { font-size: 10px; color: rgba(255,255,255,0.8); text-align: right; margin-top: 6px; }
         .chat-bubble.other .chat-bubble-meta { color: #94a3b8; }
         .chat-input-area { display: flex; border-top: 1px solid var(--border-gold); background: #ffffff; padding: 18px; gap: 12px; }
+        
+        /* 🚨 送信ボタンのデザイン */
+        .chat-send-btn { background-color: var(--primary-gold); color: #ffffff; border: none; padding: 14px 24px; border-radius: 6px; cursor: pointer; font-weight: bold; transition: all 0.3s; }
+        .chat-send-btn:hover { background-color: var(--gold-hover); transform: translateY(-1px); }
+        #chat-input-field { flex: 1; padding: 12px; border: 1px solid var(--border-light); border-radius: 6px; font-size: 14px; outline: none; }
+        #chat-input-field:focus { border-color: var(--primary-gold); }
 
         .modal-overlay {
             display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(15, 23, 42, 0.6);
@@ -746,7 +752,7 @@
 
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 25px; border:1px solid var(--primary-gold);">
-            <h3 style="color:var(--primary-gold); margin-top:0;">💬 <span id="chat-target-name"></span> 様とのチャット</h3>
+            <h3 style="color:var(--primary-gold); margin-top:0;">💬 <span id="chat-target-name">相手</span> 様とのチャット</h3>
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
                 <div class="chat-input-area">
@@ -1100,7 +1106,7 @@
                 const cleanTitle = u.title.trim();
                 const isMe = (cleanTitle === myStaticLoginName);
                 const suffix = isMe ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 const linkedDesc = escapeAndLinkify(u.description);
                 
                 return `
@@ -1316,6 +1322,7 @@
                     body: JSON.stringify({ sender: myStaticLoginName, receiver: currentChatPartner, text: messageText })
                 });
                 inputField.value = "";
+                loadMessagesAndContacts(); // 🚨 送信後、即座に画面に表示！
             } catch (e) { console.error(e); }
         }
 
@@ -1330,33 +1337,33 @@
             if (filteredMsg.length !== lastMessageCount) { box.scrollTop = box.scrollHeight; lastMessageCount = filteredMsg.length; }
         }
 
-        // 🚨【完全修復済】エラー回避コード搭載
+        // 🚨【完全修復】エラーを徹底的に回避して100%確実に開くチャットウィンドウ
         function openChatWindow(name) {
             if(!myStaticLoginName) { alert("認証が必要です。マイページからログインしてください。"); return; }
             if(myStaticLoginName === name) { alert("自分自身とのチャットはできません。"); return; }
             
             currentChatPartner = name; 
             
-            // 確実に見出しに名前を書き込む（エラー回避）
+            // 安全な名前の書き込み
             const nameTarget = document.getElementById('chat-target-name');
             if(nameTarget) {
                 nameTarget.innerText = name;
             }
             
-            // モーダルを表示
+            // 安全なモーダル表示
             const modal = document.getElementById('chat-modal');
             if(modal) {
                 modal.style.display = 'flex';
             }
             
+            lastMessageCount = 0;
+            loadMessagesAndContacts(); // 開いた瞬間に履歴をロードして表示
+            
             // 入力欄にフォーカス
             const inputField = document.getElementById('chat-input-field');
             if(inputField) {
-                inputField.focus();
+                setTimeout(() => inputField.focus(), 100);
             }
-            
-            lastMessageCount = 0;
-            loadMessagesAndContacts(); // 開いた瞬間に履歴をロード
         }
 
         function updateAdminDashboard() { 
@@ -1470,13 +1477,11 @@
             tbody.innerHTML = allMsgs.slice().reverse().map(m => `<tr><td>${new Date(m.created_at).toLocaleTimeString()}</td><td>${escapeHtml(m.sender)}</td><td>${escapeHtml(m.receiver)}</td><td>${escapeHtml(m.text)}</td></tr>`).join('');
         }
         
-        // 🚨 これがないとチャット画面が閉じられない
         function closeChatWindow() { 
             const modal = document.getElementById('chat-modal');
             if(modal) { modal.style.display = 'none'; }
         }
         
-        // 🚨 これがないと画面が切り替わらない
         function showSection(sectionId) { 
             document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); 
             const targetSection = document.getElementById(sectionId);
