@@ -746,7 +746,8 @@
 
     <div id="chat-modal" class="modal-overlay">
         <div class="modal-content" style="max-width: 500px; padding: 25px; border:1px solid var(--primary-gold);">
-            <h3 style="color:var(--primary-gold);">💬 <span id="chat-target-name">お相手</span> とのセキュア・暗号チャット</h3>
+            <h3 style="color:var(--primary-gold); margin-top:0;">💬 <span id="chat-target-name"></span> 様とのチャット</h3>
+            
             <div class="chat-container">
                 <div class="chat-messages" id="chat-messages-box"></div>
                 <div class="chat-input-area">
@@ -875,9 +876,16 @@
             if(!str) return '""';
             return encodeURIComponent('"' + str.replace(/"/g, '""') + '"');
         }
+
+        // 🚨【セキュリティ強化】JS内での文字化けやSyntaxエラーを完璧に防ぐエスケープ処理
         function escapeJsStr(str) {
             if (!str) return '';
             return String(str).replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
         }
 
         function toggleForm() { 
@@ -888,7 +896,7 @@
 
         function escapeAndLinkify(str) {
             if (!str) return '';
-            let escaped = str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            let escaped = escapeHtml(str);
             const urlRegex = /(https?:\/\/[^\s]+)/g;
             return escaped.replace(urlRegex, function(url) {
                 return `<a href="${url}" target="_blank" style="color:var(--primary-gold); text-decoration:underline; word-break:break-all;">${url}</a>`;
@@ -1080,7 +1088,7 @@
                 const cleanTitle = u.title.trim();
                 const isMe = (cleanTitle === myStaticLoginName);
                 const suffix = isMe ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 const linkedDesc = escapeAndLinkify(u.description);
                 
                 return `
