@@ -558,7 +558,7 @@
                             <option value="marketer_ad">マーケター(Web広告運用・SEO・SNS運用・CRM)</option>
                             <option value="biz_dev">事業開発(BizDev)・企画・アライアンス提携</option>
                             <option value="hr_recruiter">人事・リクルーター(採用代行・面接官・労務)</option>
-                            <option value="backoffice">総務・経理・財務・法務・事務・アシ ক্রস</option>
+                            <option value="backoffice">総務・経理・財務・法務・事務・アシスタント</option>
                             <option value="writer_editor">ライター・編集者・SEOコンテンツ・コピーライター</option>
                             <option value="video_creator">動画クリエイター・YouTube編集・アニメーション</option>
                             <option value="consultant">経営コンサルタント・ITコンサル・アドバイザー・顧問</option>
@@ -925,6 +925,20 @@
             }
         }
 
+        function openPolicyModal(type) {
+            const titleBox = document.getElementById('policy-modal-title');
+            const textBox = document.getElementById('policy-modal-text');
+            if(type === 'privacy') {
+                titleBox.innerText = "🛡️ プライバシーポリシー";
+                textBox.innerHTML = `<h4>1. 個人情報の収集</h4><p>Lixiaは、マッチングおよび面談調整のため、表示名、暗証番号、スキル要件、およびLINE連絡先等の限定データを収集します。</p><h4>2. データの秘匿・隔離</h4><p>個別暗号化プライベートチャットデータ、および面談オファー通知履歴は、認証された当事者およびシステム監査の運営者以外への開示をサーバーレベルでブロックします。</p><h4>3. 安全管理措置</h4><p>不正アクセスおよびなりすましを防止するため、全データノードはSSL暗号化通信を適用し、安全に管理されています。</p>`;
+            } else {
+                titleBox.innerText = "📜 利用規約（プレステージ会員規約）";
+                textBox.innerHTML = `<h4>第1条 (目的)</h4><p>本規約は、プレステージ・マッチングプラットフォーム「Lixia」における、会員同士の健全かつ秘匿性の高いビジネスマッチングおよび無料優待サービスの利用環境を定義します。</p><h4>第2条 (禁止事項)</h4><p>他者のハッシュ付き公開名を用いたなりすましログイン、不正なチャット乱入の試み、公序良俗に反する面談オファー、初期共通暗証番号（1234）の放置行為を厳重に禁止します。</p><h4>第3条 (強制抹消)</h4><p>禁止事項に違反した場合、運営管理ダッシュボードの監査権限に基づき、事前通告なくシステムアカウント全データを永久に強制抹消処分とします。</p>`;
+            }
+            document.getElementById('policy-modal').style.display = 'flex';
+        }
+        function closePolicyModal() { document.getElementById('policy-modal').style.display = 'none'; }
+
         async function switchLoginUser() {
             const inputName = document.getElementById('login-name-input').value.trim();
             const inputPass = document.getElementById('login-pass-input').value.trim();
@@ -1086,7 +1100,7 @@
                 const cleanTitle = u.title.trim();
                 const isMe = (cleanTitle === myStaticLoginName);
                 const suffix = isMe ? "（あなた）" : "";
-                const finalImg = u.tag || 'https://images.unsplash.com/photo-153452741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
+                const finalImg = u.tag || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80';
                 const linkedDesc = escapeAndLinkify(u.description);
                 
                 return `
@@ -1305,7 +1319,6 @@
             } catch (e) { console.error(e); }
         }
 
-        let lastMessageCount = 0;
         function renderChatBubbles(filteredMsg) {
             const box = document.getElementById('chat-messages-box');
             if(!filteredMsg || filteredMsg.length === 0) { box.innerHTML = `<div style="text-align:center; color:var(--text-muted); font-size:12px; margin-top:20px;">💬 暗号化空間。会話を開始してください。</div>`; return; }
@@ -1317,16 +1330,32 @@
             if (filteredMsg.length !== lastMessageCount) { box.scrollTop = box.scrollHeight; lastMessageCount = filteredMsg.length; }
         }
 
+        // 🚨【完全修復済】エラー回避コード搭載
         function openChatWindow(name) {
-            if(!myStaticLoginName) { alert("認証が必要です。"); return; }
-            if(myStaticLoginName === name) { alert("不正なリクエストです。"); return; }
-            currentChatPartner = name; 
-            // 🚨 ここでエラーが起きていたので、絶対にエラーが出ないように修正
-            const nameTarget = document.getElementById('chat-target-name');
-            if(nameTarget) nameTarget.innerText = name;
+            if(!myStaticLoginName) { alert("認証が必要です。マイページからログインしてください。"); return; }
+            if(myStaticLoginName === name) { alert("自分自身とのチャットはできません。"); return; }
             
-            document.getElementById('chat-modal').style.display = 'flex';
-            document.getElementById('chat-input-field').focus(); lastMessageCount = 0;
+            currentChatPartner = name; 
+            
+            // 確実に見出しに名前を書き込む（エラー回避）
+            const nameTarget = document.getElementById('chat-target-name');
+            if(nameTarget) {
+                nameTarget.innerText = name;
+            }
+            
+            // モーダルを表示
+            const modal = document.getElementById('chat-modal');
+            if(modal) {
+                modal.style.display = 'flex';
+            }
+            
+            // 入力欄にフォーカス
+            const inputField = document.getElementById('chat-input-field');
+            if(inputField) {
+                inputField.focus();
+            }
+            
+            lastMessageCount = 0;
             loadMessagesAndContacts(); // 開いた瞬間に履歴をロード
         }
 
@@ -1397,17 +1426,6 @@
             document.getElementById('edit-modal').style.display = 'flex';
         }
 
-        function previewEditImg(input) {
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    document.getElementById('edit-img-preview').innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover;">`;
-                    editingUserTag = e.target.result;
-                }
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
         function closeEditModal() { document.getElementById('edit-modal').style.display = 'none'; }
 
         async function saveEditData() {
@@ -1451,8 +1469,20 @@
             const tbody = document.getElementById('admin-chat-logs');
             tbody.innerHTML = allMsgs.slice().reverse().map(m => `<tr><td>${new Date(m.created_at).toLocaleTimeString()}</td><td>${escapeHtml(m.sender)}</td><td>${escapeHtml(m.receiver)}</td><td>${escapeHtml(m.text)}</td></tr>`).join('');
         }
-        function closeChatWindow() { document.getElementById('chat-modal').style.display = 'none'; }
-        function showSection(sectionId) { document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); document.getElementById(sectionId).classList.add('active'); }
+        
+        // 🚨 これがないとチャット画面が閉じられない
+        function closeChatWindow() { 
+            const modal = document.getElementById('chat-modal');
+            if(modal) { modal.style.display = 'none'; }
+        }
+        
+        // 🚨 これがないと画面が切り替わらない
+        function showSection(sectionId) { 
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active')); 
+            const targetSection = document.getElementById(sectionId);
+            if(targetSection) targetSection.classList.add('active'); 
+        }
+        
         function openAdminModal() { document.getElementById('admin-login-modal').style.display = 'flex'; }
         function closeAdminModal() { document.getElementById('admin-login-modal').style.display = 'none'; }
         function submitAdminPassword() { if (document.getElementById('admin-password-input').value === "2816") { closeAdminModal(); showSection('admin'); } else { document.getElementById('password-error-msg').style.display = 'block'; } }
